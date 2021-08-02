@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
+import Alert from "react-bootstrap/Alert";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
+import { getLogIn } from "../../redux/action/generalActions";
 
 const validationSchema = yup.object({
   email: yup
@@ -17,14 +20,27 @@ const validationSchema = yup.object({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
+
+  const data = useSelector((state) => state.general);
+  let { errorMessage } = data;
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, { resetForm }) => {
+      const data = {
+        email: values.email,
+        password: values.password,
+      };
+      // alert(JSON.stringify(values, null, 2));
+      dispatch(getLogIn(data));
+      setShowAlert(true);
+      resetForm();
     },
   });
 
@@ -34,6 +50,9 @@ const Login = () => {
         onSubmit={formik.handleSubmit}
         className='col-sm-12 col-md-6 col-lg-4 '
       >
+        {showAlert && errorMessage && (
+          <Alert variant='danger'>{errorMessage}</Alert>
+        )}
         <TextField
           fullWidth
           id='email'
@@ -60,9 +79,14 @@ const Login = () => {
         <Button color='primary' variant='contained' fullWidth type='submit'>
           Login
         </Button>
-        <p className='pt-3'>
-          Create a new Account. <Link to='/signup'>Signup</Link>
-        </p>
+        <div className='d-flex justify-content-between pt-3'>
+          <p>
+            Create an Account. <Link to='/signup'>Signup</Link>
+          </p>
+          <p>
+            <Link to='/forgotpassword'>Forgot Password?</Link>
+          </p>
+        </div>
       </form>
     </div>
   );
