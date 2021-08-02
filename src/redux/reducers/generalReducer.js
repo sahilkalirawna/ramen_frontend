@@ -35,6 +35,30 @@ const generalReducer = (state = initialState, { type, payload }) => {
         isSignedUp: false,
       };
 
+    //LOGIN
+    case "GET_LOGIN_REQUEST":
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: "",
+      };
+
+    case "GET_LOGIN_SUCCESS":
+      return {
+        ...state,
+        loginData: payload,
+        errorMessage: "",
+        isLoading: false,
+      };
+
+    case "GET_LOGIN_FAILED":
+      return {
+        ...state,
+        errorMessage: payload,
+        isLoading: false,
+      };
+
+    //FORGOT PASSWORD
     case "GET_FORGOT_PASSWORD_REQUEST":
       return {
         ...state,

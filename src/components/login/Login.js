@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import Alert from "react-bootstrap/Alert";
 import { useFormik } from "formik";
+import Alert from "react-bootstrap/Alert";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link, withRouter } from "react-router-dom";
-import { getSignUp } from "../../../redux/action/generalActions";
+import { Link } from "react-router-dom";
+import { getLogIn } from "../../redux/action/generalActions";
 
 const validationSchema = yup.object({
-  name: yup
-    .string("Enter your Name")
-    .min(3, "Name should be of minimum 3 character in length")
-    .max(20, "Name should be of maximum 20 character in length")
-    .required("Name is required"),
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
@@ -24,32 +19,28 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const Signup = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState(false);
 
-  // const history = useHistory();
-
   const data = useSelector((state) => state.general);
-  let { isSignedUp, errorMessage } = data;
+  let { errorMessage } = data;
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-      let data = {
-        name: values.name,
+      const data = {
         email: values.email,
         password: values.password,
       };
-      dispatch(getSignUp(data));
+      // alert(JSON.stringify(values, null, 2));
+      dispatch(getLogIn(data));
       setShowAlert(true);
       resetForm();
-      // isSignedUp && history.push("/login");
     },
   });
 
@@ -57,27 +48,11 @@ const Signup = () => {
     <div className='row justify-content-center p-3'>
       <form
         onSubmit={formik.handleSubmit}
-        className='col-sm-12 col-md-6 col-lg-4'
+        className='col-sm-12 col-md-6 col-lg-4 '
       >
         {showAlert && errorMessage && (
           <Alert variant='danger'>{errorMessage}</Alert>
         )}
-        {isSignedUp && (
-          <Alert variant='success'>
-            Account created. Please <Link to='/login'>Log in</Link>
-          </Alert>
-        )}
-        <TextField
-          fullWidth
-          id='name'
-          name='name'
-          label='Name'
-          className='pb-3'
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-        />
         <TextField
           fullWidth
           id='email'
@@ -102,14 +77,19 @@ const Signup = () => {
           helperText={formik.touched.password && formik.errors.password}
         />
         <Button color='primary' variant='contained' fullWidth type='submit'>
-          Sign Up
+          Login
         </Button>
-        <p className='pt-3'>
-          Already Have an Account. <Link to='/login'>Log in</Link>
-        </p>
+        <div className='d-flex justify-content-between pt-3'>
+          <p>
+            Create an Account. <Link to='/signup'>Signup</Link>
+          </p>
+          <p>
+            <Link to='/forgotpassword'>Forgot Password?</Link>
+          </p>
+        </div>
       </form>
     </div>
   );
 };
 
-export default withRouter(Signup);
+export default Login;

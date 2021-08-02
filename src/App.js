@@ -1,12 +1,12 @@
 import "./App.css";
 import Header from "./components/Layout/Header/Header";
 import { Route, Switch } from "react-router-dom";
-import Home from "./components/view/Home/Home";
-import PageNotFound_404 from "./components/view/pageNotFound/PageNotFound_404";
+import Home from "./components/Home/Home";
+import PageNotFound_404 from "./components/pageNotFound/PageNotFound_404";
 // import Footer from "./components/Layout/Footer/Footer";
-import Login from "./components/view/login/Login";
-import Signup from "./components/view/Signup/Signup";
-import ForgotPassword from "./components/view/ForgotPassword/ForgotPassword";
+import Login from "./components/login/Login";
+import Signup from "./components/Signup/Signup";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 function App() {
   return (

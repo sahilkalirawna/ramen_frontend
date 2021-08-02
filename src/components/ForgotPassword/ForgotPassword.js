@@ -1,36 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import Alert from "react-bootstrap/Alert";
 import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { sendForgotPassword } from "../../redux/action/generalActions";
 import { Link } from "react-router-dom";
+
+// import { Link } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
 });
 
-const Login = () => {
+const ForgotPassword = () => {
+  const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
+
+  const data = useSelector((state) => state.general);
+  let { forgotPassword, errorMessage } = data;
+
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, { resetForm }) => {
+      const data = {
+        email: values.email,
+      };
+      // alert(JSON.stringify(values, null, 2));
+      dispatch(sendForgotPassword(data));
+      setShowAlert(true);
+      resetForm();
     },
   });
 
-  // let User_Data = useSelector((state) => {
-  //   return state.general;
-  // });
+  // forgotPassword
 
   return (
     <div className='row justify-content-center p-3'>
@@ -38,6 +48,12 @@ const Login = () => {
         onSubmit={formik.handleSubmit}
         className='col-sm-12 col-md-6 col-lg-4 '
       >
+        {errorMessage && showAlert && (
+          <Alert variant='danger'>{errorMessage}</Alert>
+        )}
+        {showAlert && forgotPassword.message && (
+          <Alert variant='info'>{forgotPassword.message}</Alert>
+        )}
         <TextField
           fullWidth
           id='email'
@@ -49,32 +65,15 @@ const Login = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
-        <TextField
-          fullWidth
-          id='password'
-          name='password'
-          label='Password'
-          type='password'
-          className='pb-3'
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-        />
         <Button color='primary' variant='contained' fullWidth type='submit'>
-          Login
+          Send Recovery Email
         </Button>
-        <div className='d-flex justify-content-between pt-3'>
-          <p>
-            Create an Account. <Link to='/signup'>Signup</Link>
-          </p>
-          <p>
-            <Link to='/forgotpassword'>Forgot Password?</Link>
-          </p>
-        </div>
+        <p className='pt-3'>
+          Already Have an Account. <Link to='/login'>Log in</Link>
+        </p>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default ForgotPassword;

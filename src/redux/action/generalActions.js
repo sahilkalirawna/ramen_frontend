@@ -1,4 +1,5 @@
 import axios from "axios";
+import { authenticate } from "../../auth/index";
 
 export const getSignUp = (data) => {
   return async (dispatch) => {
@@ -16,6 +17,24 @@ export const getSignUp = (data) => {
         payload: error.response.data.data,
       });
       // console.log(error.response.data.data);
+    }
+  };
+};
+
+export const getLogIn = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: "GET_LOGIN_REQUEST" });
+      let response = await axios.post("http://localhost:8080/auth/login", data);
+      dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
+      authenticate(response.data);
+      console.log(response.data);
+    } catch (error) {
+      dispatch({
+        type: "GET_LOGIN_FAILED",
+        payload: error.response.data.message,
+      });
+      // console.log(error.response.data.message);
     }
   };
 };
