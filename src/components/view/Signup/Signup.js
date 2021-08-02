@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { getSignUp } from "../../../redux/action/generalActions";
 
 const validationSchema = yup.object({
@@ -26,11 +26,11 @@ const validationSchema = yup.object({
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const [showAlert, setShowAlert] = useState(false);
+
+  // const history = useHistory();
 
   const data = useSelector((state) => state.general);
-
-  // console.log(data);
   let { isSignedUp, errorMessage } = data;
 
   const formik = useFormik({
@@ -40,23 +40,33 @@ const Signup = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       let data = {
         name: values.name,
         email: values.email,
         password: values.password,
       };
-      // console.log(data);
       dispatch(getSignUp(data));
-      isSignedUp && history.push("/login");
+      setShowAlert(true);
+      resetForm();
+      // isSignedUp && history.push("/login");
     },
   });
 
   return (
     <div className='row justify-content-center p-3'>
-      {/* <Alert onClose={() => {}}>{errorMessage}</Alert> */}
-      <form onSubmit={formik.handleSubmit} className='col-sm-12 col-md-6'>
-        {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
+      <form
+        onSubmit={formik.handleSubmit}
+        className='col-sm-12 col-md-6 col-lg-4'
+      >
+        {showAlert && errorMessage && (
+          <Alert variant='danger'>{errorMessage}</Alert>
+        )}
+        {isSignedUp && (
+          <Alert variant='success'>
+            Account created. Please <Link to='/login'>Log in</Link>
+          </Alert>
+        )}
         <TextField
           fullWidth
           id='name'

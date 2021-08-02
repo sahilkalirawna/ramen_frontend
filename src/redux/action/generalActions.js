@@ -19,3 +19,23 @@ export const getSignUp = (data) => {
     }
   };
 };
+
+export const sendForgotPassword = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: "GET_FORGOT_PASSWORD_REQUEST" });
+      let response = await axios.post(
+        "http://55c4300906fc.ngrok.io/auth/forgetPassword",
+        data
+      );
+      dispatch({ type: "GET_FORGOT_PASSWORD_SUCCESS", payload: response.data });
+      console.log(response);
+    } catch (error) {
+      dispatch({
+        type: "GET_FORGOT_PASSWORD_FAILED",
+        payload: error.response.data.message,
+      });
+      // console.log(error.response);
+    }
+  };
+};

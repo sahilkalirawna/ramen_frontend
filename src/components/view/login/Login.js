@@ -64,9 +64,14 @@ const Login = () => {
         <Button color='primary' variant='contained' fullWidth type='submit'>
           Login
         </Button>
-        <p className='pt-3'>
-          Create a new Account. <Link to='/signup'>Signup</Link>
-        </p>
+        <div className='d-flex justify-content-between pt-3'>
+          <p>
+            Create an Account. <Link to='/signup'>Signup</Link>
+          </p>
+          <p>
+            <Link to='/forgotpassword'>Forgot Password?</Link>
+          </p>
+        </div>
       </form>
     </div>
   );

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import Alert from "react-bootstrap/Alert";
 import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { sendForgotPassword } from "../../../redux/action/generalActions";
 import { Link } from "react-router-dom";
+
+// import { Link } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
@@ -13,15 +18,29 @@ const validationSchema = yup.object({
 });
 
 const ForgotPassword = () => {
+  const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
+
+  const data = useSelector((state) => state.general);
+  let { forgotPassword, errorMessage } = data;
+
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, { resetForm }) => {
+      const data = {
+        email: values.email,
+      };
+      // alert(JSON.stringify(values, null, 2));
+      dispatch(sendForgotPassword(data));
+      setShowAlert(true);
+      resetForm();
     },
   });
+
+  // forgotPassword
 
   return (
     <div className='row justify-content-center p-3'>
@@ -29,6 +48,12 @@ const ForgotPassword = () => {
         onSubmit={formik.handleSubmit}
         className='col-sm-12 col-md-6 col-lg-4 '
       >
+        {errorMessage && showAlert && (
+          <Alert variant='danger'>{errorMessage}</Alert>
+        )}
+        {showAlert && forgotPassword.message && (
+          <Alert variant='info'>{forgotPassword.message}</Alert>
+        )}
         <TextField
           fullWidth
           id='email'
@@ -44,7 +69,7 @@ const ForgotPassword = () => {
           Send Recovery Email
         </Button>
         <p className='pt-3'>
-          Create a new Account. <Link to='/signup'>Signup</Link>
+          Already Have an Account. <Link to='/login'>Log in</Link>
         </p>
       </form>
     </div>

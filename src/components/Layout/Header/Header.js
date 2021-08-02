@@ -15,6 +15,8 @@ const Header = () => {
             <NavLink to='/' exact className='nav-link' activeClassName='active'>
               Members
             </NavLink>
+          </Nav>
+          <Nav>
             <NavLink
               to='/login'
               exact
@@ -23,8 +25,14 @@ const Header = () => {
             >
               Login
             </NavLink>
-          </Nav>
-          <Nav>
+            <NavLink
+              to='/signup'
+              exact
+              className='nav-link'
+              activeClassName='active'
+            >
+              SignUp
+            </NavLink>
             <Nav.Link>UserPhoto</Nav.Link>
           </Nav>
         </Navbar.Collapse>
