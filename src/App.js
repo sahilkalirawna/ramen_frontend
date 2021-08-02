@@ -6,6 +6,7 @@ import PageNotFound_404 from "./components/view/pageNotFound/PageNotFound_404";
 import Footer from "./components/Layout/Footer/Footer";
 import Login from "./components/view/login/Login";
 import Signup from "./components/view/Signup/Signup";
+import EditProfile from "./components/view/EditProfile/EditProfile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' name='Home' exact component={Home} />
         <Route path='/login' name='Login' exact component={Login} />
         <Route path='/signup' name='Signup' exact component={Signup} />
+        <Route path='/editProfile' name='EditProfile' exact component={EditProfile} />
         <Route
           path='404'
           name='PageNotFound_404'
