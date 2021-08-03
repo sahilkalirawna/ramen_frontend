@@ -1,6 +1,16 @@
 import axios from "axios";
 // import { authenticate } from "../../auth/index";
 
+export const resetState = () => {
+  return (dispatch) => {
+    const data = localStorage.getItem("jwt");
+
+    if (data) {
+      dispatch({ type: "GET_LOGIN_SUCCESS", payload: data });
+    }
+  };
+};
+
 export const getSignUp = (data) => {
   return async (dispatch) => {
     try {

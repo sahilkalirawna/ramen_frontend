@@ -23,7 +23,6 @@ const Header = () => {
           <Nav>
             {isLoggedin ? (
               <>
-                {/* <Nav.Link>UserPhoto</Nav.Link> */}
                 <NavDropdown title='UserName' id='basic-nav-dropdown'>
                   <NavDropdown.Item>
                     <Link
