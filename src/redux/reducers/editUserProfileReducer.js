@@ -1,14 +1,12 @@
-const initialDataState = {
+const initialState = {
   isLoading: false,
   errorMessage: "",
-  isUserProfileUpdated: false,
+  //   isUserProfileUpdated: false,
   userProfileData: {},
+  success:""
 };
 
-const editUserProfileReducer = (
-  state = initialDataState,
-  { type, payload }
-) => {
+const editUserProfileReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     //GET PROFILE DATA
     case "GET_USER_PROFILE_REQUEST":
@@ -22,10 +20,9 @@ const editUserProfileReducer = (
     case "GET_USER_PROFILE_UPDATED_SUCCESS":
       return {
         ...state,
-        userProfileData: payload,
-        errorMessage: "",
+        userProfileData: payload.result,
         isLoading: false,
-        isUserProfileUpdated: true,
+        // isUserProfileUpdated: true,
       };
 
     //NOT UPDATE
@@ -34,8 +31,36 @@ const editUserProfileReducer = (
         ...state,
         errorMessage: payload,
         isLoading: false,
-        isUserProfileUpdated: false,
+        // isUserProfileUpdated: false,
       };
+
+      case "GET_USER_PROFILE_REQUESTED":
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: "",
+      };
+
+    //UPDATE PROFILE DATA
+    case "GET_USER_PROFILE_UPDATED_SUCCESSED":
+      return {
+        ...state,
+        isLoading: false,
+        // isUserProfileUpdated: true,
+      };
+
+    //NOT UPDATE
+    case "GET_USER_PROFILE_UPDATE_FAILEDED":
+      return {
+        ...state,
+        errorMessage: payload,
+        isLoading: false,
+        // isUserProfileUpdated: false,
+      };
+
+
+    default:
+      return state;
   }
 };
 

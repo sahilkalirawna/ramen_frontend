@@ -22,7 +22,7 @@ const MainRouter = () => {
       <Switch>
         <PrivateRoute path='/' name='Home' exact component={Home} />
         <PrivateRoute
-          path='/editprofile/:userId'
+          path='/editprofile/:id'
           name='Edit_Profile'
           exact
           component={EditProfile}

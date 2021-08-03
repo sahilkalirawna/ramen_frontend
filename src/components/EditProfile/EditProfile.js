@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import { useHistory, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import {
+  getUserProfile,
+  getUserUpdatedProfile,
+} from "../../redux/action/editUserProfileActions";
 
-// import { Link } from "react-router-dom";
 
 const validationSchema = yup.object({
   name: yup
@@ -17,26 +22,62 @@ const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
-    .required("Email is required"),
+    .required("Email is required")
 });
 
 const EditProfile = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
+
+  const history = useHistory();
+  useEffect(() => {
+    dispatch(getUserProfile(id));
+  }, [dispatch]);
+
+  const data = useSelector((state) => state.editProfile);
+
+  const { userProfileData } = data;
+  console.log(userProfileData);
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      city: "",
-      state: "",
-      country: "",
-      background: "",
-      ideatostart: "",
+      name: userProfileData.name,
+      email: userProfileData.email,
+      Address: {
+        city: userProfileData.city,
+        state: userProfileData.state,
+        country: userProfileData.country,
+      },
+      background: userProfileData.background,
+      ideatostart: userProfileData.ideatostart,
       Themes: [],
       Skills: [],
       Expertise: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(values);
+
+      let dataEdited = {
+        name: values.name,
+        email: values.email,
+        Address: {
+          city: values.city,
+          state: values.state,
+          country: values.country,
+        },
+        background: values.background,
+        ideatostart: values.ideatostart,
+        Themes: [],
+        Skills: [],
+        Expertise: [],
+      };
+      dispatch(getUserUpdatedProfile(dataEdited, id));
+      // setShowAlert(true);
+      history.push("/");
+
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -65,10 +106,10 @@ const EditProfile = () => {
                   variant="filled"
                   size="small"
                   type="text"
-                  // value={formik.values.name}
-                  // onChange={formik.handleChange}
-                  // error={formik.touched.name && Boolean(formik.errors.name)}
-                  // helperText={formik.touched.name && formik.errors.name}
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  error={formik.touched.name && Boolean(formik.errors.name)}
+                  helperText={formik.touched.name && formik.errors.name}
                 />
               </div>
             </div>
@@ -93,10 +134,10 @@ const EditProfile = () => {
                   variant="filled"
                   size="small"
                   type="email"
-                  // value={formik.values.email}
-                  // onChange={formik.handleChange}
-                  // error={formik.touched.email && Boolean(formik.errors.email)}
-                  // helperText={formik.touched.email && formik.errors.email}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
                 />
               </div>
             </div>
@@ -116,15 +157,15 @@ const EditProfile = () => {
                 <TextField
                   fullWidth
                   id="city"
-                  name="city"
+                  name="Address.city"
                   type="text"
                   className="pb-3"
                   variant="filled"
                   size="small"
-                  // value={formik.values.city}
-                  // onChange={formik.handleChange}
-                  // error={formik.touched.city && Boolean(formik.errors.city)}
-                  // helperText={formik.touched.city && formik.errors.city}
+                  value={formik.values.Address.city}
+                  onChange={formik.handleChange}
+                  error={formik.touched.city && Boolean(formik.errors.city)}
+                  helperText={formik.touched.city && formik.errors.city}
                 />
               </div>
             </div>
@@ -149,10 +190,10 @@ const EditProfile = () => {
                   className="pb-3"
                   variant="filled"
                   size="small"
-                  // value={formik.values.state}
-                  // onChange={formik.handleChange}
-                  // error={formik.touched.state && Boolean(formik.errors.state)}
-                  // helperText={formik.touched.state && formik.errors.state}
+                  value={formik.values.state}
+                  onChange={formik.handleChange}
+                  error={formik.touched.state && Boolean(formik.errors.state)}
+                  helperText={formik.touched.state && formik.errors.state}
                 />
               </div>
             </div>
@@ -177,10 +218,12 @@ const EditProfile = () => {
                   className="pb-3"
                   variant="filled"
                   size="small"
-                  // value={formik.values.country}
-                  // onChange={formik.handleChange}
-                  // error={formik.touched.country && Boolean(formik.errors.country)}
-                  // helperText={formik.touched.country && formik.errors.country}
+                  value={formik.values.country}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.country && Boolean(formik.errors.country)
+                  }
+                  helperText={formik.touched.country && formik.errors.country}
                 />
               </div>
             </div>
@@ -207,6 +250,10 @@ const EditProfile = () => {
                   rows={3}
                   variant="filled"
                   size="small"
+                  value={formik.values.background}
+                  onChange={formik.handleChange}
+                  // error={formik.touched.background && Boolean(formik.errors.background)}
+                  // helperText={formik.touched.background && formik.errors.background}
                 />
               </div>
             </div>
@@ -225,14 +272,16 @@ const EditProfile = () => {
               <div className="col-md-8 col-sm-8 col-xs-8">
                 <TextField
                   fullWidth
-                  id="startupidea"
-                  name="startupidea"
+                  id="ideatostart"
+                  name="ideatostart"
                   type="text"
                   className="pb-3 mb-2"
                   multiline
                   rows={3}
                   variant="filled"
                   size="small"
+                  value={formik.values.ideatostart}
+                  onChange={formik.handleChange}
                 />
               </div>
             </div>
@@ -255,6 +304,8 @@ const EditProfile = () => {
                   type="file"
                   className="pb-3 mb-2"
                   variant="filled"
+                  // value={formik.values.background}
+                  onChange={formik.handleChange}
                   // value={formik.values.password}
                   // onChange={formik.handleChange}
                   // error={formik.touched.password && Boolean(formik.errors.password)}
