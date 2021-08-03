@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
@@ -7,14 +7,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import store from "./redux/store";
+// import Loader from "./shared/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <Suspense fallback={"Loading..."}>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </Suspense>,
   document.getElementById("root")
 );
 

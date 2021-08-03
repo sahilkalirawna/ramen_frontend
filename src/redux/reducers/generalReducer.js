@@ -2,6 +2,7 @@ const initialState = {
   isLoading: false,
   errorMessage: "",
   isSignedUp: false,
+  isLoggedin: false,
   isForgotPassword: false,
   loginData: {},
   signUpData: {},
@@ -49,6 +50,7 @@ const generalReducer = (state = initialState, { type, payload }) => {
         loginData: payload,
         errorMessage: "",
         isLoading: false,
+        isLoggedin: true,
       };
 
     case "GET_LOGIN_FAILED":

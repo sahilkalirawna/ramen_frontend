@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authenticate } from "../../auth/index";
+// import { authenticate } from "../../auth/index";
 
 export const getSignUp = (data) => {
   return async (dispatch) => {
@@ -27,8 +27,9 @@ export const getLogIn = (data) => {
       dispatch({ type: "GET_LOGIN_REQUEST" });
       let response = await axios.post("http://localhost:8080/auth/login", data);
       dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
-      authenticate(response.data);
-      console.log(response.data);
+      localStorage.setItem("jwt", JSON.stringify(response.data));
+      // authenticate(response.data);
+      // console.log(response.data);
     } catch (error) {
       dispatch({
         type: "GET_LOGIN_FAILED",
