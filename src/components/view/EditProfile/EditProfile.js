@@ -18,10 +18,6 @@ const validationSchema = yup.object({
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
 });
 
 const EditProfile = () => {
@@ -29,7 +25,14 @@ const EditProfile = () => {
     initialValues: {
       name: "",
       email: "",
-      password: "",
+      city: "",
+      state: "",
+      country: "",
+      background: "",
+      ideatostart: "",
+      Themes: [],
+      Skills: [],
+      Expertise: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -38,261 +41,430 @@ const EditProfile = () => {
   });
 
   return (
-    <div className="container-fluid" >
+    <div className="container pt-3" style={{ maxWidth: "540px" }}>
       <div className="row justify-content-center p-3">
-        <form onSubmit={formik.handleSubmit} className="col-sm-12 col-md-6">
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label="Update Your Name"
-            className="pb-3"
-            // value={formik.values.name}
-            // onChange={formik.handleChange}
-            // error={formik.touched.name && Boolean(formik.errors.name)}
-            // helperText={formik.touched.name && formik.errors.name}
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Update Your Email"
-            className="pb-3"
-            // value={formik.values.email}
-            // onChange={formik.handleChange}
-            // error={formik.touched.email && Boolean(formik.errors.email)}
-            // helperText={formik.touched.email && formik.errors.email}
-          />
-          <TextField
-            fullWidth
-            id="city"
-            name="city"
-            label="Update Your City"
-            type="text"
-            className="pb-3"
-            // value={formik.values.city}
-            // onChange={formik.handleChange}
-            // error={formik.touched.city && Boolean(formik.errors.city)}
-            // helperText={formik.touched.city && formik.errors.city}
-          />
-          <TextField
-            fullWidth
-            id="state"
-            name="state"
-            label="Update Your state"
-            type="text"
-            className="pb-3"
-            // value={formik.values.state}
-            // onChange={formik.handleChange}
-            // error={formik.touched.state && Boolean(formik.errors.state)}
-            // helperText={formik.touched.state && formik.errors.state}
-          />
-          <TextField
-            fullWidth
-            id="country"
-            name="country"
-            label="Update Your country"
-            type="text"
-            className="pb-3"
-            // value={formik.values.country}
-            // onChange={formik.handleChange}
-            // error={formik.touched.country && Boolean(formik.errors.country)}
-            // helperText={formik.touched.country && formik.errors.country}
-          />
-          <TextField
-            fullWidth
-            id="background"
-            name="background"
-            label="Update Your Background Details"
-            type="text"
-            className="pb-3"
-            multiline
-            rows={3}
-          />
-          <TextField
-            fullWidth
-            id="startupidea"
-            name="startupidea"
-            label="Update Your Startup Idea Details"
-            type="text"
-            className="pb-3 mb-2"
-            multiline
-            rows={3}
-          />
+        <div className="col-md-12">
+          <h1 className="pb-4">Update Profile Details</h1>
+          <form onSubmit={formik.handleSubmit}>
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="name"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Name
+                </label>
+              </div>
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="name"
+                  name="name"
+                  className="pb-3"
+                  variant="filled"
+                  size="small"
+                  type="text"
+                  // value={formik.values.name}
+                  // onChange={formik.handleChange}
+                  // error={formik.touched.name && Boolean(formik.errors.name)}
+                  // helperText={formik.touched.name && formik.errors.name}
+                />
+              </div>
+            </div>
 
-          <label htmlFor="pimghead" className="pb-2">
-            Update Your Image
-          </label>
-          <TextField
-            fullWidth
-            id="userimage"
-            name="userimage"
-            type="file"
-            className="pb-3 mb-2"
-            // value={formik.values.password}
-            // onChange={formik.handleChange}
-            // error={formik.touched.password && Boolean(formik.errors.password)}
-            // helperText={formik.touched.password && formik.errors.password}
-          />
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="email"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Email
+                </label>
+              </div>
 
-          <label htmlFor="theme" style={{fontWeight: 'bold'}}>Update Your Themes</label>
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Fintech"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Healthcare"
-          />
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="email"
+                  name="email"
+                  className="pb-3"
+                  variant="filled"
+                  size="small"
+                  type="email"
+                  // value={formik.values.email}
+                  // onChange={formik.handleChange}
+                  // error={formik.touched.email && Boolean(formik.errors.email)}
+                  // helperText={formik.touched.email && formik.errors.email}
+                />
+              </div>
+            </div>
 
-          <br />
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="city"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  City
+                </label>
+              </div>
 
-          <label htmlFor="skills" className="mt-2" style={{fontWeight: 'bold'}}>
-            Update Your Skills
-          </label>
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Software Engineering"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Growth"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Product"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Analytics"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Operations"
-          />
-          <br />
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="city"
+                  name="city"
+                  type="text"
+                  className="pb-3"
+                  variant="filled"
+                  size="small"
+                  // value={formik.values.city}
+                  // onChange={formik.handleChange}
+                  // error={formik.touched.city && Boolean(formik.errors.city)}
+                  // helperText={formik.touched.city && formik.errors.city}
+                />
+              </div>
+            </div>
 
-          <label htmlFor="expertise" className="mt-2 " style={{fontWeight: 'bold'}}>
-            Update Your Expertises
-          </label>
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Blockchain"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Ecommerce"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Product"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Analytics"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Operations"
-          />
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="state"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  State
+                </label>
+              </div>
 
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-            className="mt-4"
-          >
-            Update Profile
-          </Button>
-        </form>
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="state"
+                  name="state"
+                  type="text"
+                  className="pb-3"
+                  variant="filled"
+                  size="small"
+                  // value={formik.values.state}
+                  // onChange={formik.handleChange}
+                  // error={formik.touched.state && Boolean(formik.errors.state)}
+                  // helperText={formik.touched.state && formik.errors.state}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="country"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Country
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="country"
+                  name="country"
+                  type="text"
+                  className="pb-3"
+                  variant="filled"
+                  size="small"
+                  // value={formik.values.country}
+                  // onChange={formik.handleChange}
+                  // error={formik.touched.country && Boolean(formik.errors.country)}
+                  // helperText={formik.touched.country && formik.errors.country}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="background"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Background Details
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="background"
+                  name="background"
+                  type="text"
+                  className="pb-3"
+                  multiline
+                  rows={3}
+                  variant="filled"
+                  size="small"
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="startupidea"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Startup Idea Details
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <TextField
+                  fullWidth
+                  id="startupidea"
+                  name="startupidea"
+                  type="text"
+                  className="pb-3 mb-2"
+                  multiline
+                  rows={3}
+                  variant="filled"
+                  size="small"
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="userimage"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Profile Image
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <input
+                  id="userimage"
+                  name="userimage"
+                  type="file"
+                  className="pb-3 mb-2"
+                  variant="filled"
+                  // value={formik.values.password}
+                  // onChange={formik.handleChange}
+                  // error={formik.touched.password && Boolean(formik.errors.password)}
+                  // helperText={formik.touched.password && formik.errors.password}
+                />
+              </div>
+            </div>
+
+            <hr />
+
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="theme"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Themes
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Fintech"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Healthcare"
+                />
+              </div>
+            </div>
+            <hr />
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="skills"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Skills
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Software Engineering"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Growth"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Product"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Analytics"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Operations"
+                />
+                <br />
+              </div>
+            </div>
+
+            <hr />
+
+            <div className="row">
+              <div className="col-md-4 col-sm-4 col-xs-4">
+                <label
+                  htmlFor="expertises"
+                  className="mt-2"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Expertises
+                </label>
+              </div>
+
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Blockchain"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Ecommerce"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Product"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Analytics"
+                />
+                <br />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      // onChange={handleChange}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Operations"
+                />
+              </div>
+            </div>
+
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              type="submit"
+              className="mt-4"
+            >
+              Update Profile
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );
