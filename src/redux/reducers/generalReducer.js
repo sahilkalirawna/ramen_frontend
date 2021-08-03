@@ -4,6 +4,7 @@ const initialState = {
   isSignedUp: false,
   isLoggedin: false,
   isForgotPassword: false,
+  isResetPassword: false,
   loginData: {},
   signUpData: {},
   forgotPassword: {},
@@ -82,6 +83,29 @@ const generalReducer = (state = initialState, { type, payload }) => {
         errorMessage: payload,
         isLoading: false,
         isForgotPassword: false,
+      };
+
+    //RESET PASSWORD
+    case "GET_RESET_PASSWORD_REQUEST":
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case "GET_RESET_PASSWORD_SUCCESS":
+      return {
+        ...state,
+        errorMessage: "",
+        isLoading: false,
+        isResetPassword: true,
+      };
+
+    case "GET_RESET_PASSWORD_FAILED":
+      return {
+        ...state,
+        errorMessage: payload,
+        isLoading: false,
+        isResetPassword: false,
       };
 
     default:
