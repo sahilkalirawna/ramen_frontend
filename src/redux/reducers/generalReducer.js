@@ -9,7 +9,7 @@ const initialState = {
   forgotPassword: {},
 };
 
-const generalReducer = (state = initialState, { type, payload }) => {
+const generalReducer = (state = initialState, {type,payload}) => {
   switch (type) {
     //SIGN UP
     case "GET_SIGNUP_REQUEST":
