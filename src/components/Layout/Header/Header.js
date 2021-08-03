@@ -1,11 +1,11 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   const data = useSelector((state) => state.general);
-  let { isLoggedin } = data;
+  let { isLoggedin, loginData } = data;
 
   return (
     <Navbar collapseOnSelect expand='md' bg='dark' variant='dark'>
@@ -22,7 +22,21 @@ const Header = () => {
           </Nav>
           <Nav>
             {isLoggedin ? (
-              <Nav.Link>UserPhoto</Nav.Link>
+              <>
+                {/* <Nav.Link>UserPhoto</Nav.Link> */}
+                <NavDropdown title='UserName' id='basic-nav-dropdown'>
+                  <NavDropdown.Item>
+                    <Link
+                      to={`/editprofile/${loginData.userId}`}
+                      exact
+                      className='dropdown-item p-0'
+                    >
+                      Edit Profile
+                    </Link>
+                  </NavDropdown.Item>
+                  {/* <NavDropdown.Item>Change Password</NavDropdown.Item> */}
+                </NavDropdown>
+              </>
             ) : (
               <>
                 <NavLink

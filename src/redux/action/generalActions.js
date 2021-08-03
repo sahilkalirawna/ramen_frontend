@@ -59,3 +59,28 @@ export const sendForgotPassword = (data) => {
     }
   };
 };
+
+export const sendResetPassword = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: "GET_RESET_PASSWORD_REQUEST" });
+      let response = await axios.post(
+        "http://localhost:8080/auth/resetPassword",
+        data,
+        {
+          headers: {
+            Authorization: data.resetPasswordLink,
+          },
+        }
+      );
+      dispatch({ type: "GET_RESET_PASSWORD_SUCCESS", payload: response.data });
+      console.log(response);
+    } catch (error) {
+      dispatch({
+        type: "GET_RSEET_PASSWORD_FAILED",
+        payload: error.response.data.message,
+      });
+      // console.log(error.response);
+    }
+  };
+};
