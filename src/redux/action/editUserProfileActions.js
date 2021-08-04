@@ -7,7 +7,7 @@ export const getUserProfile = (data) => {
       dispatch({ type: "GET_USER_PROFILE_REQUEST" });
       console.log("data");
       let response = await axios.get(
-        `http://localhost:8080/editprofile/${data}`
+        `http://localhost:7070/getUser/${data}`
       );
 
       console.log(response.data);
@@ -33,7 +33,7 @@ export const getUserUpdatedProfile = (data,idd) => {
         dispatch({ type: "GET_USER_PROFILE_REQUESTED" });
         console.log("data");
         let response = await axios.put(
-          `http://localhost:8080/auth/update/${idd}`,data
+          `http://localhost:7070/auth/update/${idd}`,data
         );
   
         console.log(response.data);
