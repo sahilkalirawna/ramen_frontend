@@ -45,10 +45,11 @@ const EditProfile = () => {
       name: userProfileData.name,
       email: userProfileData.email,
       Address: {
-        city: userProfileData.city,
+        city: userProfileData.Address.city,
         state: userProfileData.state,
         country: userProfileData.country,
       },
+      // Address.city: userProfileData.Address.city,
       background: userProfileData.background,
       ideatostart: userProfileData.ideatostart,
       Themes: [],
@@ -160,12 +161,12 @@ const EditProfile = () => {
                   name="Address.city"
                   type="text"
                   className="pb-3"
-                  variant="filled"
+                  variant="filled" 
                   size="small"
                   value={formik.values.Address.city}
                   onChange={formik.handleChange}
-                  error={formik.touched.city && Boolean(formik.errors.city)}
-                  helperText={formik.touched.city && formik.errors.city}
+                  // error={formik.touched.city && Boolean(formik.errors.city)}
+                  // helperText={formik.touched.city && formik.errors.city}
                 />
               </div>
             </div>
