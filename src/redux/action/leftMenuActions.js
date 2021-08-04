@@ -19,7 +19,6 @@ export const getQualitiesData = () => {
 };
 
 export const getSearchProfile = (data) => {
-  console.log(data);
   return async (dispatch) => {
     try {
       // dispatch({ type: "GET_PROFILE_DATA" });

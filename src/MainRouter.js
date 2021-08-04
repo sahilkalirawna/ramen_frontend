@@ -5,7 +5,7 @@ import PrivateRoute from "./auth/PrivateRouter";
 const Home = lazy(() => import("./components/Home/Home"));
 const Login = lazy(() => import("./components/login/Login"));
 const Signup = lazy(() => import("./components/Signup/Signup"));
-const viewProfile = lazy(() => import("./components/viewProfile/viewProfile"));
+const viewProfile = lazy(() => import("./components/viewProfile/ViewProfile"));
 const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
 const ResetPassword = lazy(() =>
   import("./components/ResetPassword/ResetPassword")
