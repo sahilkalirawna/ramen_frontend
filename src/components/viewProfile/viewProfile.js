@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import DefaultImg from "../../assets/man.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -6,13 +6,11 @@ import { faLink, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleUser } from "../../redux/action/userProfileAction";
 import { useParams } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
 import ViewProfileSkeleton from "./ViewProfileSkeleton";
 
 const ViewProfile = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const [loading, setLoading] = useState(true);
   // console.log(userId);
   // const [themes, setThemes] = useState([]);
 
@@ -23,6 +21,7 @@ const ViewProfile = () => {
   const data = useSelector((state) => state.singleUser);
 
   let { userData, isLoading } = data;
+  // console.log(userData.Address.city);
   // setThemes(userData.Themes);
 
   console.log(userData);

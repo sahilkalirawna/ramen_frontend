@@ -19,6 +19,7 @@ const AllMembers = () => {
   const [expert, setexpertise] = useState([]);
   const [search, setSearch] = useState("");
   const [themed, setThemed] = useState([]);
+  const [looking, setLooking] = useState(false);
   useEffect(() => {
     dispatch(getQualitiesData());
   }, [dispatch]);
@@ -35,6 +36,8 @@ const AllMembers = () => {
     datas,
     errorProfile,
   } = data;
+  console.log("themes", themes);
+  console.log(data);
 
   useEffect(() => {
     setThemed(themes);
@@ -63,6 +66,16 @@ const AllMembers = () => {
     }
     setexpertise(newArray);
   };
+
+  const handleLooking = (e) => {
+    console.log(e.target.value);
+    setLooking(!looking);
+  };
+  console.log(looking);
+
+  console.log(theme);
+  console.log(skill);
+  console.log(expert);
 
   useEffect(() => {
     let query = {};
@@ -95,6 +108,7 @@ const AllMembers = () => {
                         className='form-check-input'
                         type='checkbox'
                         value={lookingForFounder.id}
+                        onChange={handleLooking}
                         id='lookingcofounder'
                       />
                       <label
@@ -108,13 +122,13 @@ const AllMembers = () => {
                 ) : (
                   ""
                 )}
+                <hr></hr>
               </div>
-              <hr></hr>
 
               <div className='card-body py-0'>
                 <h5 className='card-title'>Theme</h5>
-                {themed.length > 0 &&
-                  themed.map((data) => (
+                {themes.length > 0 &&
+                  themes.map((data) => (
                     <>
                       <div className='card-text'>
                         <div className='form-check'>
@@ -132,8 +146,8 @@ const AllMembers = () => {
                       </div>
                     </>
                   ))}
+                <hr></hr>
               </div>
-              <hr></hr>
 
               <div className='card-body'>
                 <h5 className='card-title'>Skills</h5>
@@ -156,8 +170,8 @@ const AllMembers = () => {
                       </div>
                     </>
                   ))}
+                <hr></hr>
               </div>
-              <hr></hr>
 
               <div className='card-body'>
                 <h5 className='card-title'>Expertise</h5>
@@ -183,8 +197,84 @@ const AllMembers = () => {
                       </div>
                     </>
                   ))}
+                <hr></hr>
               </div>
-              <hr></hr>
+
+              {looking && (
+                <>
+                  <div className='card-body'>
+                    <h5 className='card-title'>Time Commit</h5>
+                    {timecommit.length > 0 &&
+                      timecommit.map((data) => (
+                        <>
+                          <div className='card-text'>
+                            <div className='form-check'>
+                              <input
+                                className='form-check-input'
+                                type='checkbox'
+                                value={data._id}
+                                id='fintech'
+                                onChange={handleChangeExpertise}
+                              />
+                              <label class='form-check-label' for='fintech'>
+                                {data.name}
+                              </label>
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    <hr></hr>
+                  </div>
+
+                  <div className='card-body'>
+                    <h5 className='card-title'>Preference</h5>
+                    {preference.length > 0 &&
+                      preference.map((data) => (
+                        <>
+                          <div className='card-text'>
+                            <div className='form-check'>
+                              <input
+                                className='form-check-input'
+                                type='checkbox'
+                                value={data._id}
+                                id='fintech'
+                                onChange={handleChangeExpertise}
+                              />
+                              <label class='form-check-label' for='fintech'>
+                                {data.name}
+                              </label>
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    <hr></hr>
+                  </div>
+
+                  <div className='card-body'>
+                    <h5 className='card-title'>Co Preference</h5>
+                    {copreference.length > 0 &&
+                      copreference.map((data) => (
+                        <>
+                          <div className='card-text'>
+                            <div className='form-check'>
+                              <input
+                                className='form-check-input'
+                                type='checkbox'
+                                value={data._id}
+                                id='fintech'
+                                onChange={handleChangeExpertise}
+                              />
+                              <label class='form-check-label' for='fintech'>
+                                {data.name}
+                              </label>
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    <hr></hr>
+                  </div>
+                </>
+              )}
             </div>
           </StickyBox>
         </div>
