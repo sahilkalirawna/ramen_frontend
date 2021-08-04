@@ -21,6 +21,7 @@ const ViewProfile = () => {
   const data = useSelector((state) => state.singleUser);
 
   let { userData } = data;
+  // console.log(userData.Address.city);
   // setThemes(userData.Themes);
 
   console.log(userData);
@@ -52,7 +53,8 @@ const ViewProfile = () => {
             </div>
           </div>
           <div className="fw-light">
-            {/* {userData.Address.city && userData.Address.city }, {userData.Address.state && userData.Address.state},
+            {/* {userData.Address.city},{" "}
+            {userData.Address.state && userData.Address.state},
             {userData.Address.country && userData.Address.country} */}
           </div>
 
