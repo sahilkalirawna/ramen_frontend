@@ -1,0 +1,39 @@
+.filterBy::-webkit-scrollbar {
+  background-color: #f5f5f5;
+  width: 0 !important;
+}
+
+.searchBy {
+  background-color: #f5f5f5;
+}
+
+.memberListCard {
+  background-color: #f5f5f5;
+}
+
+/* .singleMemberCard {
+     cursor: pointer;
+   } */
+
+.membersImageList {
+  /* border-radius: 50%; */
+  height: 100px;
+  width: 100px;
+  margin: 20px 15px;
+  /* border: 1px solid black; */
+}
+
+.socialicon {
+  margin-right: 10px;
+}
+
+.qualitiesHd {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.userQual {
+  margin-right: 20px;
+  margin-top: 10px;
+  padding: 5px 15px;
+}

@@ -40,7 +40,7 @@ const EditProfile = () => {
   const { userProfileData } = data;
   console.log(userProfileData);
 
-  const formik = useFormik({
+  const formik = useFormik({ru
     initialValues: {
       name: userProfileData.name,
       email: userProfileData.email,

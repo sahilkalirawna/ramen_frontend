@@ -1,14 +1,22 @@
 import axios from "axios";
 // import { authenticate } from "../../auth/index";
+import { CLIENT_URL } from "../../constant";
+
+export const resetState = () => {
+  return (dispatch) => {
+    const data = localStorage.getItem("jwt");
+
+    if (data) {
+      dispatch({ type: "GET_LOGIN_SUCCESS", payload: data });
+    }
+  };
+};
 
 export const getSignUp = (data) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_SIGNUP_REQUEST" });
-      let response = await axios.post(
-        "http://localhost:8080/auth/signup",
-        data
-      );
+      let response = await axios.post(`${CLIENT_URL}/auth/signup`, data);
       dispatch({ type: "GET_SIGNUP_SUCCESS", payload: response.data });
       console.log(response);
     } catch (error) {
@@ -25,7 +33,7 @@ export const getLogIn = (data) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_LOGIN_REQUEST" });
-      let response = await axios.post("http://localhost:8080/auth/login", data);
+      let response = await axios.post(`${CLIENT_URL}/auth/login`, data);
       dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
       localStorage.setItem("jwt", JSON.stringify(response.data));
       // authenticate(response.data);

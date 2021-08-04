@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
 import generalReducer from "./generalReducer";
-import editProfileReducer from "./editUserProfileReducer";
+import leftmenuReducer from "./leftMenuReducer";
+import singleReducer from "./userProfileReducer";
 
 export default combineReducers({
   general: generalReducer,
-  editProfile: editProfileReducer,
+  leftmenudata: leftmenuReducer,
+  singleUser: singleReducer,
 });

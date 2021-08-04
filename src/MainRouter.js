@@ -3,17 +3,18 @@ import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRouter";
 
 const Home = lazy(() => import("./components/Home/Home"));
-const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
 const Login = lazy(() => import("./components/login/Login"));
 const Signup = lazy(() => import("./components/Signup/Signup"));
+const viewProfile = lazy(() => import("./components/viewProfile/viewProfile"));
+const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
 const ResetPassword = lazy(() =>
   import("./components/ResetPassword/ResetPassword")
 );
-const PageNotFound_404 = lazy(() =>
-  import("./components/pageNotFound/PageNotFound_404")
-);
 const ForgotPassword = lazy(() =>
   import("./components/ForgotPassword/ForgotPassword")
+);
+const PageNotFound_404 = lazy(() =>
+  import("./components/pageNotFound/PageNotFound_404")
 );
 
 const MainRouter = () => {
@@ -29,6 +30,12 @@ const MainRouter = () => {
         />
         <Route path='/login' name='Login' exact component={Login} />
         <Route path='/signup' name='Signup' exact component={Signup} />
+        <Route
+          path='/profile/:userId'
+          name='User Profile'
+          exact
+          component={viewProfile}
+        />
         <Route
           path='/forgotpassword'
           name='Forgot_Password'
