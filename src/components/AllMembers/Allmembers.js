@@ -397,7 +397,7 @@ const AllMembers = () => {
                                 </div>
                               </div>
 
-                              <p className='card-text text-capitalize mt-3'>
+                              <p className='card-text text-capitalize mt-3 pb-2'>
                                 Temporary text for testing.Temporary text for
                                 testing.Temporary text for testing.Temporary
                                 text for testing.

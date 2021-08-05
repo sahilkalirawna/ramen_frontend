@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
@@ -9,21 +9,24 @@ import App from "./App";
 import store from "./redux/store";
 import Loader from "./shared/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 ReactDOM.render(
-  <Suspense
-    fallback={
-      <div>
-        <Loader />
-      </div>
-    }
-  >
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </Suspense>,
+  <ErrorBoundary>
+    <Suspense
+      fallback={
+        <>
+          <Loader />
+        </>
+      }
+    >
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    </Suspense>
+  </ErrorBoundary>,
   document.getElementById("root")
 );
 
