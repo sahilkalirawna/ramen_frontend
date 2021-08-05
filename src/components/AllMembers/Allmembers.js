@@ -50,6 +50,14 @@ const AllMembers = () => {
     setThemed(themes);
   }, [themes]);
 
+  useEffect(() => {
+    if (looking == "0") {
+      setTimecommit([]);
+      setCofounderPreferedCustomer([]);
+      setcofounderPreference([]);
+    }
+  }, [looking]);
+
   console.log("themed");
   console.log(themed);
   console.log(datas);
@@ -163,7 +171,7 @@ const AllMembers = () => {
                           <input
                             className='form-check-input'
                             type='checkbox'
-                            value={lookingForFounder.id}
+                            value={!looking}
                             onChange={handleLooking}
                             id='lookingcofounder'
                           />
@@ -381,17 +389,22 @@ const AllMembers = () => {
                             </div>
                           </div>
                           <div className='col-9'>
-                            <div className='card-body p-0 pt-3'>
+                            <div className='card-body p-0 pt-3 pe-3'>
                               <div className='row'>
-                                <div className='col-4'>
+                                <div className='col-2'>
                                   <h6 className='card-title text-capitalize'>
                                     {data.name}
                                   </h6>
                                 </div>
                                 <div className='col-4 text-capitalize text-center'>
-                                  Address
+                                  {data.Address && (
+                                    <>
+                                      {data.Address.city}, {data.Address.state},{" "}
+                                      {data.Address.country},
+                                    </>
+                                  )}
                                 </div>
-                                <div className='col-4 text-end fs-5'>
+                                <div className='col-3 text-end fs-5'>
                                   <FontAwesomeIcon
                                     icon={faLinkedin}
                                     className='socialicon'
@@ -404,6 +417,13 @@ const AllMembers = () => {
                                     icon={faLink}
                                     className='socialicon'
                                   />
+                                </div>
+                                <div className='col-3 '>
+                                  {data.lookingforfounder && (
+                                    <div className='badge text-secondary bg-white border border-secondary text-wrap'>
+                                      Looking for Cofounder
+                                    </div>
+                                  )}
                                 </div>
                               </div>
 
