@@ -7,11 +7,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import store from "./redux/store";
-// import Loader from "./shared/Loader";
+import Loader from "./shared/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-  <Suspense fallback={"Loading..."}>
+  <Suspense fallback={Loader}>
     <Provider store={store}>
       <Router>
         <App />

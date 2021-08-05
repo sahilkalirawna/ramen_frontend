@@ -1,6 +1,5 @@
-.filterBy::-webkit-scrollbar {
+.filterBy {
   background-color: #f5f5f5;
-  width: 0 !important;
 }
 
 .searchBy {
@@ -11,16 +10,9 @@
   background-color: #f5f5f5;
 }
 
-/* .singleMemberCard {
-     cursor: pointer;
-   } */
-
 .membersImageList {
-  /* border-radius: 50%; */
   height: 100px;
   width: 100px;
-  margin: 20px 15px;
-  /* border: 1px solid black; */
 }
 
 .socialicon {
