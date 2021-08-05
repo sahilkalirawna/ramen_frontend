@@ -19,10 +19,10 @@ export const getQualitiesData = () => {
 };
 
 export const getSearchProfile = (data) => {
-  console.log(data);
   return async (dispatch) => {
     try {
       // dispatch({ type: "GET_PROFILE_DATA" });
+
       let response = await axios.post(`${CLIENT_URL}/getSearchProfile`, data);
       dispatch({ type: "GET_PROFILE_DATA", payload: response.data });
       console.log(response.data);
@@ -30,7 +30,7 @@ export const getSearchProfile = (data) => {
       console.log(error.response);
       dispatch({
         type: "GET_PROFILE_DATA_FAILED",
-        payload: error.response.data.message,
+        payload: error.response,
       });
     }
   };

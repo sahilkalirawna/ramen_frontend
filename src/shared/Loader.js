@@ -1,10 +1,13 @@
 import React from "react";
-import Spinner from "react-bootstrap/Spinner";
+import "./Loader.css";
 
 const Loader = () => {
   return (
-    <div className='d-flex justify-content-center'>
-      <Spinner animation='border' variant='dark' />
+    <div
+      className='d-flex justify-content-center align-items-center'
+      style={{ height: "100vh" }}
+    >
+      <div className='lds-hourglass'></div>
     </div>
   );
 };
