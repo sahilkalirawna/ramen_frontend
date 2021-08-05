@@ -17,6 +17,11 @@ const AllMembers = () => {
   const [theme, settheme] = useState([]);
   const [skill, setskill] = useState([]);
   const [expert, setexpertise] = useState([]);
+  const [cofounderTimecomit, setTimecommit] = useState([]);
+  const [cofounderPreference, setcofounderPreference] = useState([]);
+  const [cofounderPreferedCustomer, setCofounderPreferedCustomer] = useState(
+    []
+  );
   const [search, setSearch] = useState("");
   const [themed, setThemed] = useState([]);
   const [looking, setLooking] = useState(false);
@@ -74,15 +79,41 @@ const AllMembers = () => {
     setexpertise(newArray);
   };
 
+  const handleChangeTimecommit = (event) => {
+    let newArray = [...expert, event.target.value];
+    if (cofounderTimecomit.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setTimecommit(newArray);
+  };
+
+  const handleChangePreference = (event) => {
+    let newArray = [...expert, event.target.value];
+    if (cofounderPreference.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setcofounderPreference(newArray);
+  };
+
+  const handleChangeCopreference = (event) => {
+    let newArray = [...expert, event.target.value];
+    if (cofounderPreferedCustomer.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setCofounderPreferedCustomer(newArray);
+  };
+
   const handleLooking = (e) => {
     console.log(e.target.value);
     setLooking(!looking);
   };
   console.log(looking);
-
   console.log(theme);
   console.log(skill);
   console.log(expert);
+  console.log(cofounderTimecomit);
+  console.log(cofounderPreference);
+  console.log(cofounderPreferedCustomer);
 
   useEffect(() => {
     let query = {};
@@ -90,8 +121,24 @@ const AllMembers = () => {
     if (theme.length > 0) query.Theme = theme;
     if (skill.length > 0) query.Skill = skill;
     if (expert.length > 0) query.Expert = expert;
+    if (cofounderPreference.length > 0)
+      query.cofounderPreference = cofounderPreference;
+    if (cofounderTimecomit.length > 0)
+      query.cofounderTimecomit = cofounderTimecomit;
+    if (cofounderPreferedCustomer.length > 0)
+      query.cofounderCopreference = cofounderPreferedCustomer;
+    console.log("Done..........", query);
     dispatch(getSearchProfile(query));
-  }, [dispatch, theme, skill, expert, search]);
+  }, [
+    dispatch,
+    theme,
+    skill,
+    expert,
+    search,
+    cofounderPreference,
+    cofounderTimecomit,
+    cofounderPreferedCustomer,
+  ]);
 
   return (
     <>
@@ -215,7 +262,7 @@ const AllMembers = () => {
                                 type="checkbox"
                                 value={data._id}
                                 id="fintech"
-                                onChange={handleChangeExpertise}
+                                onChange={handleChangeTimecommit}
                               />
                               <label class="form-check-label" for="fintech">
                                 {data.name}
@@ -239,7 +286,7 @@ const AllMembers = () => {
                                 type="checkbox"
                                 value={data._id}
                                 id="fintech"
-                                onChange={handleChangeExpertise}
+                                onChange={handleChangePreference}
                               />
                               <label class="form-check-label" for="fintech">
                                 {data.name}
@@ -263,7 +310,7 @@ const AllMembers = () => {
                                 type="checkbox"
                                 value={data._id}
                                 id="fintech"
-                                onChange={handleChangeExpertise}
+                                onChange={handleChangeCopreference}
                               />
                               <label class="form-check-label" for="fintech">
                                 {data.name}
@@ -293,7 +340,7 @@ const AllMembers = () => {
           </div>
 
           {/* All Members List */}
-          {errorProfile && <p>{errorProfile}</p>}
+          {/* {errorProfile && <p>{errorProfile}</p>} */}
           {datas && datas.length > 0 && !errorProfile
             ? datas.map((data) => (
                 <Link
@@ -347,71 +394,80 @@ const AllMembers = () => {
                       {/* Themes Details */}
                       <div className="col-md-3">
                         <h6 className="qualitiesHd">
-                          {data.Themes.length > 0 ? "Themes" : ""}
+                          {data.Themes && data.Themes.length > 0
+                            ? "Themes"
+                            : ""}
                         </h6>
                       </div>
 
                       <div className="col-md-9">
-                        {data.Themes.map((data) => (
-                          <>
-                            <div
-                              className="card-body"
-                              style={{ paddingTop: "0px" }}
-                            >
-                              <p className="card-title">
-                                <span className="badge bg-secondary userQual">
-                                  {data.name}
-                                </span>
-                              </p>
-                            </div>
-                          </>
-                        ))}
+                        {data.Themes &&
+                          data.Themes.map((data) => (
+                            <>
+                              <div
+                                className="card-body"
+                                style={{ paddingTop: "0px" }}
+                              >
+                                <p className="card-title">
+                                  <span className="badge bg-secondary userQual">
+                                    {data.name}
+                                  </span>
+                                </p>
+                              </div>
+                            </>
+                          ))}
                       </div>
 
                       {/* Skills Details */}
                       <div className="col-md-3">
                         <h6 className="qualitiesHd">
-                          {data.Skills.length > 0 ? "Skills" : ""}
+                          {data.Skills && data.Skills.length > 0
+                            ? "Skills"
+                            : ""}
                         </h6>
                       </div>
                       <div className="col-md-9">
-                        {data.Skills.map((data) => (
-                          <>
-                            <div
-                              className="card-body"
-                              style={{ paddingTop: "0px" }}
-                            >
-                              <p className="card-title">
-                                <span className="badge bg-secondary userQual">
-                                  {data.name}
-                                </span>
-                              </p>
-                            </div>
-                          </>
-                        ))}
+                        {data.Skills &&
+                          data.Skills.map((data) => (
+                            <>
+                              <div
+                                className="card-body"
+                                style={{ paddingTop: "0px" }}
+                              >
+                                <p className="card-title">
+                                  <span className="badge bg-secondary userQual">
+                                    {data.name}
+                                  </span>
+                                </p>
+                              </div>
+                            </>
+                          ))}
                       </div>
                       {/* Expertise Details */}
                       <div className="col-md-3">
                         <h6 className="qualitiesHd">
-                          {data.Expertise.length > 0 ? "Expertise" : ""}
+                          {data.Expertise && data.Expertise.length > 0
+                            ? "Expertise"
+                            : ""}
                         </h6>
                       </div>
 
                       <div className="col-md-9">
-                        {data.Expertise.map((data) => (
-                          <>
-                            <div
-                              className="card-body"
-                              style={{ paddingTop: "0px" }}
-                            >
-                              <p className="card-title">
-                                <span className="badge bg-secondary userQual">
-                                  {data.name}
-                                </span>
-                              </p>
-                            </div>
-                          </>
-                        ))}
+                        {data.Expertise &&
+                          data.Expertise.map((data) => (
+                            <>
+                              <div
+                                className="card-body"
+                                style={{ paddingTop: "0px" }}
+                              >
+                                <p className="card-title">
+                                  <span className="badge bg-secondary userQual">
+                                    {data.name}
+                                  </span>
+                                </p>
+                              </div>
+                            </>
+                          ))}
                       </div>
                     </div>
                   </div>
