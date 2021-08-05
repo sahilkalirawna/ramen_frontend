@@ -11,7 +11,13 @@ import Loader from "./shared/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-  <Suspense fallback={Loader}>
+  <Suspense
+    fallback={
+      <div>
+        <Loader />
+      </div>
+    }
+  >
     <Provider store={store}>
       <Router>
         <App />

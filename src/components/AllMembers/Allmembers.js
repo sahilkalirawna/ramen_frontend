@@ -18,6 +18,11 @@ const AllMembers = () => {
   const [theme, settheme] = useState([]);
   const [skill, setskill] = useState([]);
   const [expert, setexpertise] = useState([]);
+  const [cofounderTimecomit, setTimecommit] = useState([]);
+  const [cofounderPreference, setcofounderPreference] = useState([]);
+  const [cofounderPreferedCustomer, setCofounderPreferedCustomer] = useState(
+    []
+  );
   const [search, setSearch] = useState("");
   const [themed, setThemed] = useState([]);
   const [looking, setLooking] = useState(false);
@@ -38,10 +43,17 @@ const AllMembers = () => {
     errorProfile,
     isLoading,
   } = data;
+  console.log("themes", themes);
+  console.log(data);
 
   useEffect(() => {
     setThemed(themes);
   }, [themes]);
+
+  console.log("themed");
+  console.log(themed);
+  console.log(datas);
+  console.log(errorProfile);
 
   const handleChangeThemes = (event) => {
     let newArray = [...theme, event.target.value];
@@ -67,10 +79,41 @@ const AllMembers = () => {
     setexpertise(newArray);
   };
 
+  const handleChangeTimecommit = (event) => {
+    let newArray = [...expert, event.target.value];
+    if (cofounderTimecomit.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setTimecommit(newArray);
+  };
+
+  const handleChangePreference = (event) => {
+    let newArray = [...expert, event.target.value];
+    if (cofounderPreference.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setcofounderPreference(newArray);
+  };
+
+  const handleChangeCopreference = (event) => {
+    let newArray = [...expert, event.target.value];
+    if (cofounderPreferedCustomer.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setCofounderPreferedCustomer(newArray);
+  };
+
   const handleLooking = (e) => {
-    // console.log(e.target.value);
+    console.log(e.target.value);
     setLooking(!looking);
   };
+  console.log(looking);
+  console.log(theme);
+  console.log(skill);
+  console.log(expert);
+  console.log(cofounderTimecomit);
+  console.log(cofounderPreference);
+  console.log(cofounderPreferedCustomer);
 
   useEffect(() => {
     let query = {};
@@ -78,8 +121,24 @@ const AllMembers = () => {
     if (theme.length > 0) query.Theme = theme;
     if (skill.length > 0) query.Skill = skill;
     if (expert.length > 0) query.Expert = expert;
+    if (cofounderPreference.length > 0)
+      query.cofounderPreference = cofounderPreference;
+    if (cofounderTimecomit.length > 0)
+      query.cofounderTimecomit = cofounderTimecomit;
+    if (cofounderPreferedCustomer.length > 0)
+      query.cofounderCopreference = cofounderPreferedCustomer;
+    console.log("Done..........", query);
     dispatch(getSearchProfile(query));
-  }, [dispatch, theme, skill, expert, search]);
+  }, [
+    dispatch,
+    theme,
+    skill,
+    expert,
+    search,
+    cofounderPreference,
+    cofounderTimecomit,
+    cofounderPreferedCustomer,
+  ]);
 
   return (
     <>
@@ -94,10 +153,10 @@ const AllMembers = () => {
                   style={{
                     overflow: "auto",
                     overflowY: "auto",
-                    height: "45rem",
+                    height: "40rem",
                   }}
                 >
-                  <div className='card filterBy border-0 px-3 pt-3'>
+                  <div className='card filterBy border-0 p-3 pb-0'>
                     {lookingForFounder && (
                       <div className='card-text'>
                         <div className='form-check'>
@@ -109,8 +168,8 @@ const AllMembers = () => {
                             id='lookingcofounder'
                           />
                           <label
-                            className='form-check-label'
-                            htmlFor='lookingcofounder'
+                            class='form-check-label'
+                            htmlfor='lookingcofounder'
                           >
                             {lookingForFounder.name}
                           </label>
@@ -134,17 +193,14 @@ const AllMembers = () => {
                                 id='Theme'
                                 onChange={handleChangeThemes}
                               />
-                              <label
-                                className='form-check-label'
-                                htmlFor='Theme'
-                              >
+                              <label class='form-check-label' htmlfor='Theme'>
                                 {data.name}
                               </label>
                             </div>
                           </div>
                         </>
                       ))}
-                    <hr></hr>
+                    <hr />
                   </div>
 
                   <div className='card filterBy border-0 px-3'>
@@ -161,20 +217,17 @@ const AllMembers = () => {
                                 id='Skills'
                                 onChange={handleChangeSkills}
                               />
-                              <label
-                                className='form-check-label'
-                                htmlFor='Skills'
-                              >
+                              <label class='form-check-label' for='Skills'>
                                 {data.name}
                               </label>
                             </div>
                           </div>
                         </>
                       ))}
-                    <hr></hr>
+                    <hr />
                   </div>
 
-                  <div className='card filterBy border-0 px-3 '>
+                  <div className='card filterBy border-0 px-3'>
                     <h5 className='card-title'>Expertise</h5>
                     {expertise.length > 0 &&
                       expertise.map((data) => (
@@ -188,17 +241,14 @@ const AllMembers = () => {
                                 id='Expertise'
                                 onChange={handleChangeExpertise}
                               />
-                              <label
-                                className='form-check-label'
-                                htmlFor='Expertise'
-                              >
+                              <label class='form-check-label' for='Expertise'>
                                 {data.name}
                               </label>
                             </div>
                           </div>
                         </>
                       ))}
-                    <hr></hr>
+                    <hr />
                   </div>
 
                   {looking && (
@@ -214,17 +264,20 @@ const AllMembers = () => {
                                     className='form-check-input'
                                     type='checkbox'
                                     value={data._id}
-                                    id='fintech'
-                                    onChange={handleChangeExpertise}
+                                    id='Time_Commit'
+                                    onChange={handleChangeTimecommit}
                                   />
-                                  <label class='form-check-label' for='fintech'>
+                                  <label
+                                    class='form-check-label'
+                                    for='Time_Commit'
+                                  >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
                             </>
                           ))}
-                        <hr></hr>
+                        <hr />
                       </div>
 
                       <div className='card filterBy border-0 px-3'>
@@ -238,10 +291,13 @@ const AllMembers = () => {
                                     className='form-check-input'
                                     type='checkbox'
                                     value={data._id}
-                                    id='fintech'
-                                    onChange={handleChangeExpertise}
+                                    id='Preference'
+                                    onChange={handleChangePreference}
                                   />
-                                  <label class='form-check-label' for='fintech'>
+                                  <label
+                                    class='form-check-label'
+                                    for='Preference'
+                                  >
                                     {data.name}
                                   </label>
                                 </div>
@@ -251,7 +307,7 @@ const AllMembers = () => {
                         <hr></hr>
                       </div>
 
-                      <div className='card filterBy border-0 px-3 pb-3'>
+                      <div className='card filterBy border-0 px-3'>
                         <h5 className='card-title'>Co Preference</h5>
                         {copreference.length > 0 &&
                           copreference.map((data) => (
@@ -262,10 +318,13 @@ const AllMembers = () => {
                                     className='form-check-input'
                                     type='checkbox'
                                     value={data._id}
-                                    id='fintech'
-                                    onChange={handleChangeExpertise}
+                                    id='Co_Preference'
+                                    onChange={handleChangeCopreference}
                                   />
-                                  <label class='form-check-label' for='fintech'>
+                                  <label
+                                    class='form-check-label'
+                                    for='Co_Preference'
+                                  >
                                     {data.name}
                                   </label>
                                 </div>
@@ -279,9 +338,9 @@ const AllMembers = () => {
                 </div>
               </StickyBox>
             </div>
-            {/* SearchBox */}
             <div className='col-md-9'>
-              <div className='card searchBy mb-3'>
+              {/* SearchBox */}
+              <div className='card searchBy'>
                 <div className='card-body'>
                   <input
                     type='text'
@@ -293,120 +352,128 @@ const AllMembers = () => {
               </div>
 
               {/* All Members List */}
-              {errorProfile && <p>{errorProfile}</p>}
-              {datas &&
-                datas.length > 0 &&
-                !errorProfile &&
-                datas.map((data) => (
-                  <Link
-                    to={`/profile/${data._id}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <div className='card mb-2 memberListCard'>
-                      <div className='row'>
-                        <div className='col-md-3'>
-                          <img
-                            src={user}
-                            alt='Member'
-                            className='membersImageList m-3'
-                          />
-                        </div>
-                        <div className='col-md-9'>
-                          <div className='card-body px-0'>
-                            <div className='row'>
-                              <div className='col-4'>
-                                <h6 className='card-title text-capitalize'>
-                                  {data.name}
-                                </h6>
-                              </div>
-                              <div className='col-4 text-center'>Address</div>
-                              <div className='col-4 text-end fs-5'>
-                                <FontAwesomeIcon
-                                  icon={faLinkedin}
-                                  className='socialicon'
-                                />
-                                <FontAwesomeIcon
-                                  icon={faTwitter}
-                                  className='socialicon'
-                                />
-                                <FontAwesomeIcon
-                                  icon={faLink}
-                                  className='socialicon'
-                                />
-                              </div>
+              {/* {errorProfile && <p>{errorProfile}</p>} */}
+              {datas && datas.length > 0 && !errorProfile
+                ? datas.map((data) => (
+                    <Link
+                      to={`/profile/${data._id}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <div className='card mt-3 memberListCard'>
+                        <div className='row '>
+                          <div className='col-3'>
+                            <div className='d-flex justify-content-center'>
+                              <img
+                                src={user}
+                                alt='Member'
+                                className='membersImageList my-3'
+                              />
                             </div>
+                          </div>
+                          <div className='col-9'>
+                            <div className='card-body p-0 pt-3'>
+                              <div className='row'>
+                                <div className='col-4'>
+                                  <h6 className='card-title text-capitalize'>
+                                    {data.name}
+                                  </h6>
+                                </div>
+                                <div className='col-4 text-capitalize text-center'>
+                                  Address
+                                </div>
+                                <div className='col-4 text-end fs-5'>
+                                  <FontAwesomeIcon
+                                    icon={faLinkedin}
+                                    className='socialicon'
+                                  />
+                                  <FontAwesomeIcon
+                                    icon={faTwitter}
+                                    className='socialicon'
+                                  />
+                                  <FontAwesomeIcon
+                                    icon={faLink}
+                                    className='socialicon'
+                                  />
+                                </div>
+                              </div>
 
-                            <p className='card-text mt-3 text-capitalize'>
-                              Temporary text for testing.Temporary text for
-                              testing.Temporary text for testing.Temporary text
-                              for testing.
-                            </p>
+                              <p className='card-text text-capitalize mt-3'>
+                                Temporary text for testing.Temporary text for
+                                testing.Temporary text for testing.Temporary
+                                text for testing.
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className='row'>
-                        {/* Themes Details */}
-                        {data.Themes.length > 0 && (
-                          <>
-                            <div className='col-3'>
-                              <h6 className='qualitiesHd'>Themes</h6>
-                            </div>
-                            <div className='col-9'>
-                              {data.Themes.map((data) => (
-                                <div className='card-body pt-0'>
-                                  <p className='card-title'>
-                                    <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
-                                      {data.name}
-                                    </span>
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </>
-                        )}
 
-                        {/* Skills Details */}
-                        {data.Skills.length > 0 && (
-                          <>
-                            <div className='col-3'>
-                              <h6 className='qualitiesHd'>Skills</h6>
-                            </div>
-                            <div className='col-9'>
-                              {data.Skills.map((data) => (
-                                <div className='card-body pt-0'>
-                                  <p className='card-title'>
-                                    <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
-                                      {data.name}
-                                    </span>
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </>
-                        )}
-                        {/* Expertise Details */}
-                        {data.Expertise.length > 0 && (
-                          <>
-                            <div className='col-3'>
-                              <h6 className='qualitiesHd'>Expertise</h6>
-                            </div>
-                            <div className='col-9'>
-                              {data.Expertise.map((data) => (
-                                <div className='card-body pt-0'>
-                                  <p className='card-title'>
-                                    <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
-                                      {data.name}
-                                    </span>
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </>
-                        )}
+                        {/* Themes Details */}
+                        <div className='row'>
+                          {data.Themes && data.Themes.length > 0 && (
+                            <>
+                              <div className='col-3'>
+                                <h6 className='qualitiesHd'>Themes</h6>
+                              </div>
+                              <div className='col-9'>
+                                {data.Themes &&
+                                  data.Themes.map((data) => (
+                                    <div className='card-body p-0'>
+                                      <p className='card-title'>
+                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                          {data.name}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  ))}
+                              </div>
+                            </>
+                          )}
+
+                          {/* Skills Details */}
+                          {data.Skills && data.Skills.length > 0 && (
+                            <>
+                              <div className='col-3'>
+                                <h6 className='qualitiesHd'>Skills</h6>
+                              </div>
+                              <div className='col-9'>
+                                {data.Skills &&
+                                  data.Skills.map((data) => (
+                                    <div className='card-body p-0'>
+                                      <p className='card-title'>
+                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                          {data.name}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  ))}
+                              </div>
+                            </>
+                          )}
+
+                          {/* Expertise Details */}
+                          {data.Expertise && data.Expertise.length > 0 && (
+                            <>
+                              <div className='col-3'>
+                                <h6 className='qualitiesHd'>Expertise</h6>
+                              </div>
+                              <div className='col-9'>
+                                {data.Expertise &&
+                                  data.Expertise.map((data) => (
+                                    <div className='card-body p-0'>
+                                      <p className='card-title'>
+                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                          {data.name}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  ))}
+                              </div>
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))
+                : ""}
             </div>
           </div>
         </>

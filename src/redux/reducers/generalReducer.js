@@ -14,6 +14,7 @@ const generalReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     //SIGN UP
     case "GET_SIGNUP_REQUEST":
+    case "GET_LOGIN_REQUEST":
       return {
         ...state,
         isLoading: true,
@@ -38,12 +39,12 @@ const generalReducer = (state = initialState, { type, payload }) => {
       };
 
     //LOGIN
-    case "GET_LOGIN_REQUEST":
-      return {
-        ...state,
-        isLoading: true,
-        errorMessage: "",
-      };
+    // case "GET_LOGIN_REQUEST":
+    //   return {
+    //     ...state,
+    //     isLoading: true,
+    //     errorMessage: "",
+    //   };
 
     case "GET_LOGIN_SUCCESS":
       return {

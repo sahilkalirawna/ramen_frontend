@@ -20,8 +20,9 @@
 }
 
 .qualitiesHd {
-  text-align: center;
+  text-align: start;
   margin-top: 10px;
+  padding-left: 16px;
 }
 
 .userQual {
