@@ -11,6 +11,7 @@ import {
 } from "../../redux/action/leftMenuActions";
 import user from "../../assets/man.png";
 import "./Allmember.css";
+import AllMembersSkeleton from "./AllMembersSkeleton";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const AllMembers = () => {
     lookingForFounder,
     datas,
     errorProfile,
+    isLoading,
   } = data;
   console.log("themes", themes);
   console.log(data);
@@ -49,9 +51,7 @@ const AllMembers = () => {
   }, [themes]);
 
   console.log("themed");
-
   console.log(themed);
-
   console.log(datas);
   console.log(errorProfile);
 
@@ -142,340 +142,344 @@ const AllMembers = () => {
 
   return (
     <>
-      <h1 className="">MEMBERS</h1>
-      <div className="row">
-        <div className="col-md-3">
-          <StickyBox offsetTop={20} offsetBottom={20}>
-            <div
-              className="card filterBy"
-              style={{
-                overflow: "auto",
-                overflowY: "auto",
-                height: "47rem",
-              }}
-            >
-              <div className="card-body">
-                {lookingForFounder ? (
-                  <div className="card-text">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value={lookingForFounder.id}
-                        onChange={handleLooking}
-                        id="lookingcofounder"
-                      />
-                      <label class="form-check-label" for="lookingcofounder">
-                        {lookingForFounder.name}
-                      </label>
-                    </div>
+      {!isLoading ? (
+        <>
+          <h1>MEMBERS</h1>
+          <div className='row justify-content-center'>
+            <div className='col-sm-6 col-md-3 mb-3'>
+              <StickyBox offsetTop={30} offsetBottom={30}>
+                <div
+                  className='card filterBy'
+                  style={{
+                    overflow: "auto",
+                    overflowY: "auto",
+                    height: "40rem",
+                  }}
+                >
+                  <div className='card filterBy border-0 p-3 pb-0'>
+                    {lookingForFounder && (
+                      <div className='card-text'>
+                        <div className='form-check'>
+                          <input
+                            className='form-check-input'
+                            type='checkbox'
+                            value={lookingForFounder.id}
+                            onChange={handleLooking}
+                            id='lookingcofounder'
+                          />
+                          <label
+                            class='form-check-label'
+                            htmlfor='lookingcofounder'
+                          >
+                            {lookingForFounder.name}
+                          </label>
+                        </div>
+                      </div>
+                    )}
+                    <hr />
                   </div>
-                ) : (
-                  ""
-                )}
-                <hr></hr>
-              </div>
 
-              <div className="card-body py-0">
-                <h5 className="card-title">Theme</h5>
-                {themes.length > 0 &&
-                  themes.map((data) => (
-                    <>
-                      <div className="card-text">
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={data._id}
-                            id="fintech"
-                            onChange={handleChangeThemes}
-                          />
-                          <label class="form-check-label" for="fintech">
-                            {data.name}
-                          </label>
-                        </div>
-                      </div>
-                    </>
-                  ))}
-                <hr></hr>
-              </div>
-
-              <div className="card-body">
-                <h5 className="card-title">Skills</h5>
-                {skills.length > 0 &&
-                  skills.map((data) => (
-                    <>
-                      <div className="card-text">
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={data._id}
-                            id="fintech"
-                            onChange={handleChangeSkills}
-                          />
-                          <label class="form-check-label" for="fintech">
-                            {data.name}
-                          </label>
-                        </div>
-                      </div>
-                    </>
-                  ))}
-                <hr></hr>
-              </div>
-
-              <div className="card-body">
-                <h5 className="card-title">Expertise</h5>
-                {expertise.length > 0 &&
-                  expertise.map((data) => (
-                    <>
-                      <div className="card-text">
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={data._id}
-                            id="fintech"
-                            onChange={handleChangeExpertise}
-                          />
-                          <label class="form-check-label" for="fintech">
-                            {data.name}
-                          </label>
-                        </div>
-                      </div>
-                    </>
-                  ))}
-                <hr></hr>
-              </div>
-
-              {looking && (
-                <>
-                  <div className="card-body">
-                    <h5 className="card-title">Time Commit</h5>
-                    {timecommit.length > 0 &&
-                      timecommit.map((data) => (
+                  <div className='card filterBy border-0 px-3'>
+                    <h5 className='card-title'>Theme</h5>
+                    {themes.length > 0 &&
+                      themes.map((data) => (
                         <>
-                          <div className="card-text">
-                            <div className="form-check">
+                          <div className='card-text'>
+                            <div className='form-check'>
                               <input
-                                className="form-check-input"
-                                type="checkbox"
+                                className='form-check-input'
+                                type='checkbox'
                                 value={data._id}
-                                id="fintech"
-                                onChange={handleChangeTimecommit}
+                                id='Theme'
+                                onChange={handleChangeThemes}
                               />
-                              <label class="form-check-label" for="fintech">
+                              <label class='form-check-label' htmlfor='Theme'>
                                 {data.name}
                               </label>
                             </div>
                           </div>
                         </>
                       ))}
-                    <hr></hr>
+                    <hr />
                   </div>
 
-                  <div className="card-body">
-                    <h5 className="card-title">Preference</h5>
-                    {preference.length > 0 &&
-                      preference.map((data) => (
+                  <div className='card filterBy border-0 px-3'>
+                    <h5 className='card-title'>Skills</h5>
+                    {skills.length > 0 &&
+                      skills.map((data) => (
                         <>
-                          <div className="card-text">
-                            <div className="form-check">
+                          <div className='card-text'>
+                            <div className='form-check'>
                               <input
-                                className="form-check-input"
-                                type="checkbox"
+                                className='form-check-input'
+                                type='checkbox'
                                 value={data._id}
-                                id="fintech"
-                                onChange={handleChangePreference}
+                                id='Skills'
+                                onChange={handleChangeSkills}
                               />
-                              <label class="form-check-label" for="fintech">
+                              <label class='form-check-label' for='Skills'>
                                 {data.name}
                               </label>
                             </div>
                           </div>
                         </>
                       ))}
-                    <hr></hr>
+                    <hr />
                   </div>
 
-                  <div className="card-body">
-                    <h5 className="card-title">Co Preference</h5>
-                    {copreference.length > 0 &&
-                      copreference.map((data) => (
+                  <div className='card filterBy border-0 px-3'>
+                    <h5 className='card-title'>Expertise</h5>
+                    {expertise.length > 0 &&
+                      expertise.map((data) => (
                         <>
-                          <div className="card-text">
-                            <div className="form-check">
+                          <div className='card-text'>
+                            <div className='form-check'>
                               <input
-                                className="form-check-input"
-                                type="checkbox"
+                                className='form-check-input'
+                                type='checkbox'
                                 value={data._id}
-                                id="fintech"
-                                onChange={handleChangeCopreference}
+                                id='Expertise'
+                                onChange={handleChangeExpertise}
                               />
-                              <label class="form-check-label" for="fintech">
+                              <label class='form-check-label' for='Expertise'>
                                 {data.name}
                               </label>
                             </div>
                           </div>
                         </>
                       ))}
-                    <hr></hr>
+                    <hr />
                   </div>
-                </>
-              )}
+
+                  {looking && (
+                    <>
+                      <div className='card filterBy border-0 px-3'>
+                        <h5 className='card-title'>Time Commit</h5>
+                        {timecommit.length > 0 &&
+                          timecommit.map((data) => (
+                            <>
+                              <div className='card-text'>
+                                <div className='form-check'>
+                                  <input
+                                    className='form-check-input'
+                                    type='checkbox'
+                                    value={data._id}
+                                    id='Time_Commit'
+                                    onChange={handleChangeTimecommit}
+                                  />
+                                  <label
+                                    class='form-check-label'
+                                    for='Time_Commit'
+                                  >
+                                    {data.name}
+                                  </label>
+                                </div>
+                              </div>
+                            </>
+                          ))}
+                        <hr />
+                      </div>
+
+                      <div className='card filterBy border-0 px-3'>
+                        <h5 className='card-title'>Preference</h5>
+                        {preference.length > 0 &&
+                          preference.map((data) => (
+                            <>
+                              <div className='card-text'>
+                                <div className='form-check'>
+                                  <input
+                                    className='form-check-input'
+                                    type='checkbox'
+                                    value={data._id}
+                                    id='Preference'
+                                    onChange={handleChangePreference}
+                                  />
+                                  <label
+                                    class='form-check-label'
+                                    for='Preference'
+                                  >
+                                    {data.name}
+                                  </label>
+                                </div>
+                              </div>
+                            </>
+                          ))}
+                        <hr></hr>
+                      </div>
+
+                      <div className='card filterBy border-0 px-3'>
+                        <h5 className='card-title'>Co Preference</h5>
+                        {copreference.length > 0 &&
+                          copreference.map((data) => (
+                            <>
+                              <div className='card-text'>
+                                <div className='form-check'>
+                                  <input
+                                    className='form-check-input'
+                                    type='checkbox'
+                                    value={data._id}
+                                    id='Co_Preference'
+                                    onChange={handleChangeCopreference}
+                                  />
+                                  <label
+                                    class='form-check-label'
+                                    for='Co_Preference'
+                                  >
+                                    {data.name}
+                                  </label>
+                                </div>
+                              </div>
+                            </>
+                          ))}
+                        <hr></hr>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </StickyBox>
             </div>
-          </StickyBox>
-        </div>
-        {/* SearchBox */}
-        <div className="col-md-8">
-          <div className="card searchBy">
-            <div className="card-body">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search.."
-                onChange={(event) => setSearch(event.target.value)}
-              />
+            <div className='col-md-9'>
+              {/* SearchBox */}
+              <div className='card searchBy'>
+                <div className='card-body'>
+                  <input
+                    type='text'
+                    className='form-control'
+                    placeholder='Search...'
+                    onChange={(event) => setSearch(event.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* All Members List */}
+              {/* {errorProfile && <p>{errorProfile}</p>} */}
+              {datas && datas.length > 0 && !errorProfile
+                ? datas.map((data) => (
+                    <Link
+                      to={`/profile/${data._id}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <div className='card mt-3 memberListCard'>
+                        <div className='row '>
+                          <div className='col-3'>
+                            <div className='d-flex justify-content-center'>
+                              <img
+                                src={user}
+                                alt='Member'
+                                className='membersImageList my-3'
+                              />
+                            </div>
+                          </div>
+                          <div className='col-9'>
+                            <div className='card-body p-0 pt-3'>
+                              <div className='row'>
+                                <div className='col-4'>
+                                  <h6 className='card-title text-capitalize'>
+                                    {data.name}
+                                  </h6>
+                                </div>
+                                <div className='col-4 text-capitalize text-center'>
+                                  Address
+                                </div>
+                                <div className='col-4 text-end fs-5'>
+                                  <FontAwesomeIcon
+                                    icon={faLinkedin}
+                                    className='socialicon'
+                                  />
+                                  <FontAwesomeIcon
+                                    icon={faTwitter}
+                                    className='socialicon'
+                                  />
+                                  <FontAwesomeIcon
+                                    icon={faLink}
+                                    className='socialicon'
+                                  />
+                                </div>
+                              </div>
+
+                              <p className='card-text text-capitalize mt-3'>
+                                Temporary text for testing.Temporary text for
+                                testing.Temporary text for testing.Temporary
+                                text for testing.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Themes Details */}
+                        <div className='row'>
+                          {data.Themes && data.Themes.length > 0 && (
+                            <>
+                              <div className='col-3'>
+                                <h6 className='qualitiesHd'>Themes</h6>
+                              </div>
+                              <div className='col-9'>
+                                {data.Themes &&
+                                  data.Themes.map((data) => (
+                                    <div className='card-body p-0'>
+                                      <p className='card-title'>
+                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                          {data.name}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  ))}
+                              </div>
+                            </>
+                          )}
+
+                          {/* Skills Details */}
+                          {data.Skills && data.Skills.length > 0 && (
+                            <>
+                              <div className='col-3'>
+                                <h6 className='qualitiesHd'>Skills</h6>
+                              </div>
+                              <div className='col-9'>
+                                {data.Skills &&
+                                  data.Skills.map((data) => (
+                                    <div className='card-body p-0'>
+                                      <p className='card-title'>
+                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                          {data.name}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  ))}
+                              </div>
+                            </>
+                          )}
+
+                          {/* Expertise Details */}
+                          {data.Expertise && data.Expertise.length > 0 && (
+                            <>
+                              <div className='col-3'>
+                                <h6 className='qualitiesHd'>Expertise</h6>
+                              </div>
+                              <div className='col-9'>
+                                {data.Expertise &&
+                                  data.Expertise.map((data) => (
+                                    <div className='card-body p-0'>
+                                      <p className='card-title'>
+                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                          {data.name}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  ))}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                : ""}
             </div>
           </div>
-
-          {/* All Members List */}
-          {/* {errorProfile && <p>{errorProfile}</p>} */}
-          {datas && datas.length > 0 && !errorProfile
-            ? datas.map((data) => (
-                <Link
-                  to={`/profile/${data._id}`}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <div className="card mt-3 memberListCard">
-                    <div className="row singleMemberCard">
-                      <div className="col-md-3">
-                        <img
-                          src={user}
-                          style={{ marginLeft: "50px" }}
-                          alt="Member"
-                          className="membersImageList"
-                        />
-                      </div>
-
-                      <div className="col-md-9">
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-md-4">
-                              <h6 className="card-title">{data.name}</h6>
-                            </div>
-
-                            <div className="col-md-4">Address</div>
-
-                            <div className="col-md-4">
-                              <FontAwesomeIcon
-                                icon={faLinkedin}
-                                className="socialicon"
-                              />
-                              <FontAwesomeIcon
-                                icon={faTwitter}
-                                className="socialicon"
-                              />
-                              <FontAwesomeIcon
-                                icon={faLink}
-                                className="socialicon"
-                              />
-                            </div>
-                          </div>
-
-                          <p className="card-text">
-                            Temporary text for testing.Temporary text for
-                            testing.Temporary text for testing.Temporary text
-                            for testing.
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Themes Details */}
-                      <div className="col-md-3">
-                        <h6 className="qualitiesHd">
-                          {data.Themes && data.Themes.length > 0
-                            ? "Themes"
-                            : ""}
-                        </h6>
-                      </div>
-
-                      <div className="col-md-9">
-                        {data.Themes &&
-                          data.Themes.map((data) => (
-                            <>
-                              <div
-                                className="card-body"
-                                style={{ paddingTop: "0px" }}
-                              >
-                                <p className="card-title">
-                                  <span className="badge bg-secondary userQual">
-                                    {data.name}
-                                  </span>
-                                </p>
-                              </div>
-                            </>
-                          ))}
-                      </div>
-
-                      {/* Skills Details */}
-                      <div className="col-md-3">
-                        <h6 className="qualitiesHd">
-                          {data.Skills && data.Skills.length > 0
-                            ? "Skills"
-                            : ""}
-                        </h6>
-                      </div>
-                      <div className="col-md-9">
-                        {data.Skills &&
-                          data.Skills.map((data) => (
-                            <>
-                              <div
-                                className="card-body"
-                                style={{ paddingTop: "0px" }}
-                              >
-                                <p className="card-title">
-                                  <span className="badge bg-secondary userQual">
-                                    {data.name}
-                                  </span>
-                                </p>
-                              </div>
-                            </>
-                          ))}
-                      </div>
-                      {/* Expertise Details */}
-                      <div className="col-md-3">
-                        <h6 className="qualitiesHd">
-                          {data.Expertise && data.Expertise.length > 0
-                            ? "Expertise"
-                            : ""}
-                        </h6>
-                      </div>
-
-                      <div className="col-md-9">
-                        {data.Expertise &&
-                          data.Expertise.map((data) => (
-                            <>
-                              <div
-                                className="card-body"
-                                style={{ paddingTop: "0px" }}
-                              >
-                                <p className="card-title">
-                                  <span className="badge bg-secondary userQual">
-                                    {data.name}
-                                  </span>
-                                </p>
-                              </div>
-                            </>
-                          ))}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))
-            : ""}
-        </div>
-      </div>
+        </>
+      ) : (
+        <AllMembersSkeleton />
+      )}
     </>
   );
 };
