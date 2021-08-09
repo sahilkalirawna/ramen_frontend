@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getSearchProfile } from "./leftMenuActions"
+import { getSearchProfile } from "./leftMenuActions";
 
 export const getUserProfile = (data) => {
   return async (dispatch) => {

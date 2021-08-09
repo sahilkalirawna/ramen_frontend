@@ -39,6 +39,12 @@ const leftmenuReducer = (state = initialState, { type, payload }) => {
         errorMessage: payload,
         isLoading: false,
       };
+    case "GET_PROFILE_REQUEST":
+      return {
+        ...state,
+        datas: [],
+      };
+
     case "GET_PROFILE_DATA":
       return {
         ...state,

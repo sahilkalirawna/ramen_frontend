@@ -12,6 +12,8 @@ import {
 import user from "../../assets/man.png";
 import "./Allmember.css";
 import AllMembersSkeleton from "./AllMembersSkeleton";
+import NoData from "../../assets/NoRecordFound.png";
+import Fade from "react-reveal";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -50,10 +52,27 @@ const AllMembers = () => {
     setThemed(themes);
   }, [themes]);
 
+  useEffect(() => {
+    // eslint-disable-next-line eqeqeq
+    if (looking == "0") {
+      setTimecommit([]);
+      setCofounderPreferedCustomer([]);
+      setcofounderPreference([]);
+    }
+  }, [looking]);
+
   console.log("themed");
   console.log(themed);
   console.log(datas);
   console.log(errorProfile);
+
+  useEffect(() => {
+    if (looking == "0") {
+      setTimecommit([]);
+      setCofounderPreferedCustomer([]);
+      setcofounderPreference([]);
+    }
+  }, [looking]);
 
   const handleChangeThemes = (event) => {
     let newArray = [...theme, event.target.value];
@@ -80,7 +99,7 @@ const AllMembers = () => {
   };
 
   const handleChangeTimecommit = (event) => {
-    let newArray = [...expert, event.target.value];
+    let newArray = [...cofounderTimecomit, event.target.value];
     if (cofounderTimecomit.includes(event.target.value)) {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
@@ -88,7 +107,7 @@ const AllMembers = () => {
   };
 
   const handleChangePreference = (event) => {
-    let newArray = [...expert, event.target.value];
+    let newArray = [...cofounderPreference, event.target.value];
     if (cofounderPreference.includes(event.target.value)) {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
@@ -96,7 +115,7 @@ const AllMembers = () => {
   };
 
   const handleChangeCopreference = (event) => {
-    let newArray = [...expert, event.target.value];
+    let newArray = [...cofounderPreferedCustomer, event.target.value];
     if (cofounderPreferedCustomer.includes(event.target.value)) {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
@@ -104,7 +123,7 @@ const AllMembers = () => {
   };
 
   const handleLooking = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.value, "Done");
     setLooking(!looking);
   };
   console.log(looking);
@@ -116,8 +135,14 @@ const AllMembers = () => {
   console.log(cofounderPreferedCustomer);
 
   useEffect(() => {
+    // if (looking === false) {
+    //   setCofounderPreferedCustomer([]);
+    //   setTimecommit([]);
+    //   setcofounderPreference([]);
+    // }
     let query = {};
     if (search) query.search = search;
+    if (looking) query.looking = looking;
     if (theme.length > 0) query.Theme = theme;
     if (skill.length > 0) query.Skill = skill;
     if (expert.length > 0) query.Expert = expert;
@@ -138,6 +163,7 @@ const AllMembers = () => {
     cofounderPreference,
     cofounderTimecomit,
     cofounderPreferedCustomer,
+    looking,
   ]);
 
   return (
@@ -163,7 +189,7 @@ const AllMembers = () => {
                           <input
                             className='form-check-input'
                             type='checkbox'
-                            value={lookingForFounder.id}
+                            value={!looking}
                             onChange={handleLooking}
                             id='lookingcofounder'
                           />
@@ -183,7 +209,7 @@ const AllMembers = () => {
                     <h5 className='card-title'>Theme</h5>
                     {themes.length > 0 &&
                       themes.map((data) => (
-                        <>
+                        <React.Fragment key={data._id}>
                           <div className='card-text'>
                             <div className='form-check'>
                               <input
@@ -193,12 +219,15 @@ const AllMembers = () => {
                                 id='Theme'
                                 onChange={handleChangeThemes}
                               />
-                              <label class='form-check-label' htmlfor='Theme'>
+                              <label
+                                className='form-check-label'
+                                htmlFor='Theme'
+                              >
                                 {data.name}
                               </label>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                     <hr />
                   </div>
@@ -207,7 +236,7 @@ const AllMembers = () => {
                     <h5 className='card-title'>Skills</h5>
                     {skills.length > 0 &&
                       skills.map((data) => (
-                        <>
+                        <React.Fragment key={data._id}>
                           <div className='card-text'>
                             <div className='form-check'>
                               <input
@@ -217,12 +246,15 @@ const AllMembers = () => {
                                 id='Skills'
                                 onChange={handleChangeSkills}
                               />
-                              <label class='form-check-label' for='Skills'>
+                              <label
+                                className='form-check-label'
+                                htmlFor='Skills'
+                              >
                                 {data.name}
                               </label>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                     <hr />
                   </div>
@@ -231,7 +263,7 @@ const AllMembers = () => {
                     <h5 className='card-title'>Expertise</h5>
                     {expertise.length > 0 &&
                       expertise.map((data) => (
-                        <>
+                        <React.Fragment key={data._id}>
                           <div className='card-text'>
                             <div className='form-check'>
                               <input
@@ -241,12 +273,15 @@ const AllMembers = () => {
                                 id='Expertise'
                                 onChange={handleChangeExpertise}
                               />
-                              <label class='form-check-label' for='Expertise'>
+                              <label
+                                className='form-check-label'
+                                htmlFor='Expertise'
+                              >
                                 {data.name}
                               </label>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                     <hr />
                   </div>
@@ -257,7 +292,7 @@ const AllMembers = () => {
                         <h5 className='card-title'>Time Commit</h5>
                         {timecommit.length > 0 &&
                           timecommit.map((data) => (
-                            <>
+                            <React.Fragment key={data._id}>
                               <div className='card-text'>
                                 <div className='form-check'>
                                   <input
@@ -268,14 +303,14 @@ const AllMembers = () => {
                                     onChange={handleChangeTimecommit}
                                   />
                                   <label
-                                    class='form-check-label'
-                                    for='Time_Commit'
+                                    className='form-check-label'
+                                    htmlFor='Time_Commit'
                                   >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
-                            </>
+                            </React.Fragment>
                           ))}
                         <hr />
                       </div>
@@ -284,7 +319,7 @@ const AllMembers = () => {
                         <h5 className='card-title'>Preference</h5>
                         {preference.length > 0 &&
                           preference.map((data) => (
-                            <>
+                            <React.Fragment key={data._id}>
                               <div className='card-text'>
                                 <div className='form-check'>
                                   <input
@@ -295,14 +330,14 @@ const AllMembers = () => {
                                     onChange={handleChangePreference}
                                   />
                                   <label
-                                    class='form-check-label'
-                                    for='Preference'
+                                    className='form-check-label'
+                                    htmlFor='Preference'
                                   >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
-                            </>
+                            </React.Fragment>
                           ))}
                         <hr></hr>
                       </div>
@@ -311,7 +346,7 @@ const AllMembers = () => {
                         <h5 className='card-title'>Co Preference</h5>
                         {copreference.length > 0 &&
                           copreference.map((data) => (
-                            <>
+                            <React.Fragment key={data._id}>
                               <div className='card-text'>
                                 <div className='form-check'>
                                   <input
@@ -322,14 +357,14 @@ const AllMembers = () => {
                                     onChange={handleChangeCopreference}
                                   />
                                   <label
-                                    class='form-check-label'
-                                    for='Co_Preference'
+                                    className='form-check-label'
+                                    htmlFor='Co_Preference'
                                   >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
-                            </>
+                            </React.Fragment>
                           ))}
                         <hr></hr>
                       </div>
@@ -352,12 +387,20 @@ const AllMembers = () => {
               </div>
 
               {/* All Members List */}
-              {/* {errorProfile && <p>{errorProfile}</p>} */}
+              {errorProfile && (
+                <Fade
+                  bottom
+                  className='d-flex justify-content-center align-items-center'
+                >
+                  <img src={NoData} alt='No Data Found' loading='lazy' />
+                </Fade>
+              )}
               {datas && datas.length > 0 && !errorProfile
                 ? datas.map((data) => (
                     <Link
                       to={`/profile/${data._id}`}
                       style={{ textDecoration: "none", color: "black" }}
+                      key={data._id}
                     >
                       <div className='card mt-3 memberListCard'>
                         <div className='row '>
@@ -371,16 +414,14 @@ const AllMembers = () => {
                             </div>
                           </div>
                           <div className='col-9'>
-                            <div className='card-body p-0 pt-3'>
+                            <div className='card-body p-0 pt-3 pe-3'>
                               <div className='row'>
                                 <div className='col-4'>
                                   <h6 className='card-title text-capitalize'>
                                     {data.name}
                                   </h6>
                                 </div>
-                                <div className='col-4 text-capitalize text-center'>
-                                  Address
-                                </div>
+
                                 <div className='col-4 text-end fs-5'>
                                   <FontAwesomeIcon
                                     icon={faLinkedin}
@@ -395,13 +436,27 @@ const AllMembers = () => {
                                     className='socialicon'
                                   />
                                 </div>
+                                <div className='col-4 '>
+                                  {data.lookingforfounder && (
+                                    <div className='badge text-secondary bg-white border border-secondary text-wrap'>
+                                      Looking for Cofounder
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-
-                              <p className='card-text text-capitalize mt-3'>
-                                Temporary text for testing.Temporary text for
-                                testing.Temporary text for testing.Temporary
-                                text for testing.
-                              </p>
+                              <div className='fw-light text-capitalize'>
+                                {data.Address && (
+                                  <>
+                                    {data.Address.city}, {data.Address.state},{" "}
+                                    {data.Address.country},
+                                  </>
+                                )}
+                              </div>
+                              {data.background && (
+                                <p className='card-text text-capitalize mt-3 pb-2'>
+                                  {data.background}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -416,7 +471,10 @@ const AllMembers = () => {
                               <div className='col-9'>
                                 {data.Themes &&
                                   data.Themes.map((data) => (
-                                    <div className='card-body p-0'>
+                                    <div
+                                      className='card-body p-0'
+                                      key={data.name}
+                                    >
                                       <p className='card-title'>
                                         <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
                                           {data.name}
@@ -437,7 +495,10 @@ const AllMembers = () => {
                               <div className='col-9'>
                                 {data.Skills &&
                                   data.Skills.map((data) => (
-                                    <div className='card-body p-0'>
+                                    <div
+                                      className='card-body p-0'
+                                      key={data.name}
+                                    >
                                       <p className='card-title'>
                                         <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
                                           {data.name}
@@ -458,7 +519,10 @@ const AllMembers = () => {
                               <div className='col-9'>
                                 {data.Expertise &&
                                   data.Expertise.map((data) => (
-                                    <div className='card-body p-0'>
+                                    <div
+                                      className='card-body p-0'
+                                      key={data.name}
+                                    >
                                       <p className='card-title'>
                                         <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
                                           {data.name}
