@@ -52,6 +52,14 @@ const AllMembers = () => {
     setThemed(themes);
   }, [themes]);
 
+  useEffect(() => {
+    if (looking == "0") {
+      setTimecommit([]);
+      setCofounderPreferedCustomer([]);
+      setcofounderPreference([]);
+    }
+  }, [looking]);
+
   console.log("themed");
   console.log(themed);
   console.log(datas);
@@ -200,7 +208,7 @@ const AllMembers = () => {
                     <h5 className="card-title">Theme</h5>
                     {themes.length > 0 &&
                       themes.map((data) => (
-                        <>
+                        <React.Fragment key={data._id}>
                           <div className="card-text">
                             <div className="form-check">
                               <input
@@ -210,12 +218,15 @@ const AllMembers = () => {
                                 id="Theme"
                                 onChange={handleChangeThemes}
                               />
-                              <label class="form-check-label" htmlfor="Theme">
+                              <label
+                                className="form-check-label"
+                                htmlFor="Theme"
+                              >
                                 {data.name}
                               </label>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                     <hr />
                   </div>
@@ -224,7 +235,7 @@ const AllMembers = () => {
                     <h5 className="card-title">Skills</h5>
                     {skills.length > 0 &&
                       skills.map((data) => (
-                        <>
+                        <React.Fragment key={data._id}>
                           <div className="card-text">
                             <div className="form-check">
                               <input
@@ -234,12 +245,15 @@ const AllMembers = () => {
                                 id="Skills"
                                 onChange={handleChangeSkills}
                               />
-                              <label class="form-check-label" htmlfor="Skills">
+                              <label
+                                className="form-check-label"
+                                htmlFor="Skills"
+                              >
                                 {data.name}
                               </label>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                     <hr />
                   </div>
@@ -248,7 +262,7 @@ const AllMembers = () => {
                     <h5 className="card-title">Expertise</h5>
                     {expertise.length > 0 &&
                       expertise.map((data) => (
-                        <>
+                        <React.Fragment key={data._id}>
                           <div className="card-text">
                             <div className="form-check">
                               <input
@@ -259,14 +273,14 @@ const AllMembers = () => {
                                 onChange={handleChangeExpertise}
                               />
                               <label
-                                class="form-check-label"
-                                htmlfor="Expertise"
+                                className="form-check-label"
+                                htmlFor="Expertise"
                               >
                                 {data.name}
                               </label>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                     <hr />
                   </div>
@@ -277,7 +291,7 @@ const AllMembers = () => {
                         <h5 className="card-title">Time Commit</h5>
                         {timecommit.length > 0 &&
                           timecommit.map((data) => (
-                            <>
+                            <React.Fragment key={data._id}>
                               <div className="card-text">
                                 <div className="form-check">
                                   <input
@@ -288,14 +302,14 @@ const AllMembers = () => {
                                     onChange={handleChangeTimecommit}
                                   />
                                   <label
-                                    class="form-check-label"
-                                    for="Time_Commit"
+                                    className="form-check-label"
+                                    htmlFor="Time_Commit"
                                   >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
-                            </>
+                            </React.Fragment>
                           ))}
                         <hr />
                       </div>
@@ -304,7 +318,7 @@ const AllMembers = () => {
                         <h5 className="card-title">Preference</h5>
                         {preference.length > 0 &&
                           preference.map((data) => (
-                            <>
+                            <React.Fragment key={data._id}>
                               <div className="card-text">
                                 <div className="form-check">
                                   <input
@@ -315,14 +329,14 @@ const AllMembers = () => {
                                     onChange={handleChangePreference}
                                   />
                                   <label
-                                    class="form-check-label"
-                                    for="Preference"
+                                    className="form-check-label"
+                                    htmlFor="Preference"
                                   >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
-                            </>
+                            </React.Fragment>
                           ))}
                         <hr></hr>
                       </div>
@@ -331,7 +345,7 @@ const AllMembers = () => {
                         <h5 className="card-title">Co Preference</h5>
                         {copreference.length > 0 &&
                           copreference.map((data) => (
-                            <>
+                            <React.Fragment key={data._id}>
                               <div className="card-text">
                                 <div className="form-check">
                                   <input
@@ -342,14 +356,14 @@ const AllMembers = () => {
                                     onChange={handleChangeCopreference}
                                   />
                                   <label
-                                    class="form-check-label"
-                                    for="Co_Preference"
+                                    className="form-check-label"
+                                    htmlFor="Co_Preference"
                                   >
                                     {data.name}
                                   </label>
                                 </div>
                               </div>
-                            </>
+                            </React.Fragment>
                           ))}
                         <hr></hr>
                       </div>
@@ -385,6 +399,7 @@ const AllMembers = () => {
                     <Link
                       to={`/profile/${data._id}`}
                       style={{ textDecoration: "none", color: "black" }}
+                      key={data._id}
                     >
                       <div className="card mt-3 memberListCard">
                         <div className="row ">
@@ -398,16 +413,14 @@ const AllMembers = () => {
                             </div>
                           </div>
                           <div className="col-9">
-                            <div className="card-body p-0 pt-3">
+                            <div className="card-body p-0 pt-3 pe-3">
                               <div className="row">
                                 <div className="col-4">
                                   <h6 className="card-title text-capitalize">
                                     {data.name}
                                   </h6>
                                 </div>
-                                <div className="col-4 text-capitalize text-center">
-                                  Address
-                                </div>
+
                                 <div className="col-4 text-end fs-5">
                                   <FontAwesomeIcon
                                     icon={faLinkedin}
@@ -422,9 +435,24 @@ const AllMembers = () => {
                                     className="socialicon"
                                   />
                                 </div>
+                                <div className="col-4 ">
+                                  {data.lookingforfounder && (
+                                    <div className="badge text-secondary bg-white border border-secondary text-wrap">
+                                      Looking for Cofounder
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="fw-light text-capitalize">
+                                {data.Address && (
+                                  <>
+                                    {data.Address.city}, {data.Address.state},{" "}
+                                    {data.Address.country},
+                                  </>
+                                )}
                               </div>
 
-                              <p className="card-text text-capitalize mt-3">
+                              <p className="card-text text-capitalize mt-3 pb-2">
                                 Temporary text for testing.Temporary text for
                                 testing.Temporary text for testing.Temporary
                                 text for testing.
@@ -443,7 +471,10 @@ const AllMembers = () => {
                               <div className="col-9">
                                 {data.Themes &&
                                   data.Themes.map((data) => (
-                                    <div className="card-body p-0">
+                                    <div
+                                      className="card-body p-0"
+                                      key={data.name}
+                                    >
                                       <p className="card-title">
                                         <span className="rounded btn-secondary me-3 px-3 py-1 text-capitalize">
                                           {data.name}
@@ -464,7 +495,10 @@ const AllMembers = () => {
                               <div className="col-9">
                                 {data.Skills &&
                                   data.Skills.map((data) => (
-                                    <div className="card-body p-0">
+                                    <div
+                                      className="card-body p-0"
+                                      key={data.name}
+                                    >
                                       <p className="card-title">
                                         <span className="rounded btn-secondary me-3 px-3 py-1 text-capitalize">
                                           {data.name}
@@ -485,7 +519,10 @@ const AllMembers = () => {
                               <div className="col-9">
                                 {data.Expertise &&
                                   data.Expertise.map((data) => (
-                                    <div className="card-body p-0">
+                                    <div
+                                      className="card-body p-0"
+                                      key={data.name}
+                                    >
                                       <p className="card-title">
                                         <span className="rounded btn-secondary me-3 px-3 py-1 text-capitalize">
                                           {data.name}

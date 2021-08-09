@@ -10,16 +10,23 @@ import ViewProfileSkeleton from "./ViewProfileSkeleton";
 
 const ViewProfile = () => {
   const dispatch = useDispatch();
-  const { userId } = useParams();
+  const { userId: userIdParam } = useParams();
   // console.log(userId);
   // const [themes, setThemes] = useState([]);
 
   useEffect(() => {
-    dispatch(getSingleUser(userId));
-  }, [dispatch, userId]);
+    dispatch(getSingleUser(userIdParam));
+  }, [dispatch, userIdParam]);
 
   const data = useSelector((state) => state.singleUser);
+  const generalData = useSelector((state) => state.general);
+  const { loginData } = Object(generalData);
+  const jwt = localStorage.getItem("jwt");
+  const done = jwt && jwt["token"] ? jwt && jwt["token"] : "";
 
+  console.log("Login Id", loginData);
+  console.log("jwt", jwt);
+  console.log("Param Id", userIdParam);
   let { userData, isLoading } = data;
   // console.log(userData.Address.city);
   // setThemes(userData.Themes);
@@ -38,12 +45,15 @@ const ViewProfile = () => {
                   src={DefaultImg}
                   className='img-thumbnail'
                   alt='Default_Img'
+                  loading='lazy'
                   //     style={{ maxWidth: 200 }}
                 />
                 <div className='pt-3'>
-                  <div className='border border-secondary rounded p-2 text-wrap text-center'>
-                    Looking for Cofounder
-                  </div>
+                  {userData.lookingforfounder && (
+                    <div className='border border-secondary rounded p-2 text-wrap text-center'>
+                      Looking for Cofounder
+                    </div>
+                  )}
                 </div>
                 <div className='pt-3'>
                   <div className='btn btn-secondary'>Send Message</div>
@@ -56,19 +66,26 @@ const ViewProfile = () => {
                 <div className='fs-3 fw-bold flex-grow-1 text-capitalize'>
                   {userData.name}
                 </div>
-                <div className='fs-3'>
+                <div className='fs-3 px-3'>
                   <FontAwesomeIcon icon={faLinkedin} className='m-1' />
                   <FontAwesomeIcon icon={faTwitter} className='m-1' />
                   <FontAwesomeIcon icon={faLink} className='m-1' />
                 </div>
+                {userData._id === userIdParam && (
+                  <div className='fs-5 px-3'>Edit Profile</div>
+                )}
               </div>
-              <div className='fw-light text-capitalize'>
-                {/* {userData.Address.city && userData.Address.city }, {userData.Address.state && userData.Address.state},
-            {userData.Address.country && userData.Address.country} */}
+              <div className='fw-light text-capitalize mb-3'>
+                {userData.Address && (
+                  <>
+                    {userData.Address.city}, {userData.Address.state},{" "}
+                    {userData.Address.country},
+                  </>
+                )}
               </div>
 
               {/* Qualites */}
-              <div className='pt-3'>
+              <div>
                 {userData.Themes && userData.Themes.length > 0 && (
                   <div className='row mb-3'>
                     <div className='col-3'>Themes</div>
@@ -120,7 +137,7 @@ const ViewProfile = () => {
               </div>
 
               {/* UserBackground */}
-              <div className='pt-3'>
+              <div>
                 <div className='fs-3'>Background</div>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
@@ -130,63 +147,58 @@ const ViewProfile = () => {
               </div>
 
               {/* UserStartup Ideas */}
-              <div className='pt-3'>
+              <div>
                 <div className='fs-3'>Startup Ideas</div>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Animi, unde.
                 </p>
               </div>
-              <div className='card text-dark bg-light mb-3 mt-5 w-100'>
-                <div className='card-body'>
-                  <h5 className='card-title'>Cofounder Maching Profile</h5>
-                  <div className='mb-3'>
-                    <p className='card-text fw-bolder mb-2'>Time Commitment</p>
-                    {/* Add Map Here */}
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> 40 hours per week
+
+              {/* Cofounder Section */}
+              {userData.lookingforfounder && (
+                <div className='card text-dark bg-light mb-3 mt-3 w-100'>
+                  <div className='card-body'>
+                    <h5 className='card-title'>Cofounder Maching Profile</h5>
+                    <div className='mb-3'>
+                      <p className='card-text fw-bolder mb-2'>
+                        Time Commitment
+                      </p>
+                      {/* Add Map Here */}
+                      <div className=''>
+                        <FontAwesomeIcon icon={faCheckSquare} /> 40 hours per
+                        week
+                      </div>
                     </div>
-                  </div>
-                  <div className='mb-3'>
-                    <p className='card-text fw-bolder mb-2'>
-                      Preferred Customer Segments
-                    </p>
-                    {/* Add Map Here */}
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> B2B
+                    <div className='mb-3'>
+                      <p className='card-text fw-bolder mb-2'>
+                        Preferred Customer Segments
+                      </p>
+                      {/* Add Map Here */}
+                      <div className=''>
+                        <FontAwesomeIcon icon={faCheckSquare} /> B2B
+                      </div>
+                      <div className=''>
+                        <FontAwesomeIcon icon={faCheckSquare} /> SMB
+                      </div>
                     </div>
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> SMB
-                    </div>
-                  </div>
-                  <div className='mb-3'>
-                    <p className='card-text fw-bolder mb-2'>
-                      Cofounder Preference
-                    </p>
-                    {/* Add Map Here */}
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> Interested in
-                      co-creating a new idea
-                    </div>
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> Open to helping
-                      with an existing idea
-                    </div>
-                  </div>
-                  <div className='mb-3'>
-                    <p className='card-text fw-bolder mb-2'>
-                      Location Preference
-                    </p>
-                    {/* Add Map Here */}
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> Same Country
-                    </div>
-                    <div className=''>
-                      <FontAwesomeIcon icon={faCheckSquare} /> Same TimeZone
+                    <div className='mb-3'>
+                      <p className='card-text fw-bolder mb-2'>
+                        Cofounder Preference
+                      </p>
+                      {/* Add Map Here */}
+                      <div className=''>
+                        <FontAwesomeIcon icon={faCheckSquare} /> Interested in
+                        co-creating a new idea
+                      </div>
+                      <div className=''>
+                        <FontAwesomeIcon icon={faCheckSquare} /> Open to helping
+                        with an existing idea
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

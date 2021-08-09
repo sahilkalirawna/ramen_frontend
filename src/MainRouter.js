@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+// import PrivateRoute from "./auth/PrivateRouter";
 import { useSelector } from "react-redux";
-import PrivateRoute from "./auth/PrivateRouter";
 
 const Home = lazy(() => import("./components/Home/Home"));
 const Login = lazy(() => import("./components/login/Login"));
@@ -19,50 +19,46 @@ const ForgotPassword = lazy(() =>
 const PageNotFound_404 = lazy(() =>
   import("./components/pageNotFound/PageNotFound_404")
 );
-const EditFormik = lazy(() => import("./components/EditFormik/EditFormik"));
+// const EditFormik = lazy(() => import("./components/EditFormik/EditFormik"));
 
 const MainRouter = () => {
   let token = useSelector((state) => state.general);
   let { loginData } = token;
   console.log(loginData);
-
-  // if (loginData) {
-  //   console.log("Authenticated", loginData.token);
-  // } else {
-  //   console.log("Not Authenticated");
-  // }
-
   return (
     <>
       {loginData.token ? (
-        <Switch>
-          <Route path="/" name="Home" exact component={Home} />
-          <Route
-            path="/editprofile/:userId"
-            name="Edit_Profile"
-            exact
-            component={EditFormik}
-          />
+        <>
+          <Switch>
+            <Route path="/" name="Home" exact component={Home} />
+            <Route
+              path="/editprofile/:userId"
+              name="Edit_Profile"
+              exact
+              component={EditProfile}
+            />
 
-          <Route
-            path="/profile/:userId"
-            name="User Profile"
-            exact
-            component={viewProfile}
-          />
+            <Route
+              path="/profile/:userId"
+              name="User Profile"
+              exact
+              component={viewProfile}
+            />
 
-          <Route
-            path="404"
-            name="PageNotFound_404"
-            exact
-            component={PageNotFound_404}
-          />
-          <Route
-            path="*"
-            name="PageNotFound_404"
-            component={PageNotFound_404}
-          />
-        </Switch>
+            <Route
+              path="404"
+              name="PageNotFound_404"
+              exact
+              component={PageNotFound_404}
+            />
+            <Route
+              path="*"
+              name="PageNotFound_404"
+              component={PageNotFound_404}
+            />
+          </Switch>
+          <Redirect to="/" />
+        </>
       ) : (
         <>
           <Switch>
