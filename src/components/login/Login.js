@@ -22,7 +22,7 @@ const validationSchema = yup.object({
 const Login = (props) => {
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState(false);
-
+  const [login, setLogin] = useState(false);
   const data = useSelector((state) => state.general);
   let { errorMessage, isLoggedin } = data;
 
@@ -46,11 +46,12 @@ const Login = (props) => {
       };
       dispatch(getLogIn(data));
       setShowAlert(true);
-      // console.log(isLoggedin);
-      // isLoading && history.push("/");
-      resetForm();
+      props.history.push("/");
     },
   });
+
+  if (login) {
+  }
 
   return (
     <div className='container-fluid'>

@@ -10,27 +10,27 @@ const Header = () => {
   let { isLoggedin, loginData } = data;
 
   return (
-    <Navbar collapseOnSelect expand='md' bg='dark' variant='dark'>
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Container>
-        <Link className='navbar-brand' to='/'>
+        <Link className="navbar-brand" to="/">
           Ramen
         </Link>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-        <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='me-auto'>
-            <NavLink to='/' exact className='nav-link' activeClassName='active'>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <NavLink to="/" exact className="nav-link" activeClassName="active">
               Members
             </NavLink>
           </Nav>
           <Nav>
             {isLoggedin ? (
               <>
-                <NavDropdown title='UserName' id='basic-nav-dropdown'>
+                <NavDropdown title="UserName" id="basic-nav-dropdown">
                   <NavDropdown.Item>
                     <Link
                       to={`/profile/${loginData.userId}`}
                       exact
-                      className='dropdown-item p-0'
+                      className="dropdown-item p-0"
                     >
                       View Profile
                     </Link>
@@ -49,18 +49,18 @@ const Header = () => {
             ) : (
               <>
                 <NavLink
-                  to='/login'
+                  to="/login"
                   exact
-                  className='nav-link'
-                  activeClassName='active'
+                  className="nav-link"
+                  activeClassName="active"
                 >
                   Login
                 </NavLink>
                 <NavLink
-                  to='/signup'
+                  to="/signup"
                   exact
-                  className='nav-link'
-                  activeClassName='active'
+                  className="nav-link"
+                  activeClassName="active"
                 >
                   SignUp
                 </NavLink>

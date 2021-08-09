@@ -12,6 +12,8 @@ import {
 import user from "../../assets/man.png";
 import "./Allmember.css";
 import AllMembersSkeleton from "./AllMembersSkeleton";
+import NoData from "../../assets/NoRecordFound.png";
+import Fade from "react-reveal";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -64,6 +66,14 @@ const AllMembers = () => {
   console.log(datas);
   console.log(errorProfile);
 
+  useEffect(() => {
+    if (looking == "0") {
+      setTimecommit([]);
+      setCofounderPreferedCustomer([]);
+      setcofounderPreference([]);
+    }
+  }, [looking]);
+
   const handleChangeThemes = (event) => {
     let newArray = [...theme, event.target.value];
     if (theme.includes(event.target.value)) {
@@ -89,7 +99,7 @@ const AllMembers = () => {
   };
 
   const handleChangeTimecommit = (event) => {
-    let newArray = [...expert, event.target.value];
+    let newArray = [...cofounderTimecomit, event.target.value];
     if (cofounderTimecomit.includes(event.target.value)) {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
@@ -97,7 +107,7 @@ const AllMembers = () => {
   };
 
   const handleChangePreference = (event) => {
-    let newArray = [...expert, event.target.value];
+    let newArray = [...cofounderPreference, event.target.value];
     if (cofounderPreference.includes(event.target.value)) {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
@@ -105,7 +115,7 @@ const AllMembers = () => {
   };
 
   const handleChangeCopreference = (event) => {
-    let newArray = [...expert, event.target.value];
+    let newArray = [...cofounderPreferedCustomer, event.target.value];
     if (cofounderPreferedCustomer.includes(event.target.value)) {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
@@ -113,7 +123,7 @@ const AllMembers = () => {
   };
 
   const handleLooking = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.value, "Done");
     setLooking(!looking);
   };
   console.log(looking);
@@ -125,8 +135,14 @@ const AllMembers = () => {
   console.log(cofounderPreferedCustomer);
 
   useEffect(() => {
+    // if (looking === false) {
+    //   setCofounderPreferedCustomer([]);
+    //   setTimecommit([]);
+    //   setcofounderPreference([]);
+    // }
     let query = {};
     if (search) query.search = search;
+    if (looking) query.looking = looking;
     if (theme.length > 0) query.Theme = theme;
     if (skill.length > 0) query.Skill = skill;
     if (expert.length > 0) query.Expert = expert;
@@ -147,6 +163,7 @@ const AllMembers = () => {
     cofounderPreference,
     cofounderTimecomit,
     cofounderPreferedCustomer,
+    looking,
   ]);
 
   return (
@@ -177,8 +194,8 @@ const AllMembers = () => {
                             id='lookingcofounder'
                           />
                           <label
-                            className='form-check-label'
-                            htmlFor='lookingcofounder'
+                            class='form-check-label'
+                            htmlfor='lookingcofounder'
                           >
                             {lookingForFounder.name}
                           </label>
@@ -370,7 +387,14 @@ const AllMembers = () => {
               </div>
 
               {/* All Members List */}
-              {/* {errorProfile && <p>{errorProfile}</p>} */}
+              {errorProfile && (
+                <Fade
+                  bottom
+                  className='d-flex justify-content-center align-items-center'
+                >
+                  <img src={NoData} alt='No Data Found' loading='lazy' />
+                </Fade>
+              )}
               {datas && datas.length > 0 && !errorProfile
                 ? datas.map((data) => (
                     <Link

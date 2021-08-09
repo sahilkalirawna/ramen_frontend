@@ -6,6 +6,7 @@ const initialState = {
   isForgotPassword: false,
   isResetPassword: false,
   loginData: {},
+  token: "",
   signUpData: {},
   forgotPassword: {},
 };
