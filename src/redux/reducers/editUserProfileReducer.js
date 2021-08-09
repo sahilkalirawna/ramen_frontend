@@ -13,7 +13,7 @@ const editUserProfileReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-        errorMessage: ""
+        errorMessage: "",
       };
 
     //UPDATE PROFILE DATA

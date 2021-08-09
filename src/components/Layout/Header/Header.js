@@ -7,6 +7,7 @@ const Header = () => {
   const data = useSelector((state) => state.general);
   let { isLoggedin, loginData } = data;
 
+
   return (
     <Navbar collapseOnSelect expand='md' bg='dark' variant='dark'>
       <Container>
@@ -29,6 +30,7 @@ const Header = () => {
                       to={`/editprofile/${loginData.userId}`}
                       exact
                       className='dropdown-item p-0'
+
                     >
                       Edit Profile
                     </Link>
