@@ -8,7 +8,7 @@ export const getSingleUser = (id) => {
       dispatch({ type: "GET_SINGLE_USER_REQUEST" });
       let response = await axios.get(`${CLIENT_URL}/getUser/${id}`);
       dispatch({ type: "GET_SINGLE_USER_SUCCESS", payload: response.data });
-      console.log(response.data);
+      console.log("SingleUser Action", response.data);
     } catch (error) {
       console.log(error);
       dispatch({

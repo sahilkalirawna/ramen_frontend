@@ -28,11 +28,11 @@ const Header = () => {
                 <NavDropdown title='UserName' id='basic-nav-dropdown'>
                   <NavDropdown.Item>
                     <Link
-                      to={`/editprofile/${loginData.userId}`}
+                      to={`/profile/${loginData.userId}`}
                       exact
                       className='dropdown-item p-0'
                     >
-                      Edit Profile
+                      View Profile
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>

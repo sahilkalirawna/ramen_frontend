@@ -10,7 +10,7 @@ const PrivateRouter = ({ component: Component, ...rest }) => {
     if (isLoggedin) {
       setIsAuthenticated(isLoggedin);
     }
-  }, []);
+  }, [isLoggedin]);
 
   return (
     <Route

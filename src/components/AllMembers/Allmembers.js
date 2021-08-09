@@ -51,6 +51,7 @@ const AllMembers = () => {
   }, [themes]);
 
   useEffect(() => {
+    // eslint-disable-next-line eqeqeq
     if (looking == "0") {
       setTimecommit([]);
       setCofounderPreferedCustomer([]);
@@ -427,12 +428,11 @@ const AllMembers = () => {
                                   </>
                                 )}
                               </div>
-
-                              <p className='card-text text-capitalize mt-3 pb-2'>
-                                Temporary text for testing.Temporary text for
-                                testing.Temporary text for testing.Temporary
-                                text for testing.
-                              </p>
+                              {data.background && (
+                                <p className='card-text text-capitalize mt-3 pb-2'>
+                                  {data.background}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
