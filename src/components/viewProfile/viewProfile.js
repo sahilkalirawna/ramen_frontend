@@ -20,9 +20,12 @@ const ViewProfile = () => {
 
   const data = useSelector((state) => state.singleUser);
   const generalData = useSelector((state) => state.general);
-  const { loginData } = generalData;
+  const { loginData } = Object(generalData);
+  const jwt = localStorage.getItem("jwt");
+  const done = jwt && jwt["token"] ? jwt && jwt["token"] : "";
+
   console.log("Login Id", loginData);
-  console.log("Login Id", loginData.token);
+  console.log("jwt", jwt);
   console.log("Param Id", userIdParam);
   let { userData, isLoading } = data;
   // console.log(userData.Address.city);
@@ -42,6 +45,7 @@ const ViewProfile = () => {
                   src={DefaultImg}
                   className='img-thumbnail'
                   alt='Default_Img'
+                  loading='lazy'
                   //     style={{ maxWidth: 200 }}
                 />
                 <div className='pt-3'>
@@ -62,13 +66,13 @@ const ViewProfile = () => {
                 <div className='fs-3 fw-bold flex-grow-1 text-capitalize'>
                   {userData.name}
                 </div>
-                <div className='fs-3'>
+                <div className='fs-3 px-3'>
                   <FontAwesomeIcon icon={faLinkedin} className='m-1' />
                   <FontAwesomeIcon icon={faTwitter} className='m-1' />
                   <FontAwesomeIcon icon={faLink} className='m-1' />
                 </div>
                 {userData._id === userIdParam && (
-                  <div className='fs-3'>Edit Profile</div>
+                  <div className='fs-5 px-3'>Edit Profile</div>
                 )}
               </div>
               <div className='fw-light text-capitalize mb-3'>

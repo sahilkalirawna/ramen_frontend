@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
 
 import "./index.css";
 import App from "./App";
-import store from "./redux/store";
+import { persistor, store } from "./redux/store";
 import Loader from "./shared/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
@@ -21,9 +22,11 @@ ReactDOM.render(
       }
     >
       <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router>
+            <App />
+          </Router>
+        </PersistGate>
       </Provider>
     </Suspense>
   </ErrorBoundary>,

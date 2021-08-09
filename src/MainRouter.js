@@ -1,6 +1,7 @@
 import React, { lazy } from "react";
-import { Route, Switch } from "react-router-dom";
-import PrivateRoute from "./auth/PrivateRouter";
+import { Route, Switch, Redirect } from "react-router-dom";
+// import PrivateRoute from "./auth/PrivateRouter";
+import { useSelector } from "react-redux";
 
 const Home = lazy(() => import("./components/Home/Home"));
 const Login = lazy(() => import("./components/login/Login"));
@@ -20,44 +21,64 @@ const PageNotFound_404 = lazy(() =>
 );
 
 const MainRouter = () => {
+  let token = useSelector((state) => state.general);
+  let { loginData } = token;
+  console.log(loginData);
   return (
     <>
-      <Switch>
-        <PrivateRoute path='/' name='Home' exact component={Home} />
-        <PrivateRoute
-          path='/editprofile/:userId'
-          name='Edit_Profile'
-          exact
-          component={EditProfile}
-        />
-        <Route path='/login' name='Login' exact component={Login} />
-        <Route path='/signup' name='Signup' exact component={Signup} />
-        <Route
-          path='/profile/:userId'
-          name='User Profile'
-          exact
-          component={viewProfile}
-        />
-        <Route
-          path='/forgotpassword'
-          name='Forgot_Password'
-          exact
-          component={ForgotPassword}
-        />
-        <Route
-          path='/resetPassword/:resetPassToken'
-          name='Reset_Password'
-          exact
-          component={ResetPassword}
-        />
-        <Route
-          path='404'
-          name='PageNotFound_404'
-          exact
-          component={PageNotFound_404}
-        />
-        <Route path='*' name='PageNotFound_404' component={PageNotFound_404} />
-      </Switch>
+      {loginData.token ? (
+        <>
+          <Switch>
+            <Route path='/' name='Home' exact component={Home} />
+            <Route
+              path='/editprofile/:userId'
+              name='Edit_Profile'
+              exact
+              component={EditProfile}
+            />
+
+            <Route
+              path='/profile/:userId'
+              name='User Profile'
+              exact
+              component={viewProfile}
+            />
+
+            <Route
+              path='404'
+              name='PageNotFound_404'
+              exact
+              component={PageNotFound_404}
+            />
+            <Route
+              path='*'
+              name='PageNotFound_404'
+              component={PageNotFound_404}
+            />
+          </Switch>
+          <Redirect to='/' />
+        </>
+      ) : (
+        <>
+          <Switch>
+            <Route path='/login' name='Login' exact component={Login} />
+            <Route path='/signup' name='Signup' exact component={Signup} />
+            <Route
+              path='/forgotpassword'
+              name='Forgot_Password'
+              exact
+              component={ForgotPassword}
+            />
+            <Route
+              path='/resetPassword/:resetPassToken'
+              name='Reset_Password'
+              exact
+              component={ResetPassword}
+            />
+          </Switch>
+          <Redirect to='/login' />
+        </>
+      )}
     </>
   );
 };

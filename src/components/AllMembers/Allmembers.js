@@ -391,20 +391,13 @@ const AllMembers = () => {
                           <div className='col-9'>
                             <div className='card-body p-0 pt-3 pe-3'>
                               <div className='row'>
-                                <div className='col-2'>
+                                <div className='col-4'>
                                   <h6 className='card-title text-capitalize'>
                                     {data.name}
                                   </h6>
                                 </div>
-                                <div className='col-4 text-capitalize text-center'>
-                                  {data.Address && (
-                                    <>
-                                      {data.Address.city}, {data.Address.state},{" "}
-                                      {data.Address.country},
-                                    </>
-                                  )}
-                                </div>
-                                <div className='col-3 text-end fs-5'>
+
+                                <div className='col-4 text-end fs-5'>
                                   <FontAwesomeIcon
                                     icon={faLinkedin}
                                     className='socialicon'
@@ -418,13 +411,21 @@ const AllMembers = () => {
                                     className='socialicon'
                                   />
                                 </div>
-                                <div className='col-3 '>
+                                <div className='col-4 '>
                                   {data.lookingforfounder && (
                                     <div className='badge text-secondary bg-white border border-secondary text-wrap'>
                                       Looking for Cofounder
                                     </div>
                                   )}
                                 </div>
+                              </div>
+                              <div className='fw-light text-capitalize'>
+                                {data.Address && (
+                                  <>
+                                    {data.Address.city}, {data.Address.state},{" "}
+                                    {data.Address.country},
+                                  </>
+                                )}
                               </div>
 
                               <p className='card-text text-capitalize mt-3 pb-2'>
