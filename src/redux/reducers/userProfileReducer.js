@@ -2,6 +2,7 @@ const initialState = {
   isLoading: false,
   errorMessage: "",
   userData: {},
+  userCofounderData: {},
 };
 
 const singleReducer = (state = initialState, { type, payload }) => {
@@ -18,6 +19,7 @@ const singleReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         userData: payload.result,
+        userCofounderData: payload.data,
         isLoading: false,
       };
     case "GET_SINGLE_USER_FAILED":
