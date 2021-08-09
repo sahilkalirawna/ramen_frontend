@@ -6,9 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
-import store from "./redux/store";
+import { store, persistor } from "./redux/store";
 import Loader from "./shared/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <Suspense
@@ -19,9 +20,11 @@ ReactDOM.render(
     }
   >
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <App />
+        </Router>
+      </PersistGate>
     </Provider>
   </Suspense>,
   document.getElementById("root")

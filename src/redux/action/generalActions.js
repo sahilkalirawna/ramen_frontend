@@ -35,7 +35,7 @@ export const getLogIn = (data) => {
       dispatch({ type: "GET_LOGIN_REQUEST" });
       let response = await axios.post(`${CLIENT_URL}/auth/login`, data);
       dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
-      localStorage.setItem("jwt", JSON.stringify(response.data));
+      // localStorage.setItem("jwt", JSON.stringify(response.data));
       // authenticate(response.data);
       // console.log(response.data);
     } catch (error) {

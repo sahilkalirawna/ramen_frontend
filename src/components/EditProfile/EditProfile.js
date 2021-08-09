@@ -1,7 +1,8 @@
-import React from "react";
-import { useFormik } from "formik";
+import React, { useState } from "react";
+// import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -20,32 +21,45 @@ const validationSchema = yup.object({
     .required("Email is required"),
 });
 
-const EditProfile = () => {
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      city: "",
-      state: "",
-      country: "",
-      background: "",
-      ideatostart: "",
-      Themes: [],
-      Skills: [],
-      Expertise: [],
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+const EditProfile = (props) => {
+  const { data } = props;
+  const [Name, setName] = useState(data && data.name ? data && data.name : "");
+  const history = useHistory();
+  console.log(props);
+
+  const onSub = () => {
+    let data = {
+      name: Name,
+    };
+    console.log(data.name);
+    history.push("/");
+  };
+
+  // const formik = useFormik({
+  //   initialValues: {
+  //     name: data.name,
+  //     email: "",
+  //     city: "",
+  //     state: "",
+  //     country: "",
+  //     background: "",
+  //     ideatostart: "",
+  //     Themes: [],
+  //     Skills: [],
+  //     Expertise: [],
+  //   },
+  //   validationSchema: validationSchema,
+  //   onSubmit: (values) => {
+  //     alert(JSON.stringify(values, null, 2));
+  //   },
+  // });
 
   return (
     <div className="container pt-3" style={{ maxWidth: "540px" }}>
       <div className="row justify-content-center p-3">
         <div className="col-md-12">
           <h1 className="pb-4">Update Profile Details</h1>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={onSub}>
             <div className="row">
               <div className="col-md-4 col-sm-4 col-xs-4">
                 <label
@@ -65,6 +79,10 @@ const EditProfile = () => {
                   variant="filled"
                   size="small"
                   type="text"
+                  value={Name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
                   // value={formik.values.name}
                   // onChange={formik.handleChange}
                   // error={formik.touched.name && Boolean(formik.errors.name)}
