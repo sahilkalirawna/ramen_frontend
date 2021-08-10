@@ -9,7 +9,7 @@ const Signup = lazy(() => import("./components/Signup/Signup"));
 const viewProfile = lazy(() =>
   import("./components/viewProfile/viewProfile.js")
 );
-const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
+// const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
 const ResetPassword = lazy(() =>
   import("./components/ResetPassword/ResetPassword")
 );
@@ -19,7 +19,7 @@ const ForgotPassword = lazy(() =>
 const PageNotFound_404 = lazy(() =>
   import("./components/pageNotFound/PageNotFound_404")
 );
-// const EditFormik = lazy(() => import("./components/EditFormik/EditFormik"));
+const EditFormik = lazy(() => import("./components/EditFormik/EditFormik"));
 
 const MainRouter = () => {
   let token = useSelector((state) => state.general);
@@ -35,7 +35,7 @@ const MainRouter = () => {
               path="/editprofile/:userId"
               name="Edit_Profile"
               exact
-              component={EditProfile}
+              component={EditFormik}
             />
 
             <Route
@@ -57,7 +57,6 @@ const MainRouter = () => {
               component={PageNotFound_404}
             />
           </Switch>
-          <Redirect to="/" />
         </>
       ) : (
         <>
