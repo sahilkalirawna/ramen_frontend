@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getLogIn } from "../../redux/action/generalActions";
 
 const validationSchema = yup.object({
@@ -21,17 +21,11 @@ const validationSchema = yup.object({
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
   const [login, setLogin] = useState(false);
   const data = useSelector((state) => state.general);
   let { errorMessage, isLoggedin } = data;
-
-  useEffect(() => {
-    if (isLoggedin) {
-      props.history.push("/");
-      console.log("main Page opened");
-    }
-  }, [props.history, isLoggedin]);
 
   const formik = useFormik({
     initialValues: {
@@ -44,9 +38,8 @@ const Login = (props) => {
         email: values.email,
         password: values.password,
       };
-      dispatch(getLogIn(data));
+      dispatch(getLogIn(data, history));
       setShowAlert(true);
-      props.history.push("/");
     },
   });
 

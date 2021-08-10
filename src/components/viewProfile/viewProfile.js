@@ -1,16 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DefaultImg from "../../assets/man.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faLink, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleUser } from "../../redux/action/userProfileAction";
+import {
+  getSingleUser,
+  postCofounderChange,
+} from "../../redux/action/userProfileAction";
+import { FormControlLabel, Checkbox } from "@material-ui/core";
 import { useParams, Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+
 import ViewProfileSkeleton from "./ViewProfileSkeleton";
 
 const ViewProfile = () => {
   const dispatch = useDispatch();
   const { userId: userIdParam } = useParams();
+  const [open, setOpen] = useState(false);
+  const [timeCommit, setTimeCommit] = useState([]);
+  const [preferedCustomer, setPreferedCustomer] = useState([]);
+  const [coFounderPreference, setCoFounderPreference] = useState([]);
 
   useEffect(() => {
     dispatch(getSingleUser(userIdParam));
@@ -24,10 +41,204 @@ const ViewProfile = () => {
 
   const singleUserData = useSelector((state) => state.singleUser);
   let { userData, isLoading, userCofounderData } = singleUserData;
-  console.log("singleUser Data", singleUserData);
+  // console.log("singleUser Data", singleUserData);
 
-  console.log("UserData", userData);
+  // console.log("UserData", userData);
   console.log("UserCofounderData", userCofounderData);
+
+  useEffect(() => {
+    setTimeCommit(
+      userCofounderData.Timecommit &&
+        userCofounderData.Timecommit.map((d) => d._id)
+    );
+    setPreferedCustomer(
+      userCofounderData.preferedcustomer &&
+        userCofounderData.preferedcustomer.map((d) => d._id)
+    );
+    setCoFounderPreference(
+      userCofounderData.preference &&
+        userCofounderData.preference.map((d) => d._id)
+    );
+  }, [
+    userCofounderData.Timecommit,
+    userCofounderData.preferedcustomer,
+    userCofounderData.preference,
+  ]);
+  console.log("useEffect", timeCommit);
+  console.log(coFounderPreference);
+  console.log(preferedCustomer);
+
+  const handleClickOpen = () => () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmit = () => {
+    const data = {
+      Timecommit: timeCommit,
+      preference: preferedCustomer,
+      copreference: coFounderPreference,
+    };
+    console.log(data);
+    dispatch(postCofounderChange(data, userIdParam));
+    setOpen(false);
+  };
+
+  const all = useSelector((state) => state.leftmenudata);
+  const { timecommit, preference, copreference } = all;
+
+  const handleChangeTime = (event) => {
+    let newArray = [...timeCommit, event.target.value];
+    if (timeCommit.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setTimeCommit(newArray);
+    console.log("timeCommit", timeCommit);
+  };
+
+  const handleChangePreferedCustomer = (event) => {
+    let newArray = [...preferedCustomer, event.target.value];
+    if (preferedCustomer.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setPreferedCustomer(newArray);
+    console.log("preferedCoustomer", preferedCustomer);
+  };
+
+  const handleChangePreference = (event) => {
+    let newArray = [...coFounderPreference, event.target.value];
+    if (coFounderPreference.includes(event.target.value)) {
+      newArray = newArray.filter((day) => day !== event.target.value);
+    }
+    setCoFounderPreference(newArray);
+    console.log("Cofounder", coFounderPreference);
+  };
+
+  const activateProfileModel = () => {
+    return (
+      <Dialog
+        open={open}
+        fullWidth
+        onClose={handleClose}
+        scroll='paper'
+        aria-labelledby='scroll-dialog-title'
+        aria-describedby='scroll-dialog-description'
+      >
+        <DialogTitle id='scroll-dialog-title'>
+          Cofounder Maching Profile
+        </DialogTitle>
+        <DialogContent dividers='paper'>
+          <DialogContentText
+            id='scroll-dialog-description'
+            tabIndex={-1}
+            className='text-dark'
+          >
+            Update your cofounder matching profile
+            {timecommit && timecommit.length > 0 && (
+              <div className='mb-3'>
+                <p className='card-text fw-bolder mb-2'>Time Commitment</p>
+                {/* Add Map Here */}
+                {timecommit.map((data) => (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name={data.name}
+                          checked={
+                            timeCommit && timeCommit.find((d) => d == data._id)
+                              ? true
+                              : false
+                          }
+                          onChange={handleChangeTime}
+                          value={data._id}
+                          id='timecommit'
+                          color='primary'
+                        />
+                      }
+                      label={data.name}
+                    />
+                    <br />
+                  </>
+                ))}
+              </div>
+            )}
+            {preference && preference.length > 0 && (
+              <div className='mb-3'>
+                <p className='card-text fw-bolder mb-2'>Cofounder Preference</p>
+
+                {/* Add Map Here */}
+                {preference.map((data) => (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name={data.name}
+                          checked={
+                            coFounderPreference &&
+                            coFounderPreference.find((d) => d == data._id)
+                              ? true
+                              : false
+                          }
+                          onChange={handleChangePreference}
+                          value={data._id}
+                          id='preference'
+                          color='primary'
+                        />
+                      }
+                      label={data.name}
+                    />
+                    <br />
+                  </>
+                ))}
+              </div>
+            )}
+            {copreference && copreference.length > 0 && (
+              <div className='mb-3'>
+                <p className='card-text fw-bolder mb-2'>
+                  Preferred Customer Segments
+                </p>
+                {/* Add Map Here */}
+                {copreference.map((data) => (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name={data.name}
+                          checked={
+                            preferedCustomer &&
+                            preferedCustomer.find((d) => d == data._id)
+                              ? true
+                              : false
+                          }
+                          onChange={handleChangePreferedCustomer}
+                          value={data._id}
+                          id='Cofounder'
+                          color='primary'
+                        />
+                      }
+                      label={data.name}
+                    />
+                    <br />
+                  </>
+                ))}
+              </div>
+            )}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color='primary'>
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
   return (
     <>
       {!isLoading ? (
@@ -164,9 +375,12 @@ const ViewProfile = () => {
                     <h5 className='card-title'>Cofounder Maching Profile</h5>
                     {loginData.userId === userIdParam && (
                       <div className='pb-3'>
-                        <div className='btn btn-secondary'>
+                        <button
+                          className='btn btn-secondary'
+                          onClick={handleClickOpen()}
+                        >
                           Edit CoFounder options
-                        </div>
+                        </button>
                       </div>
                     )}
                     {userCofounderData.Timecommit &&
@@ -217,6 +431,7 @@ const ViewProfile = () => {
                   </div>
                 </div>
               )}
+              {activateProfileModel()}
               {loginData.userId === userIdParam && !userData.lookingforfounder && (
                 <div className='card text-dark bg-light mb-3 mt-3 w-100'>
                   <div className='card-body'>
@@ -232,7 +447,14 @@ const ViewProfile = () => {
                       cofounder matching profiles
                     </p>
                     <div className='pt-3'>
-                      <div className='btn btn-secondary'>Activate Profile</div>
+                      {/* <Button onClick={handleClickOpen()} >scroll=paper</Button> */}
+
+                      <button
+                        className='btn btn-secondary'
+                        onClick={handleClickOpen()}
+                      >
+                        Activate Profile
+                      </button>
                     </div>
                   </div>
                 </div>

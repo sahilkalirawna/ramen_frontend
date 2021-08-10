@@ -45,7 +45,7 @@ const AllMembers = () => {
     errorProfile,
     isLoading,
   } = data;
-  console.log("themes", themes);
+  console.log("experties", expertise);
   console.log(data);
 
   useEffect(() => {
@@ -316,7 +316,7 @@ const AllMembers = () => {
                       </div>
 
                       <div className='card filterBy border-0 px-3'>
-                        <h5 className='card-title'>Preference</h5>
+                        <h5 className='card-title'>Co Preference</h5>
                         {preference.length > 0 &&
                           preference.map((data) => (
                             <React.Fragment key={data._id}>
@@ -343,7 +343,7 @@ const AllMembers = () => {
                       </div>
 
                       <div className='card filterBy border-0 px-3'>
-                        <h5 className='card-title'>Co Preference</h5>
+                        <h5 className='card-title'>Preference</h5>
                         {copreference.length > 0 &&
                           copreference.map((data) => (
                             <React.Fragment key={data._id}>
@@ -469,19 +469,19 @@ const AllMembers = () => {
                                 <h6 className='qualitiesHd'>Themes</h6>
                               </div>
                               <div className='col-9'>
-                                {data.Themes &&
-                                  data.Themes.map((data) => (
-                                    <div
-                                      className='card-body p-0'
-                                      key={data.name}
-                                    >
-                                      <p className='card-title'>
-                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                <div className='card-body p-0'>
+                                  <p className='card-title'>
+                                    {data.Themes &&
+                                      data.Themes.map((data) => (
+                                        <span
+                                          className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'
+                                          key={data.name}
+                                        >
                                           {data.name}
                                         </span>
-                                      </p>
-                                    </div>
-                                  ))}
+                                      ))}
+                                  </p>
+                                </div>
                               </div>
                             </>
                           )}
@@ -493,19 +493,19 @@ const AllMembers = () => {
                                 <h6 className='qualitiesHd'>Skills</h6>
                               </div>
                               <div className='col-9'>
-                                {data.Skills &&
-                                  data.Skills.map((data) => (
-                                    <div
-                                      className='card-body p-0'
-                                      key={data.name}
-                                    >
-                                      <p className='card-title'>
-                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                <div className='card-body p-0'>
+                                  <p className='card-title'>
+                                    {data.Skills &&
+                                      data.Skills.map((data) => (
+                                        <span
+                                          className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'
+                                          key={data.name}
+                                        >
                                           {data.name}
                                         </span>
-                                      </p>
-                                    </div>
-                                  ))}
+                                      ))}
+                                  </p>
+                                </div>
                               </div>
                             </>
                           )}
@@ -517,19 +517,19 @@ const AllMembers = () => {
                                 <h6 className='qualitiesHd'>Expertise</h6>
                               </div>
                               <div className='col-9'>
-                                {data.Expertise &&
-                                  data.Expertise.map((data) => (
-                                    <div
-                                      className='card-body p-0'
-                                      key={data.name}
-                                    >
-                                      <p className='card-title'>
-                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                                <div className='card-body p-0'>
+                                  <p className='card-title'>
+                                    {data.Expertise &&
+                                      data.Expertise.map((data) => (
+                                        <span
+                                          className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'
+                                          key={data.name}
+                                        >
                                           {data.name}
                                         </span>
-                                      </p>
-                                    </div>
-                                  ))}
+                                      ))}
+                                  </p>
+                                </div>
                               </div>
                             </>
                           )}
