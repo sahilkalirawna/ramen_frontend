@@ -36,7 +36,6 @@ export const getLogIn = (data, history) => {
       let response = await axios.post(`${CLIENT_URL}/auth/login`, data);
       dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
       // console.log(response.data);
-      // eslint-disable-next-line no-restricted-globals
       history.push("/");
     } catch (error) {
       dispatch({

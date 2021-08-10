@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import Alert from "react-bootstrap/Alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,12 +22,11 @@ const validationSchema = yup.object({
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
   const [login, setLogin] = useState(false);
   const data = useSelector((state) => state.general);
   let { errorMessage, isLoggedin } = data;
-
-  const history = useHistory();
 
   const formik = useFormik({
     initialValues: {

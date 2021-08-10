@@ -30,30 +30,30 @@ const MainRouter = () => {
       {loginData.token ? (
         <>
           <Switch>
-            <Route path="/" name="Home" exact component={Home} />
+            <Route path='/' name='Home' exact component={Home} />
             <Route
-              path="/editprofile/:userId"
-              name="Edit_Profile"
+              path='/editprofile/:userId'
+              name='Edit_Profile'
               exact
               component={EditFormik}
             />
 
             <Route
-              path="/profile/:userId"
-              name="User Profile"
+              path='/profile/:userId'
+              name='User Profile'
               exact
               component={viewProfile}
             />
 
             <Route
-              path="404"
-              name="PageNotFound_404"
+              path='/404'
+              name='PageNotFound_404'
               exact
               component={PageNotFound_404}
             />
             <Route
-              path="*"
-              name="PageNotFound_404"
+              path='*'
+              name='PageNotFound_404'
               component={PageNotFound_404}
             />
           </Switch>
@@ -61,22 +61,33 @@ const MainRouter = () => {
       ) : (
         <>
           <Switch>
-            <Route path="/login" name="Login" exact component={Login} />
-            <Route path="/signup" name="Signup" exact component={Signup} />
+            <Route path='/login' name='Login' exact component={Login} />
+            <Route path='/signup' name='Signup' exact component={Signup} />
             <Route
-              path="/forgotpassword"
-              name="Forgot_Password"
+              path='/forgotpassword'
+              name='Forgot_Password'
               exact
               component={ForgotPassword}
             />
             <Route
-              path="/resetPassword/:resetPassToken"
-              name="Reset_Password"
+              path='/resetPassword/:resetPassToken'
+              name='Reset_Password'
               exact
               component={ResetPassword}
             />
+            <Route
+              path='/404'
+              name='PageNotFound_404'
+              exact
+              component={PageNotFound_404}
+            />
+            <Route
+              path='*'
+              name='PageNotFound_404'
+              component={PageNotFound_404}
+            />
           </Switch>
-          <Redirect to="/login" />
+          <Redirect to='/login' />
         </>
       )}
     </>

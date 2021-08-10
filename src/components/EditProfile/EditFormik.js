@@ -23,9 +23,12 @@ const EditFormik = () => {
   }, [dispatch, userId]);
 
   const history = useHistory();
+  
+  
   const all = useSelector((state) => state.leftmenudata);
   const { themes } = all;
   console.log(themes);
+  
   const data = useSelector((state) => state.edit);
   const { userProfileData } = data;
   console.log(userProfileData);
@@ -35,6 +38,11 @@ const EditFormik = () => {
     );
   }, [userProfileData.Themes]);
   console.log(them);
+
+
+
+
+
 
   const handleChangeThemes = (event) => {
     let newArray = [...them, event.target.value];
@@ -61,6 +69,8 @@ const EditFormik = () => {
             name: values.name,
             Themes: values.Themes,
           };
+          console.log(query);
+          alert(query);
           dispatch(getUserUpdatedProfile(query, userId));
           history.push("/");
         }}
@@ -77,40 +87,42 @@ const EditFormik = () => {
           } = props;
           return (
             <form onSubmit={handleSubmit}>
-              <label htmlFor='name' style={{ display: "block" }}>
+              <label htmlFor="name" style={{ display: "block" }}>
                 Name
               </label>
               <input
-                id='name'
-                placeholder='Enter your email'
-                type='text'
+                id="name"
+                placeholder="Enter your email"
+                type="text"
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               {themes.length > 0 &&
                 themes.map((data) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        name={data.name}
-                        checked={
-                          values.Themes &&
-                          values.Themes.find((d) => d == data._id)
-                            ? true
-                            : false
-                        }
-                        onChange={handleChangeThemes}
-                        value={data._id}
-                        id='Theme'
-                        color='primary'
-                      />
-                    }
-                    label={data.name}
-                  />
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name={data.name}
+                          checked={
+                            values.Themes &&
+                            values.Themes.find((d) => d == data._id)
+                              ? true
+                              : false
+                          }
+                          onChange={handleChangeThemes}
+                          value={data._id}
+                          id="Theme"
+                          color="primary"
+                        />
+                      }
+                      label={data.name}
+                    />
+                  </>
                 ))}
 
-              <button type='submit' disabled={isSubmitting}>
+              <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
             </form>
