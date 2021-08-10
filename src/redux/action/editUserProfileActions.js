@@ -2,6 +2,7 @@ import axios from "axios";
 import { getSearchProfile } from "./leftMenuActions";
 
 export const getUserProfile = (data) => {
+  console.log(data)
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_USER_PROFILE_REQUEST" });

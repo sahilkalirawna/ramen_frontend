@@ -3,11 +3,7 @@ const initialState = {
   errorMessage: "",
   //   isUserProfileUpdated: false,
   userProfileData: {},
-<<<<<<< HEAD
   success:""
-=======
-  success: "",
->>>>>>> viewProfile
 };
 
 const editUserProfileReducer = (state = initialState, { type, payload }) => {
@@ -18,10 +14,7 @@ const editUserProfileReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: true,
         errorMessage: "",
-<<<<<<< HEAD
-=======
-        userProfileData: "",
->>>>>>> viewProfile
+        userProfileData:{}
       };
 
     //UPDATE PROFILE DATA
@@ -42,11 +35,7 @@ const editUserProfileReducer = (state = initialState, { type, payload }) => {
         // isUserProfileUpdated: false,
       };
 
-<<<<<<< HEAD
       case "GET_USER_PROFILE_REQUESTED":
-=======
-    case "GET_USER_PROFILE_REQUESTED":
->>>>>>> viewProfile
       return {
         ...state,
         isLoading: true,
@@ -70,10 +59,6 @@ const editUserProfileReducer = (state = initialState, { type, payload }) => {
         // isUserProfileUpdated: false,
       };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> viewProfile
     default:
       return state;
   }

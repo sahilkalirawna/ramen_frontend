@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import Alert from "react-bootstrap/Alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,12 +26,7 @@ const Login = (props) => {
   const data = useSelector((state) => state.general);
   let { errorMessage, isLoggedin } = data;
 
-  useEffect(() => {
-    if (isLoggedin) {
-      props.history.push("/");
-      console.log("main Page opened");
-    }
-  }, [props.history, isLoggedin]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +41,6 @@ const Login = (props) => {
       };
       dispatch(getLogIn(data));
       setShowAlert(true);
-      props.history.push("/");
     },
   });
 

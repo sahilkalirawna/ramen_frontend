@@ -48,6 +48,7 @@ const AllMembers = () => {
   console.log("themes", themes);
   console.log(data);
 
+  console.log("Expertises.........................",expertise);
   useEffect(() => {
     setThemed(themes);
   }, [themes]);
@@ -447,8 +448,8 @@ const AllMembers = () => {
                               <div className='fw-light text-capitalize'>
                                 {data.Address && (
                                   <>
-                                    {data.Address.city}, {data.Address.state},{" "}
-                                    {data.Address.country},
+                                    {data.Address.city},{data.Address.state},
+                                    {data.Address.country}
                                   </>
                                 )}
                               </div>
@@ -518,14 +519,14 @@ const AllMembers = () => {
                               </div>
                               <div className='col-9'>
                                 {data.Expertise &&
-                                  data.Expertise.map((data) => (
+                                  data.Expertise.map((d) => (
                                     <div
                                       className='card-body p-0'
-                                      key={data.name}
+                                      key={d.name}
                                     >
                                       <p className='card-title'>
                                         <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
-                                          {data.name}
+                                          {d.name}
                                         </span>
                                       </p>
                                     </div>
