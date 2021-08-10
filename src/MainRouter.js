@@ -9,7 +9,7 @@ const Signup = lazy(() => import("./components/Signup/Signup"));
 const viewProfile = lazy(() =>
   import("./components/viewProfile/viewProfile.js")
 );
-const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
+// const EditProfile = lazy(() => import("./components/EditProfile/EditProfile"));
 const ResetPassword = lazy(() =>
   import("./components/ResetPassword/ResetPassword")
 );

@@ -20,6 +20,7 @@ import {
 } from "@material-ui/core";
 
 import ViewProfileSkeleton from "./ViewProfileSkeleton";
+import { sendMessage } from "../../redux/action/activateFounderAction";
 
 const ViewProfile = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const ViewProfile = () => {
   const generalData = useSelector((state) => state.general);
   const { loginData } = generalData;
 
-  // console.log("Login Id", loginData.userId);
+  console.log("Login Id", loginData.userId);
   // console.log("Param Id", userIdParam);
 
   const singleUserData = useSelector((state) => state.singleUser);
@@ -46,6 +47,10 @@ const ViewProfile = () => {
   // console.log("UserData", userData);
   console.log("UserCofounderData", userCofounderData);
 
+  const sendmessage = () => {
+    alert("hi");
+    dispatch(sendMessage(userIdParam, loginData.userId));
+  };
   useEffect(() => {
     setTimeCommit(
       userCofounderData.Timecommit &&
@@ -122,23 +127,23 @@ const ViewProfile = () => {
         open={open}
         fullWidth
         onClose={handleClose}
-        scroll='paper'
-        aria-labelledby='scroll-dialog-title'
-        aria-describedby='scroll-dialog-description'
+        scroll="paper"
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id='scroll-dialog-title'>
+        <DialogTitle id="scroll-dialog-title">
           Cofounder Maching Profile
         </DialogTitle>
-        <DialogContent dividers='paper'>
+        <DialogContent dividers="paper">
           <DialogContentText
-            id='scroll-dialog-description'
+            id="scroll-dialog-description"
             tabIndex={-1}
-            className='text-dark'
+            className="text-dark"
           >
             Update your cofounder matching profile
             {timecommit && timecommit.length > 0 && (
-              <div className='mb-3'>
-                <p className='card-text fw-bolder mb-2'>Time Commitment</p>
+              <div className="mb-3">
+                <p className="card-text fw-bolder mb-2">Time Commitment</p>
                 {/* Add Map Here */}
                 {timecommit.map((data) => (
                   <>
@@ -153,8 +158,8 @@ const ViewProfile = () => {
                           }
                           onChange={handleChangeTime}
                           value={data._id}
-                          id='timecommit'
-                          color='primary'
+                          id="timecommit"
+                          color="primary"
                         />
                       }
                       label={data.name}
@@ -165,8 +170,8 @@ const ViewProfile = () => {
               </div>
             )}
             {preference && preference.length > 0 && (
-              <div className='mb-3'>
-                <p className='card-text fw-bolder mb-2'>Cofounder Preference</p>
+              <div className="mb-3">
+                <p className="card-text fw-bolder mb-2">Cofounder Preference</p>
 
                 {/* Add Map Here */}
                 {preference.map((data) => (
@@ -183,8 +188,8 @@ const ViewProfile = () => {
                           }
                           onChange={handleChangePreference}
                           value={data._id}
-                          id='preference'
-                          color='primary'
+                          id="preference"
+                          color="primary"
                         />
                       }
                       label={data.name}
@@ -195,8 +200,8 @@ const ViewProfile = () => {
               </div>
             )}
             {copreference && copreference.length > 0 && (
-              <div className='mb-3'>
-                <p className='card-text fw-bolder mb-2'>
+              <div className="mb-3">
+                <p className="card-text fw-bolder mb-2">
                   Preferred Customer Segments
                 </p>
                 {/* Add Map Here */}
@@ -214,8 +219,8 @@ const ViewProfile = () => {
                           }
                           onChange={handleChangePreferedCustomer}
                           value={data._id}
-                          id='Cofounder'
-                          color='primary'
+                          id="Cofounder"
+                          color="primary"
                         />
                       }
                       label={data.name}
@@ -228,10 +233,10 @@ const ViewProfile = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color='primary'>
+          <Button onClick={handleSubmit} color="primary">
             Save Changes
           </Button>
         </DialogActions>
@@ -242,52 +247,54 @@ const ViewProfile = () => {
   return (
     <>
       {!isLoading ? (
-        <div className='container pt-5'>
+        <div className="container pt-5">
           {/* <viewProfileSkeleton /> */}
-          <div className='row justify-content-center'>
+          <div className="row justify-content-center">
             {/* Profile Photo */}
-            <div className='col-sm-4 col-md-3 mb-3'>
-              <div className='d-flex flex-column align-items-center'>
+            <div className="col-sm-4 col-md-3 mb-3">
+              <div className="d-flex flex-column align-items-center">
                 <img
                   src={DefaultImg}
-                  className='img-thumbnail'
-                  alt='Default_Img'
-                  loading='lazy'
+                  className="img-thumbnail"
+                  alt="Default_Img"
+                  loading="lazy"
                 />
-                <div className='pt-3'>
+                <div className="pt-3">
                   {userData.lookingforfounder && (
-                    <div className='border border-secondary rounded p-2 text-wrap text-center'>
+                    <div className="border border-secondary rounded p-2 text-wrap text-center">
                       Looking for Cofounder
                     </div>
                   )}
                 </div>
-                <div className='pt-3'>
-                  <div className='btn btn-secondary'>Send Message</div>
+                <div className="pt-3">
+                  <div className="btn btn-secondary" onClick={sendmessage}>
+                    Send Message
+                  </div>
                 </div>
               </div>
             </div>
             {/* Profile Data */}
-            <div className='col-sm-12 col-md-9'>
-              <div className='d-flex'>
-                <div className='fs-3 fw-bold flex-grow-1 text-capitalize'>
+            <div className="col-sm-12 col-md-9">
+              <div className="d-flex">
+                <div className="fs-3 fw-bold flex-grow-1 text-capitalize">
                   {userData.name}
                 </div>
-                <div className='fs-3 px-3'>
-                  <FontAwesomeIcon icon={faLinkedin} className='m-1' />
-                  <FontAwesomeIcon icon={faTwitter} className='m-1' />
-                  <FontAwesomeIcon icon={faLink} className='m-1' />
+                <div className="fs-3 px-3">
+                  <FontAwesomeIcon icon={faLinkedin} className="m-1" />
+                  <FontAwesomeIcon icon={faTwitter} className="m-1" />
+                  <FontAwesomeIcon icon={faLink} className="m-1" />
                 </div>
                 {loginData.userId === userIdParam && (
                   <Link
                     to={`/editprofile/${loginData.userId}`}
                     exact
-                    className='btn btn-secondary'
+                    className="btn btn-secondary"
                   >
                     Edit Profile
                   </Link>
                 )}
               </div>
-              <div className='fw-light text-capitalize mb-3'>
+              <div className="fw-light text-capitalize mb-3">
                 {userData.Address && (
                   <>
                     {userData.Address.city}, {userData.Address.state},{" "}
@@ -299,14 +306,14 @@ const ViewProfile = () => {
               {/* Qualites */}
               <div>
                 {userData.Themes && userData.Themes.length > 0 && (
-                  <div className='row mb-3'>
-                    <div className='col-3'>Themes</div>
-                    <div className='col-9'>
+                  <div className="row mb-3">
+                    <div className="col-3">Themes</div>
+                    <div className="col-9">
                       {userData.Themes &&
                         userData.Themes.length > 0 &&
                         userData.Themes.map((data) => (
                           <span
-                            className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'
+                            className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
                             key={data.name}
                           >
                             {data.name}
@@ -316,14 +323,14 @@ const ViewProfile = () => {
                   </div>
                 )}
                 {userData.Skills && userData.Skills.length > 0 && (
-                  <div className='row mb-3'>
-                    <div className='col-3'>Skills</div>
-                    <div className='col-9'>
+                  <div className="row mb-3">
+                    <div className="col-3">Skills</div>
+                    <div className="col-9">
                       {userData.Skills &&
                         userData.Skills.length > 0 &&
                         userData.Skills.map((data) => (
                           <span
-                            className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'
+                            className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
                             key={data.name}
                           >
                             {data.name}
@@ -333,14 +340,14 @@ const ViewProfile = () => {
                   </div>
                 )}
                 {userData.Expertise && userData.Expertise.length > 0 && (
-                  <div className='row mb-3'>
-                    <div className='col-3'>Expertise</div>
-                    <div className='col-9'>
+                  <div className="row mb-3">
+                    <div className="col-3">Expertise</div>
+                    <div className="col-9">
                       {userData.Expertise &&
                         userData.Expertise.length > 0 &&
                         userData.Expertise.map((data) => (
                           <span
-                            className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'
+                            className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
                             key={data.name}
                           >
                             {data.name}
@@ -354,7 +361,7 @@ const ViewProfile = () => {
               {/* UserBackground */}
               {userData.background && (
                 <div>
-                  <div className='fs-3'>Background</div>
+                  <div className="fs-3">Background</div>
                   <p>{userData.background}</p>
                 </div>
               )}
@@ -362,7 +369,7 @@ const ViewProfile = () => {
               {/* UserStartup Ideas */}
               {userData.ideatostart && (
                 <div>
-                  <div className='fs-3'>Startup Ideas</div>
+                  <div className="fs-3">Startup Ideas</div>
                   <p>{userData.ideatostart}</p>
                 </div>
               )}
@@ -370,13 +377,13 @@ const ViewProfile = () => {
               {/* Cofounder Section */}
 
               {userData.lookingforfounder && (
-                <div className='card text-dark bg-light mb-3 mt-3 w-100'>
-                  <div className='card-body'>
-                    <h5 className='card-title'>Cofounder Maching Profile</h5>
+                <div className="card text-dark bg-light mb-3 mt-3 w-100">
+                  <div className="card-body">
+                    <h5 className="card-title">Cofounder Maching Profile</h5>
                     {loginData.userId === userIdParam && (
-                      <div className='pb-3'>
+                      <div className="pb-3">
                         <button
-                          className='btn btn-secondary'
+                          className="btn btn-secondary"
                           onClick={handleClickOpen()}
                         >
                           Edit CoFounder options
@@ -385,13 +392,13 @@ const ViewProfile = () => {
                     )}
                     {userCofounderData.Timecommit &&
                       userCofounderData.Timecommit.length > 0 && (
-                        <div className='mb-3'>
-                          <p className='card-text fw-bolder mb-2'>
+                        <div className="mb-3">
+                          <p className="card-text fw-bolder mb-2">
                             Time Commitment
                           </p>
                           {/* Add Map Here */}
                           {userCofounderData.Timecommit.map((data) => (
-                            <div className='' key={data._id}>
+                            <div className="" key={data._id}>
                               <FontAwesomeIcon icon={faCheckSquare} />{" "}
                               {data.name}
                             </div>
@@ -400,13 +407,13 @@ const ViewProfile = () => {
                       )}
                     {userCofounderData.preferedcustomer &&
                       userCofounderData.preferedcustomer.length > 0 && (
-                        <div className='mb-3'>
-                          <p className='card-text fw-bolder mb-2'>
+                        <div className="mb-3">
+                          <p className="card-text fw-bolder mb-2">
                             Preferred Customer Segments
                           </p>
                           {/* Add Map Here */}
                           {userCofounderData.preferedcustomer.map((data) => (
-                            <div className='' key={data._id}>
+                            <div className="" key={data._id}>
                               <FontAwesomeIcon icon={faCheckSquare} />{" "}
                               {data.name}
                             </div>
@@ -415,13 +422,13 @@ const ViewProfile = () => {
                       )}
                     {userCofounderData.preference &&
                       userCofounderData.preference.length > 0 && (
-                        <div className='mb-3'>
-                          <p className='card-text fw-bolder mb-2'>
+                        <div className="mb-3">
+                          <p className="card-text fw-bolder mb-2">
                             Cofounder Preference
                           </p>
                           {/* Add Map Here */}
                           {userCofounderData.preference.map((data) => (
-                            <div className='' key={data._id}>
+                            <div className="" key={data._id}>
                               <FontAwesomeIcon icon={faCheckSquare} />{" "}
                               {data.name}
                             </div>
@@ -433,9 +440,9 @@ const ViewProfile = () => {
               )}
               {activateProfileModel()}
               {loginData.userId === userIdParam && !userData.lookingforfounder && (
-                <div className='card text-dark bg-light mb-3 mt-3 w-100'>
-                  <div className='card-body'>
-                    <h5 className='card-title'>Cofounder Maching Profile</h5>
+                <div className="card text-dark bg-light mb-3 mt-3 w-100">
+                  <div className="card-body">
+                    <h5 className="card-title">Cofounder Maching Profile</h5>
                     <p>
                       Your profile is not activate for cofounder matching. Would
                       you like to activate your cofounder matching profile?
@@ -446,11 +453,11 @@ const ViewProfile = () => {
                       date and help the community reduce the chance of stale
                       cofounder matching profiles
                     </p>
-                    <div className='pt-3'>
+                    <div className="pt-3">
                       {/* <Button onClick={handleClickOpen()} >scroll=paper</Button> */}
 
                       <button
-                        className='btn btn-secondary'
+                        className="btn btn-secondary"
                         onClick={handleClickOpen()}
                       >
                         Activate Profile
