@@ -48,6 +48,7 @@ const AllMembers = () => {
   console.log("experties", expertise);
   console.log(data);
 
+  console.log("Expertises.........................", expertise);
   useEffect(() => {
     setThemed(themes);
   }, [themes]);
@@ -447,8 +448,8 @@ const AllMembers = () => {
                               <div className='fw-light text-capitalize'>
                                 {data.Address && (
                                   <>
-                                    {data.Address.city}, {data.Address.state},{" "}
-                                    {data.Address.country},
+                                    {data.Address.city},{data.Address.state},
+                                    {data.Address.country}
                                   </>
                                 )}
                               </div>
