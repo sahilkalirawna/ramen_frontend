@@ -10,6 +10,7 @@ const initialState = {
   datas: [],
   errorProfile: "",
   lookingForFounder: {},
+  moreFourData: [],
 };
 
 const leftmenuReducer = (state = initialState, { type, payload }) => {
@@ -42,7 +43,6 @@ const leftmenuReducer = (state = initialState, { type, payload }) => {
     case "GET_PROFILE_REQUEST":
       return {
         ...state,
-        datas: [],
       };
 
     case "GET_PROFILE_DATA":

@@ -14,7 +14,7 @@ import "./Allmember.css";
 import AllMembersSkeleton from "./AllMembersSkeleton";
 import NoData from "../../assets/NoRecordFound.png";
 import Fade from "react-reveal";
-import ReactPaginate from "react-paginate";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -29,6 +29,9 @@ const AllMembers = () => {
   const [search, setSearch] = useState("");
   const [themed, setThemed] = useState([]);
   const [looking, setLooking] = useState(false);
+  const [page, setPage] = useState(1);
+  const [datasall, setDatasall] = useState();
+
   useEffect(() => {
     dispatch(getQualitiesData());
   }, [dispatch]);
@@ -49,6 +52,10 @@ const AllMembers = () => {
   console.log("experties", expertise);
   console.log(data);
 
+  useEffect(() => {
+    setDatasall(datas);
+  }, [datas]);
+  console.log("datasAll...........................", datasall);
   console.log("Expertises.........................", expertise);
   useEffect(() => {
     setThemed(themes);
@@ -67,6 +74,8 @@ const AllMembers = () => {
   console.log(themed);
   console.log(datas);
   console.log(errorProfile);
+
+  console.log("Total Pages", Math.ceil(datas.length / 5));
 
   useEffect(() => {
     if (looking == "0") {
@@ -166,6 +175,7 @@ const AllMembers = () => {
     cofounderTimecomit,
     cofounderPreferedCustomer,
     looking,
+    page,
   ]);
 
   return (
@@ -397,6 +407,13 @@ const AllMembers = () => {
                   <img src={NoData} alt="No Data Found" loading="lazy" />
                 </Fade>
               )}
+              {/* <InfiniteScroll
+                dataLength={datas.length}
+                next={() => setPage(page + 1)}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+                style={{ overflowX: "hidden" }}
+              > */}
               {datas && datas.length > 0 && !errorProfile
                 ? datas.map((data) => (
                     <Link
@@ -540,6 +557,7 @@ const AllMembers = () => {
                     </Link>
                   ))
                 : ""}
+              {/* </InfiniteScroll> */}
             </div>
           </div>
         </>
