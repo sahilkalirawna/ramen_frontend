@@ -14,6 +14,7 @@ import "./Allmember.css";
 import AllMembersSkeleton from "./AllMembersSkeleton";
 import NoData from "../../assets/NoRecordFound.png";
 import Fade from "react-reveal";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const AllMembers = () => {
   const [search, setSearch] = useState("");
   const [themed, setThemed] = useState([]);
   const [looking, setLooking] = useState(false);
+  const [page, setPage] = useState(1);
+  const [datasall, setDatasall] = useState();
 
   useEffect(() => {
     dispatch(getQualitiesData());
@@ -46,10 +49,14 @@ const AllMembers = () => {
     errorProfile,
     isLoading,
   } = data;
-  console.log("themes", themes);
+  console.log("experties", expertise);
   console.log(data);
 
-  console.log("Expertises.........",expertise);
+  useEffect(() => {
+    setDatasall(datas);
+  }, [datas]);
+  console.log("datasAll...........................", datasall);
+  console.log("Expertises.........................", expertise);
   useEffect(() => {
     setThemed(themes);
   }, [themes]);
@@ -67,6 +74,8 @@ const AllMembers = () => {
   console.log(themed);
   console.log(datas); // It contains all user's information.
   console.log(errorProfile);
+
+  console.log("Total Pages", Math.ceil(datas.length / 5));
 
   useEffect(() => {
     if (looking == "0") {
@@ -166,6 +175,7 @@ const AllMembers = () => {
     cofounderTimecomit,
     cofounderPreferedCustomer,
     looking,
+    page,
   ]);
 
   return (
@@ -173,31 +183,31 @@ const AllMembers = () => {
       {!isLoading ? (
         <>
           <h1>MEMBERS</h1>
-          <div className='row justify-content-center'>
-            <div className='col-sm-6 col-md-3 mb-3'>
+          <div className="row justify-content-center">
+            <div className="col-sm-6 col-md-3 mb-3">
               <StickyBox offsetTop={30} offsetBottom={30}>
                 <div
-                  className='card filterBy'
+                  className="card filterBy"
                   style={{
                     overflow: "auto",
                     overflowY: "auto",
                     height: "40rem",
                   }}
                 >
-                  <div className='card filterBy border-0 p-3 pb-0'>
+                  <div className="card filterBy border-0 p-3 pb-0">
                     {lookingForFounder && (
-                      <div className='card-text'>
-                        <div className='form-check'>
+                      <div className="card-text">
+                        <div className="form-check">
                           <input
-                            className='form-check-input'
-                            type='checkbox'
+                            className="form-check-input"
+                            type="checkbox"
                             value={!looking}
                             onChange={handleLooking}
-                            id='lookingcofounder'
+                            id="lookingcofounder"
                           />
                           <label
-                            class='form-check-label'
-                            htmlfor='lookingcofounder'
+                            class="form-check-label"
+                            htmlfor="lookingcofounder"
                           >
                             {lookingForFounder.name}
                           </label>
@@ -207,23 +217,23 @@ const AllMembers = () => {
                     <hr />
                   </div>
 
-                  <div className='card filterBy border-0 px-3'>
-                    <h5 className='card-title'>Theme</h5>
+                  <div className="card filterBy border-0 px-3">
+                    <h5 className="card-title">Theme</h5>
                     {themes.length > 0 &&
                       themes.map((data) => (
                         <React.Fragment key={data._id}>
-                          <div className='card-text'>
-                            <div className='form-check'>
+                          <div className="card-text">
+                            <div className="form-check">
                               <input
-                                className='form-check-input'
-                                type='checkbox'
+                                className="form-check-input"
+                                type="checkbox"
                                 value={data._id}
-                                id='Theme'
+                                id="Theme"
                                 onChange={handleChangeThemes}
                               />
                               <label
-                                className='form-check-label'
-                                htmlFor='Theme'
+                                className="form-check-label"
+                                htmlFor="Theme"
                               >
                                 {data.name}
                               </label>
@@ -234,23 +244,23 @@ const AllMembers = () => {
                     <hr />
                   </div>
 
-                  <div className='card filterBy border-0 px-3'>
-                    <h5 className='card-title'>Skills</h5>
+                  <div className="card filterBy border-0 px-3">
+                    <h5 className="card-title">Skills</h5>
                     {skills.length > 0 &&
                       skills.map((data) => (
                         <React.Fragment key={data._id}>
-                          <div className='card-text'>
-                            <div className='form-check'>
+                          <div className="card-text">
+                            <div className="form-check">
                               <input
-                                className='form-check-input'
-                                type='checkbox'
+                                className="form-check-input"
+                                type="checkbox"
                                 value={data._id}
-                                id='Skills'
+                                id="Skills"
                                 onChange={handleChangeSkills}
                               />
                               <label
-                                className='form-check-label'
-                                htmlFor='Skills'
+                                className="form-check-label"
+                                htmlFor="Skills"
                               >
                                 {data.name}
                               </label>
@@ -261,23 +271,23 @@ const AllMembers = () => {
                     <hr />
                   </div>
 
-                  <div className='card filterBy border-0 px-3'>
-                    <h5 className='card-title'>Expertise</h5>
+                  <div className="card filterBy border-0 px-3">
+                    <h5 className="card-title">Expertise</h5>
                     {expertise.length > 0 &&
                       expertise.map((data) => (
                         <React.Fragment key={data._id}>
-                          <div className='card-text'>
-                            <div className='form-check'>
+                          <div className="card-text">
+                            <div className="form-check">
                               <input
-                                className='form-check-input'
-                                type='checkbox'
+                                className="form-check-input"
+                                type="checkbox"
                                 value={data._id}
-                                id='Expertise'
+                                id="Expertise"
                                 onChange={handleChangeExpertise}
                               />
                               <label
-                                className='form-check-label'
-                                htmlFor='Expertise'
+                                className="form-check-label"
+                                htmlFor="Expertise"
                               >
                                 {data.name}
                               </label>
@@ -290,23 +300,23 @@ const AllMembers = () => {
 
                   {looking && (
                     <>
-                      <div className='card filterBy border-0 px-3'>
-                        <h5 className='card-title'>Time Commit</h5>
+                      <div className="card filterBy border-0 px-3">
+                        <h5 className="card-title">Time Commit</h5>
                         {timecommit.length > 0 &&
                           timecommit.map((data) => (
                             <React.Fragment key={data._id}>
-                              <div className='card-text'>
-                                <div className='form-check'>
+                              <div className="card-text">
+                                <div className="form-check">
                                   <input
-                                    className='form-check-input'
-                                    type='checkbox'
+                                    className="form-check-input"
+                                    type="checkbox"
                                     value={data._id}
-                                    id='Time_Commit'
+                                    id="Time_Commit"
                                     onChange={handleChangeTimecommit}
                                   />
                                   <label
-                                    className='form-check-label'
-                                    htmlFor='Time_Commit'
+                                    className="form-check-label"
+                                    htmlFor="Time_Commit"
                                   >
                                     {data.name}
                                   </label>
@@ -317,23 +327,23 @@ const AllMembers = () => {
                         <hr />
                       </div>
 
-                      <div className='card filterBy border-0 px-3'>
-                        <h5 className='card-title'>Preference</h5>
+                      <div className="card filterBy border-0 px-3">
+                        <h5 className="card-title">Co Preference</h5>
                         {preference.length > 0 &&
                           preference.map((data) => (
                             <React.Fragment key={data._id}>
-                              <div className='card-text'>
-                                <div className='form-check'>
+                              <div className="card-text">
+                                <div className="form-check">
                                   <input
-                                    className='form-check-input'
-                                    type='checkbox'
+                                    className="form-check-input"
+                                    type="checkbox"
                                     value={data._id}
-                                    id='Preference'
+                                    id="Preference"
                                     onChange={handleChangePreference}
                                   />
                                   <label
-                                    className='form-check-label'
-                                    htmlFor='Preference'
+                                    className="form-check-label"
+                                    htmlFor="Preference"
                                   >
                                     {data.name}
                                   </label>
@@ -344,23 +354,23 @@ const AllMembers = () => {
                         <hr></hr>
                       </div>
 
-                      <div className='card filterBy border-0 px-3'>
-                        <h5 className='card-title'>Co Preference</h5>
+                      <div className="card filterBy border-0 px-3">
+                        <h5 className="card-title">Preference</h5>
                         {copreference.length > 0 &&
                           copreference.map((data) => (
                             <React.Fragment key={data._id}>
-                              <div className='card-text'>
-                                <div className='form-check'>
+                              <div className="card-text">
+                                <div className="form-check">
                                   <input
-                                    className='form-check-input'
-                                    type='checkbox'
+                                    className="form-check-input"
+                                    type="checkbox"
                                     value={data._id}
-                                    id='Co_Preference'
+                                    id="Co_Preference"
                                     onChange={handleChangeCopreference}
                                   />
                                   <label
-                                    className='form-check-label'
-                                    htmlFor='Co_Preference'
+                                    className="form-check-label"
+                                    htmlFor="Co_Preference"
                                   >
                                     {data.name}
                                   </label>
@@ -375,14 +385,14 @@ const AllMembers = () => {
                 </div>
               </StickyBox>
             </div>
-            <div className='col-md-9'>
+            <div className="col-md-9">
               {/* SearchBox */}
-              <div className='card searchBy'>
-                <div className='card-body'>
+              <div className="card searchBy">
+                <div className="card-body">
                   <input
-                    type='text'
-                    className='form-control'
-                    placeholder='Search...'
+                    type="text"
+                    className="form-control"
+                    placeholder="Search..."
                     onChange={(event) => setSearch(event.target.value)}
                   />
                 </div>
@@ -392,11 +402,18 @@ const AllMembers = () => {
               {errorProfile && (
                 <Fade
                   bottom
-                  className='d-flex justify-content-center align-items-center'
+                  className="d-flex justify-content-center align-items-center"
                 >
-                  <img src={NoData} alt='No Data Found' loading='lazy' />
+                  <img src={NoData} alt="No Data Found" loading="lazy" />
                 </Fade>
               )}
+              {/* <InfiniteScroll
+                dataLength={datas.length}
+                next={() => setPage(page + 1)}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+                style={{ overflowX: "hidden" }}
+              > */}
               {datas && datas.length > 0 && !errorProfile
                 ? datas.map((data) => (
                     <Link
@@ -404,49 +421,49 @@ const AllMembers = () => {
                       style={{ textDecoration: "none", color: "black" }}
                       key={data._id}
                     >
-                      <div className='card mt-3 memberListCard'>
-                        <div className='row '>
-                          <div className='col-3'>
-                            <div className='d-flex justify-content-center'>
+                      <div className="card mt-3 memberListCard">
+                        <div className="row ">
+                          <div className="col-3">
+                            <div className="d-flex justify-content-center">
                               <img
                                 src={user}
-                                alt='Member'
-                                className='membersImageList my-3'
+                                alt="Member"
+                                className="membersImageList my-3"
                               />
                             </div>
                           </div>
-                          <div className='col-9'>
-                            <div className='card-body p-0 pt-3 pe-3'>
-                              <div className='row'>
-                                <div className='col-4'>
-                                  <h6 className='card-title text-capitalize'>
+                          <div className="col-9">
+                            <div className="card-body p-0 pt-3 pe-3">
+                              <div className="row">
+                                <div className="col-4">
+                                  <h6 className="card-title text-capitalize">
                                     {data.name}
                                   </h6>
                                 </div>
 
-                                <div className='col-4 text-end fs-5'>
+                                <div className="col-4 text-end fs-5">
                                   <FontAwesomeIcon
                                     icon={faLinkedin}
-                                    className='socialicon'
+                                    className="socialicon"
                                   />
                                   <FontAwesomeIcon
                                     icon={faTwitter}
-                                    className='socialicon'
+                                    className="socialicon"
                                   />
                                   <FontAwesomeIcon
                                     icon={faLink}
-                                    className='socialicon'
+                                    className="socialicon"
                                   />
                                 </div>
-                                <div className='col-4 '>
+                                <div className="col-4 ">
                                   {data.lookingforfounder && (
-                                    <div className='badge text-secondary bg-white border border-secondary text-wrap'>
+                                    <div className="badge text-secondary bg-white border border-secondary text-wrap">
                                       Looking for Cofounder
                                     </div>
                                   )}
                                 </div>
                               </div>
-                              <div className='fw-light text-capitalize'>
+                              <div className="fw-light text-capitalize">
                                 {data.Address && (
                                   <>
                                     {data.Address.city},{data.Address.state},
@@ -455,7 +472,7 @@ const AllMembers = () => {
                                 )}
                               </div>
                               {data.background && (
-                                <p className='card-text text-capitalize mt-3 pb-2'>
+                                <p className="card-text text-capitalize mt-3 pb-2">
                                   {data.background}
                                 </p>
                               )}
@@ -464,26 +481,26 @@ const AllMembers = () => {
                         </div>
 
                         {/* Themes Details */}
-                        <div className='row'>
+                        <div className="row">
                           {data.Themes && data.Themes.length > 0 && (
                             <>
-                              <div className='col-3'>
-                                <h6 className='qualitiesHd'>Themes</h6>
+                              <div className="col-3">
+                                <h6 className="qualitiesHd">Themes</h6>
                               </div>
-                              <div className='col-9'>
-                                {data.Themes &&
-                                  data.Themes.map((data) => (
-                                    <div
-                                      className='card-body p-0'
-                                      key={data.name}
-                                    >
-                                      <p className='card-title'>
-                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                              <div className="col-9">
+                                <div className="card-body p-0">
+                                  <p className="card-title">
+                                    {data.Themes &&
+                                      data.Themes.map((data) => (
+                                        <span
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          key={data.name}
+                                        >
                                           {data.name}
                                         </span>
-                                      </p>
-                                    </div>
-                                  ))}
+                                      ))}
+                                  </p>
+                                </div>
                               </div>
                             </>
                           )}
@@ -491,23 +508,23 @@ const AllMembers = () => {
                           {/* Skills Details */}
                           {data.Skills && data.Skills.length > 0 && (
                             <>
-                              <div className='col-3'>
-                                <h6 className='qualitiesHd'>Skills</h6>
+                              <div className="col-3">
+                                <h6 className="qualitiesHd">Skills</h6>
                               </div>
-                              <div className='col-9'>
-                                {data.Skills &&
-                                  data.Skills.map((data) => (
-                                    <div
-                                      className='card-body p-0'
-                                      key={data.name}
-                                    >
-                                      <p className='card-title'>
-                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
+                              <div className="col-9">
+                                <div className="card-body p-0">
+                                  <p className="card-title">
+                                    {data.Skills &&
+                                      data.Skills.map((data) => (
+                                        <span
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          key={data.name}
+                                        >
                                           {data.name}
                                         </span>
-                                      </p>
-                                    </div>
-                                  ))}
+                                      ))}
+                                  </p>
+                                </div>
                               </div>
                             </>
                           )}
@@ -515,23 +532,23 @@ const AllMembers = () => {
                           {/* Expertise Details */}
                           {data.Expertise && data.Expertise.length > 0 && (
                             <>
-                              <div className='col-3'>
-                                <h6 className='qualitiesHd'>Expertise</h6>
+                              <div className="col-3">
+                                <h6 className="qualitiesHd">Expertise</h6>
                               </div>
-                              <div className='col-9'>
-                                {data.Expertise &&
-                                  data.Expertise.map((d) => (
-                                    <div
-                                      className='card-body p-0'
-                                      key={d.name}
-                                    >
-                                      <p className='card-title'>
-                                        <span className='rounded btn-secondary me-3 px-3 py-1 text-capitalize'>
-                                          {d.name}
+                              <div className="col-9">
+                                <div className="card-body p-0">
+                                  <p className="card-title">
+                                    {data.Expertise &&
+                                      data.Expertise.map((data) => (
+                                        <span
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          key={data.name}
+                                        >
+                                          {data.name}
                                         </span>
-                                      </p>
-                                    </div>
-                                  ))}
+                                      ))}
+                                  </p>
+                                </div>
                               </div>
                             </>
                           )}
@@ -540,6 +557,7 @@ const AllMembers = () => {
                     </Link>
                   ))
                 : ""}
+              {/* </InfiniteScroll> */}
             </div>
           </div>
         </>

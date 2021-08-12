@@ -29,13 +29,14 @@ export const getSignUp = (data) => {
   };
 };
 
-export const getLogIn = (data) => {
+export const getLogIn = (data, history) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_LOGIN_REQUEST" });
       let response = await axios.post(`${CLIENT_URL}/auth/login`, data);
       dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
       // console.log(response.data);
+      history.push("/");
     } catch (error) {
       dispatch({
         type: "GET_LOGIN_FAILED",

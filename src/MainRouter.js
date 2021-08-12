@@ -46,7 +46,7 @@ const MainRouter = () => {
             />
 
             <Route
-              path="404"
+              path="/404"
               name="PageNotFound_404"
               exact
               component={PageNotFound_404}
@@ -57,7 +57,6 @@ const MainRouter = () => {
               component={PageNotFound_404}
             />
           </Switch>
-          <Redirect to="/" />
         </>
       ) : (
         <>
@@ -75,6 +74,17 @@ const MainRouter = () => {
               name="Reset_Password"
               exact
               component={ResetPassword}
+            />
+            <Route
+              path="/404"
+              name="PageNotFound_404"
+              exact
+              component={PageNotFound_404}
+            />
+            <Route
+              path="*"
+              name="PageNotFound_404"
+              component={PageNotFound_404}
             />
           </Switch>
           <Redirect to="/login" />

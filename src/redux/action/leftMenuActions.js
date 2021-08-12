@@ -35,4 +35,24 @@ export const getSearchProfile = (data) => {
   };
 };
 
-
+// export const getMoreData = (data, start) => {
+//   console.log("Start Value", start);
+//   return async (dispatch) => {
+//     try {
+//       dispatch({ type: "GET_MORE_DATA_REQUEST" });
+//       let response = await axios.post(
+//         `${CLIENT_URL}/getSearchProfile?p=${start}`,
+//         data
+//       );
+//       console.log("Four Data", response.data);
+//       dispatch({ type: "GET_MORE_DATA_SUCCESS", payload: response.data });
+//       console.log(response.data);
+//     } catch (error) {
+//       console.log(error.response);
+//       dispatch({
+//         type: "GET_MORE_DATA_FAILED",
+//         payload: error.response,
+//       });
+//     }
+//   };
+// };
