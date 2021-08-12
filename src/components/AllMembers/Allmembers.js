@@ -28,6 +28,7 @@ const AllMembers = () => {
   const [search, setSearch] = useState("");
   const [themed, setThemed] = useState([]);
   const [looking, setLooking] = useState(false);
+
   useEffect(() => {
     dispatch(getQualitiesData());
   }, [dispatch]);
@@ -41,14 +42,14 @@ const AllMembers = () => {
     timecommit,
     expertise,
     lookingForFounder,
-    datas,
+    datas, 
     errorProfile,
     isLoading,
   } = data;
   console.log("themes", themes);
   console.log(data);
 
-  console.log("Expertises.........................",expertise);
+  console.log("Expertises.........",expertise);
   useEffect(() => {
     setThemed(themes);
   }, [themes]);
@@ -64,7 +65,7 @@ const AllMembers = () => {
 
   console.log("themed");
   console.log(themed);
-  console.log(datas);
+  console.log(datas); // It contains all user's information.
   console.log(errorProfile);
 
   useEffect(() => {
