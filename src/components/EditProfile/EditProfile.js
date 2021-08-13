@@ -41,35 +41,32 @@ const EditProfile = () => {
   const { userId } = useParams();
   console.log("Edit", userId);
 
-  useEffect(() => {
-    dispatch(getUserProfile(userId));
-  }, [dispatch, userId]);
+  // useEffect(() => {
+  //   dispatch(getUserProfile(userId));
+  // }, [dispatch, userId]);
+
+  const user = useSelector((state) => state.singleUser);
+  const { userData } = user;
+  console.log(userData);
+  const [name, setName] = useState(userData.name);
+  const [background, setBackground] = useState(userData.background);
+  const [ideatostart, setIdeatostart] = useState(userData.ideatostart);
+  const [city, setCity] = useState(userData.Address && userData.Address.city);
+  const [state, setState] = useState(
+    userData.Address && userData.Address.state
+  );
+  const [country, setCountry] = useState(
+    userData.Address && userData.Address.country
+  );
+  const [email, setEmail] = useState(userData.email);
 
   const all = useSelector((state) => state.leftmenudata);
   const { themes, skills, expertise } = all;
   // console.log("All Themes", themes);
 
-  const data = useSelector((state) => state.editProfile);
-  const { userProfileData } = data;
-  console.log("Profile", userProfileData);
-
-  useEffect(() => {
-    setTheme(
-      userProfileData.Themes && userProfileData.Themes.map((d) => d._id)
-    );
-
-    setSkill(
-      userProfileData.Skills && userProfileData.Skills.map((d) => d._id)
-    );
-
-    setExpertise(
-      userProfileData.Expertise && userProfileData.Expertise.map((d) => d._id)
-    );
-  }, [
-    userProfileData.Themes,
-    userProfileData.Skills,
-    userProfileData.Expertise,
-  ]);
+  // const data = useSelector((state) => state.editProfile);
+  // const { userData } = data;
+  // console.log("Profile", userData);
 
   const handleChangeThemes = (event) => {
     let newArray = [...theme, event.target.value];
@@ -77,6 +74,7 @@ const EditProfile = () => {
       newArray = newArray.filter((day) => day !== event.target.value);
     }
     setTheme(newArray);
+    console.log("Handel Change Themes");
   };
 
   const handleChangeSkills = (event) => {
@@ -95,6 +93,15 @@ const EditProfile = () => {
     setExpertise(newArray);
   };
 
+  useEffect(() => {
+    console.log("Handel Change Theme Dnoes");
+    setTheme(userData.Themes && userData.Themes.map((d) => d._id));
+
+    setSkill(userData.Skills && userData.Skills.map((d) => d._id));
+
+    setExpertise(userData.Expertise && userData.Expertise.map((d) => d._id));
+  }, [userData.Themes, userData.Skills, userData.Expertise]);
+
   return (
     <div className="container pt-3" style={{ maxWidth: "540px" }}>
       <div className="row justify-content-center p-3">
@@ -102,26 +109,17 @@ const EditProfile = () => {
           <h1 className="pb-4">Update Profile Details</h1>
 
           <Formik
-            validationSchema={validationSchema}
             enableReinitialize={true}
+            validationSchema={validationSchema}
             initialValues={{
-              name: userProfileData.name,
-              email: userProfileData.email,
-              city:
-                userProfileData && userProfileData.Address
-                  ? userProfileData.Address.city
-                  : "",
-              state:
-                userProfileData && userProfileData.Address
-                  ? userProfileData.Address.state
-                  : "",
-              country:
-                userProfileData && userProfileData.Address
-                  ? userProfileData.Address.country
-                  : "",
-              background: userProfileData.background,
-              ideatostart: userProfileData.ideatostart,
-              userimg: userProfileData.userimg,
+              name: name,
+              email: email,
+              city: city,
+              state: state,
+              country: country,
+              background: background,
+              ideatostart: ideatostart,
+              userimg: userData.userimg,
               Themes: theme,
               Skills: skill,
               Expertise: exper,
@@ -183,7 +181,7 @@ const EditProfile = () => {
                         size="small"
                         type="text"
                         value={values.name}
-                        onChange={handleChange}
+                        onChange={(e) => setName(e.target.value)}
                         onBlur={handleBlur}
                       />
                       {errors.name && (
@@ -211,7 +209,7 @@ const EditProfile = () => {
                         size="small"
                         type="email"
                         value={values.email}
-                        onChange={handleChange}
+                        onChange={(e) => setEmail(e.target.value)}
                         onBlur={handleBlur}
                       />
                       {errors.email && (
@@ -239,7 +237,7 @@ const EditProfile = () => {
                         size="small"
                         type="text"
                         value={values.city}
-                        onChange={handleChange}
+                        onChange={(e) => setCity(e.target.value)}
                         onBlur={handleBlur}
                       />
                       {errors.city && (
@@ -267,7 +265,7 @@ const EditProfile = () => {
                         size="small"
                         type="text"
                         value={values.state}
-                        onChange={handleChange}
+                        onChange={(e) => setState(e.target.value)}
                         onBlur={handleBlur}
                       />
                       {errors.state && (
@@ -295,7 +293,7 @@ const EditProfile = () => {
                         size="small"
                         type="country"
                         value={values.country}
-                        onChange={handleChange}
+                        onChange={(e) => setCountry(e.target.value)}
                         onBlur={handleBlur}
                       />
                       {errors.country && (
@@ -323,7 +321,7 @@ const EditProfile = () => {
                         size="small"
                         type="text"
                         value={values.background}
-                        onChange={handleChange}
+                        onChange={(e) => setBackground(e.target.value)}
                         onBlur={handleBlur}
                         rows={3}
                         multiline
@@ -350,7 +348,7 @@ const EditProfile = () => {
                         size="small"
                         type="text"
                         value={values.ideatostart}
-                        onChange={handleChange}
+                        onChange={(e) => setIdeatostart(e.target.value)}
                         onBlur={handleBlur}
                         rows={3}
                         multiline
