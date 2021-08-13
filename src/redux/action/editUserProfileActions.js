@@ -1,12 +1,13 @@
 import axios from "axios";
 import { getSearchProfile } from "./leftMenuActions";
+import { CLIENT_URL } from "../../constant";
 
 export const getUserProfile = (data) => {
-  console.log(data)
+  console.log(data);
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_USER_PROFILE_REQUEST" });
-      let response = await axios.get(`http://localhost:7070/getUser/${data}`);
+      let response = await axios.get(`${CLIENT_URL}/getUser/${data}`);
 
       console.log(response.data);
       dispatch({
@@ -29,10 +30,7 @@ export const getUserUpdatedProfile = (data, idd) => {
     try {
       dispatch({ type: "GET_USER_PROFILE_REQUESTED" });
       console.log("data");
-      let response = await axios.put(
-        `http://localhost:7070/auth/update/${idd}`,
-        data
-      );
+      let response = await axios.put(`${CLIENT_URL}/auth/update/${idd}`, data);
 
       console.log(response.data);
       dispatch({

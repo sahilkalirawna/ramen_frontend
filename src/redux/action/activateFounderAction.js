@@ -1,11 +1,12 @@
 import axios from "axios";
+import { CLIENT_URL } from "../../constant";
 
 export const sendMessage = (data, userId) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_SEND_MESSAGE_REQUEST" });
       let response = await axios.post(
-        `http://localhost:7070/sendMail/${data}/${userId}`
+        `${CLIENT_URL}/sendMail/${data}/${userId}`
       );
 
       console.log(response.data);

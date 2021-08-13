@@ -11,7 +11,7 @@ import { Checkbox, FormControlLabel } from "@material-ui/core";
 // import  { useFormInput} from "../hook"
 import {
   getUserUpdatedProfile,
-  getUserProfile,
+  // getUserProfile,
 } from "../../redux/action/editUserProfileActions";
 // import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 // import { getQualitiesData } from "../../redux/action/leftMenuActions";

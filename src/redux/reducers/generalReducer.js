@@ -11,7 +11,7 @@ const initialState = {
   forgotPassword: {},
 };
 
-const generalReducer = (state = initialState, {type,payload}) => {
+const generalReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     //SIGN UP
     // case "GET_LOGIN_REQUEST":
@@ -68,6 +68,8 @@ const generalReducer = (state = initialState, {type,payload}) => {
       return {
         ...state,
         isLoading: true,
+        errorMessage: "",
+        forgotPassword: {},
       };
 
     case "GET_FORGOT_PASSWORD_SUCCESS":
@@ -92,6 +94,7 @@ const generalReducer = (state = initialState, {type,payload}) => {
       return {
         ...state,
         isLoading: true,
+        errorMessage: "",
       };
 
     case "GET_RESET_PASSWORD_SUCCESS":

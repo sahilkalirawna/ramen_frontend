@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { sendForgotPassword } from "../../redux/action/generalActions";
+import { sendResetPassword } from "../../redux/action/generalActions";
 
 // import { Link } from "react-router-dom";
 
@@ -41,7 +41,7 @@ const ResetPassword = () => {
         newPasword: values.newPassword,
         resetPasswordLink: resetPassToken,
       };
-      dispatch(sendForgotPassword(data));
+      dispatch(sendResetPassword(data));
       setShowAlert(true);
       resetForm();
     },
@@ -50,22 +50,22 @@ const ResetPassword = () => {
   // forgotPassword
 
   return (
-    <div className='row justify-content-center p-3'>
+    <div className="row justify-content-center p-3">
       <form
         onSubmit={formik.handleSubmit}
-        className='col-sm-12 col-md-6 col-lg-4 '
+        className="col-sm-12 col-md-6 col-lg-4 "
       >
         {showAlert && errorMessage && (
-          <Alert variant='danger'>{errorMessage}</Alert>
+          <Alert variant="danger">{errorMessage}</Alert>
         )}
         <TextField
           fullWidth
-          id='newPassword'
-          name='newPassword'
-          label='Enter New Password'
-          className='pb-3'
-          type='password'
-          variant='filled'
+          id="newPassword"
+          name="newPassword"
+          label="Enter New Password"
+          className="pb-3"
+          type="password"
+          variant="filled"
           value={formik.values.newPassword}
           onChange={formik.handleChange}
           error={
@@ -73,7 +73,7 @@ const ResetPassword = () => {
           }
           helperText={formik.touched.newPassword && formik.errors.newPassword}
         />
-        <Button color='primary' variant='contained' fullWidth type='submit'>
+        <Button color="primary" variant="contained" fullWidth type="submit">
           Change Password
         </Button>
       </form>

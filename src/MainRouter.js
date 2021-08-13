@@ -87,7 +87,7 @@ const MainRouter = () => {
               component={PageNotFound_404}
             />
           </Switch>
-          <Redirect to="/login" />
+          {/* <Redirect to="/login" /> */}
         </>
       )}
     </>

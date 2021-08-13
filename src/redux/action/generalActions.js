@@ -67,7 +67,7 @@ export const sendForgotPassword = (data) => {
     try {
       dispatch({ type: "GET_FORGOT_PASSWORD_REQUEST" });
       let response = await axios.post(
-        "http://55c4300906fc.ngrok.io/auth/forgetPassword",
+        `${CLIENT_URL}/auth/forgetPassword`,
         data
       );
       dispatch({ type: "GET_FORGOT_PASSWORD_SUCCESS", payload: response.data });
@@ -86,15 +86,11 @@ export const sendResetPassword = (data) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_RESET_PASSWORD_REQUEST" });
-      let response = await axios.post(
-        "http://localhost:8080/auth/resetPassword",
-        data,
-        {
-          headers: {
-            Authorization: data.resetPasswordLink,
-          },
-        }
-      );
+      let response = await axios.put(`${CLIENT_URL}/auth/resetPassword`, data, {
+        headers: {
+          Authorization: data.resetPasswordLink,
+        },
+      });
       dispatch({ type: "GET_RESET_PASSWORD_SUCCESS", payload: response.data });
       console.log(response);
     } catch (error) {

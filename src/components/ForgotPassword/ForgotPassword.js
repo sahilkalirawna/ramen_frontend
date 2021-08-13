@@ -43,33 +43,40 @@ const ForgotPassword = () => {
   // forgotPassword
 
   return (
-    <div className='row justify-content-center p-3'>
+    <div className="row justify-content-center p-3">
       <form
         onSubmit={formik.handleSubmit}
-        className='col-sm-12 col-md-6 col-lg-4 '
+        className="col-sm-12 col-md-6 col-lg-4 "
       >
         {errorMessage && showAlert && (
-          <Alert variant='danger'>{errorMessage}</Alert>
+          <Alert variant="danger">{errorMessage}</Alert>
         )}
-        {showAlert && forgotPassword.message && (
-          <Alert variant='info'>{forgotPassword.message}</Alert>
+        {forgotPassword.message && (
+          <Alert
+            variant="info"
+            onClose={() => setShowAlert(false)}
+            dismissible
+            show={showAlert}
+          >
+            {forgotPassword.message}
+          </Alert>
         )}
         <TextField
           fullWidth
-          id='email'
-          name='email'
-          label='Email'
-          className='pb-3'
+          id="email"
+          name="email"
+          label="Email"
+          className="pb-3"
           value={formik.values.email}
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
-        <Button color='primary' variant='contained' fullWidth type='submit'>
+        <Button color="primary" variant="contained" fullWidth type="submit">
           Send Recovery Email
         </Button>
-        <p className='pt-3'>
-          Already Have an Account. <Link to='/login'>Log in</Link>
+        <p className="pt-3">
+          Already Have an Account. <Link to="/login">Log in</Link>
         </p>
       </form>
     </div>
