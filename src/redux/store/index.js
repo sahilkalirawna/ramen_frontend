@@ -9,7 +9,7 @@ import rootReducer from "../reducers/index";
 const persistConfig = {
   key: "root",
   storage,
-  // whitelist: ["general", "leftmenudata", "editProfile"],
+  whitelist: ["general"],
 };
 
 const middleware = [thunk];
