@@ -35,7 +35,8 @@ export const getLogIn = (data, history) => {
       dispatch({ type: "GET_LOGIN_REQUEST" });
       let response = await axios.post(`${CLIENT_URL}/auth/login`, data);
       dispatch({ type: "GET_LOGIN_SUCCESS", payload: response.data });
-      // console.log(response.data);
+      console.log(response.data);
+      localStorage.setItem("access_token", response.data.token);
       history.push("/");
     } catch (error) {
       dispatch({

@@ -18,11 +18,14 @@ export const getQualitiesData = () => {
   };
 };
 
-export const getSearchProfile = (data) => {
+export const getSearchProfile = (data, page) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_PROFILE_REQUEST" });
-      let response = await axios.post(`${CLIENT_URL}/getSearchProfile`, data);
+      let response = await axios.post(
+        `${CLIENT_URL}/getSearchProfile?p=${page}`,
+        data
+      );
       dispatch({ type: "GET_PROFILE_DATA", payload: response.data });
       console.log(response.data);
     } catch (error) {

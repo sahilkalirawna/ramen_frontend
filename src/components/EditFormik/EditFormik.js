@@ -1,8 +1,9 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 // import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   getUserProfile,
   getUserUpdatedProfile,
@@ -14,7 +15,7 @@ import { FormControlLabel, Checkbox } from "@material-ui/core";
 const EditFormik = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const [done, setDone] = useState(false);
+  // const [done, setDone] = useState(false);
   const [them, setTheme] = useState([]);
 
   useEffect(() => {
@@ -68,8 +69,6 @@ const EditFormik = () => {
         {(props) => {
           const {
             values,
-            touched,
-            errors,
             isSubmitting,
             handleChange,
             handleBlur,
@@ -77,13 +76,13 @@ const EditFormik = () => {
           } = props;
           return (
             <form onSubmit={handleSubmit}>
-              <label htmlFor='name' style={{ display: "block" }}>
+              <label htmlFor="name" style={{ display: "block" }}>
                 Name
               </label>
               <input
-                id='name'
-                placeholder='Enter your email'
-                type='text'
+                id="name"
+                placeholder="Enter your email"
+                type="text"
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -102,15 +101,15 @@ const EditFormik = () => {
                         }
                         onChange={handleChangeThemes}
                         value={data._id}
-                        id='Theme'
-                        color='primary'
+                        id="Theme"
+                        color="primary"
                       />
                     }
                     label={data.name}
                   />
                 ))}
 
-              <button type='submit' disabled={isSubmitting}>
+              <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
             </form>

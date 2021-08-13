@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+/* eslint-disable eqeqeq */
+import React, { useEffect, useState } from "react";
 import DefaultImg from "../../assets/man.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -306,14 +307,14 @@ const ViewProfile = () => {
               {/* Qualites */}
               <div>
                 {userData.Themes && userData.Themes.length > 0 && (
-                  <div className="row mb-3">
+                  <div className="row ">
                     <div className="col-3">Themes</div>
-                    <div className="col-9">
+                    <div className="col-9  d-flex flex-wrap">
                       {userData.Themes &&
                         userData.Themes.length > 0 &&
                         userData.Themes.map((data) => (
                           <span
-                            className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                            className="rounded btn-secondary me-3 mb-3 px-3 text-nowrap py-1 text-capitalize"
                             key={data.name}
                           >
                             {data.name}
@@ -323,14 +324,14 @@ const ViewProfile = () => {
                   </div>
                 )}
                 {userData.Skills && userData.Skills.length > 0 && (
-                  <div className="row mb-3">
+                  <div className="row ">
                     <div className="col-3">Skills</div>
-                    <div className="col-9">
+                    <div className="col-9 d-flex flex-wrap">
                       {userData.Skills &&
                         userData.Skills.length > 0 &&
                         userData.Skills.map((data) => (
                           <span
-                            className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                            className="rounded btn-secondary me-3 mb-3 px-3 text-nowrap py-1 text-capitalize"
                             key={data.name}
                           >
                             {data.name}
@@ -340,14 +341,14 @@ const ViewProfile = () => {
                   </div>
                 )}
                 {userData.Expertise && userData.Expertise.length > 0 && (
-                  <div className="row mb-3">
+                  <div className="row ">
                     <div className="col-3">Expertise</div>
-                    <div className="col-9">
+                    <div className="col-9  d-flex flex-wrap">
                       {userData.Expertise &&
                         userData.Expertise.length > 0 &&
                         userData.Expertise.map((data) => (
                           <span
-                            className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                            className="rounded btn-secondary me-3 mb-3 px-3 text-nowrap  py-1 text-capitalize"
                             key={data.name}
                           >
                             {data.name}

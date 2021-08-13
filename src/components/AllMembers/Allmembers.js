@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,9 +15,12 @@ import "./Allmember.css";
 import AllMembersSkeleton from "./AllMembersSkeleton";
 import NoData from "../../assets/NoRecordFound.png";
 import Fade from "react-reveal";
+import Pagination from "@material-ui/lab/Pagination";
+// import ReactPaginate from "react-paginate";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const AllMembers = () => {
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const [theme, settheme] = useState([]);
   const [skill, setskill] = useState([]);
@@ -30,7 +34,6 @@ const AllMembers = () => {
   const [themed, setThemed] = useState([]);
   const [looking, setLooking] = useState(false);
   const [page, setPage] = useState(1);
-  const [datasall, setDatasall] = useState();
 
   useEffect(() => {
     dispatch(getQualitiesData());
@@ -48,14 +51,15 @@ const AllMembers = () => {
     datas, 
     errorProfile,
     isLoading,
+    totalRecord,
   } = data;
   console.log("experties", expertise);
-  console.log(data);
+  console.log("datas =====>", datas);
 
-  useEffect(() => {
-    setDatasall(datas);
-  }, [datas]);
-  console.log("datasAll...........................", datasall);
+  console.log("Total Record", totalRecord);
+
+  console.log("Hiiiiiiiiiiiiiiiii");
+
   console.log("Expertises.........................", expertise);
   useEffect(() => {
     setThemed(themes);
@@ -146,11 +150,6 @@ const AllMembers = () => {
   console.log(cofounderPreferedCustomer);
 
   useEffect(() => {
-    // if (looking === false) {
-    //   setCofounderPreferedCustomer([]);
-    //   setTimecommit([]);
-    //   setcofounderPreference([]);
-    // }
     let query = {};
     if (search) query.search = search;
     if (looking) query.looking = looking;
@@ -164,7 +163,7 @@ const AllMembers = () => {
     if (cofounderPreferedCustomer.length > 0)
       query.cofounderCopreference = cofounderPreferedCustomer;
     console.log("Done..........", query);
-    dispatch(getSearchProfile(query));
+    dispatch(getSearchProfile(query, page));
   }, [
     dispatch,
     theme,
@@ -178,20 +177,25 @@ const AllMembers = () => {
     page,
   ]);
 
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  console.log("page =======>", page);
   return (
     <>
       {!isLoading ? (
         <>
-          <h1>MEMBERS</h1>
+          <h1>MEMBERS{page}</h1>
           <div className="row justify-content-center">
             <div className="col-sm-6 col-md-3 mb-3">
               <StickyBox offsetTop={30} offsetBottom={30}>
                 <div
                   className="card filterBy"
                   style={{
-                    overflow: "auto",
+                    // overflow: "auto",
                     overflowY: "auto",
-                    height: "40rem",
+                    maxHeight: "46rem",
                   }}
                 >
                   <div className="card filterBy border-0 p-3 pb-0">
@@ -206,8 +210,8 @@ const AllMembers = () => {
                             id="lookingcofounder"
                           />
                           <label
-                            class="form-check-label"
-                            htmlfor="lookingcofounder"
+                            className="form-check-label"
+                            htmlFor="lookingcofounder"
                           >
                             {lookingForFounder.name}
                           </label>
@@ -410,7 +414,7 @@ const AllMembers = () => {
               {/* <InfiniteScroll
                 dataLength={datas.length}
                 next={() => setPage(page + 1)}
-                hasMore={true}
+                hasMore={datas.length < 10}
                 loader={<h4>Loading...</h4>}
                 style={{ overflowX: "hidden" }}
               > */}
@@ -487,13 +491,13 @@ const AllMembers = () => {
                               <div className="col-3">
                                 <h6 className="qualitiesHd">Themes</h6>
                               </div>
-                              <div className="col-9">
+                              <div className="col-9 mb-3">
                                 <div className="card-body p-0">
-                                  <p className="card-title">
+                                  <p className="card-title  d-flex flex-wrap m-0">
                                     {data.Themes &&
                                       data.Themes.map((data) => (
                                         <span
-                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-nowrap text-capitalize"
                                           key={data.name}
                                         >
                                           {data.name}
@@ -511,13 +515,13 @@ const AllMembers = () => {
                               <div className="col-3">
                                 <h6 className="qualitiesHd">Skills</h6>
                               </div>
-                              <div className="col-9">
+                              <div className="col-9 mb-3">
                                 <div className="card-body p-0">
-                                  <p className="card-title">
+                                  <p className="card-title align-content-between d-flex flex-wrap m-0">
                                     {data.Skills &&
                                       data.Skills.map((data) => (
                                         <span
-                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-nowrap text-capitalize"
                                           key={data.name}
                                         >
                                           {data.name}
@@ -535,13 +539,13 @@ const AllMembers = () => {
                               <div className="col-3">
                                 <h6 className="qualitiesHd">Expertise</h6>
                               </div>
-                              <div className="col-9">
+                              <div className="col-9 mb-3">
                                 <div className="card-body p-0">
-                                  <p className="card-title">
+                                  <p className="card-title  d-flex flex-wrap m-0">
                                     {data.Expertise &&
                                       data.Expertise.map((data) => (
                                         <span
-                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          className="rounded btn-secondary me-3 px-3 py-1  text-nowrap text-capitalize"
                                           key={data.name}
                                         >
                                           {data.name}
@@ -558,6 +562,13 @@ const AllMembers = () => {
                   ))
                 : ""}
               {/* </InfiniteScroll> */}
+              <div className="d-flex justify-content-center mt-3">
+                <Pagination
+                  count={totalRecord / 4}
+                  page={page}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           </div>
         </>

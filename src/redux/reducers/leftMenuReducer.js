@@ -11,6 +11,8 @@ const initialState = {
   errorProfile: "",
   lookingForFounder: {},
   moreFourData: [],
+  totalRecord: "",
+  filterlen: "",
 };
 
 const leftmenuReducer = (state = initialState, { type, payload }) => {
@@ -50,6 +52,7 @@ const leftmenuReducer = (state = initialState, { type, payload }) => {
         ...state,
         datas: payload.result,
         errorProfile: "",
+        totalRecord: payload.count[0].count,
       };
     case "GET_PROFILE_DATA_FAILED":
       return {
