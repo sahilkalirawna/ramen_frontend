@@ -48,7 +48,7 @@ const AllMembers = () => {
     timecommit,
     expertise,
     lookingForFounder,
-    datas,
+    datas, 
     errorProfile,
     isLoading,
     totalRecord,
@@ -76,7 +76,7 @@ const AllMembers = () => {
 
   console.log("themed");
   console.log(themed);
-  console.log(datas);
+  console.log(datas); // It contains all user's information.
   console.log(errorProfile);
 
   console.log("Total Pages", Math.ceil(datas.length / 5));
