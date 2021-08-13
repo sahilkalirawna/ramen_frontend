@@ -26,15 +26,9 @@ const validationSchema = yup.object({
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required !"),
-  city: yup
-    .string("Enter your city")
-    .required("City is required !"),
-  state: yup
-    .string("Enter your state")
-    .required("State is required !"),
-  country: yup
-    .string("Enter your country")
-    .required("Country is required !"),
+  city: yup.string("Enter your city").required("City is required !"),
+  state: yup.string("Enter your state").required("State is required !"),
+  country: yup.string("Enter your country").required("Country is required !"),
 });
 
 const EditProfile = () => {
