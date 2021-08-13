@@ -64,7 +64,12 @@ const Signup = () => {
             <Alert variant="danger">{errorMessage}</Alert>
           )}
           {isSignedUp && (
-            <Alert variant="success">
+            <Alert
+              variant="success"
+              onClose={() => setShowAlert(false)}
+              dismissible
+              show={showAlert}
+            >
               Account created. Please <Link to="/login">Log in</Link>
             </Alert>
           )}

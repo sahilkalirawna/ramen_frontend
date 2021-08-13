@@ -24,9 +24,8 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
-  const [login, setLogin] = useState(false);
   const data = useSelector((state) => state.general);
-  let { errorMessage, isLoggedin } = data;
+  let { errorMessage } = data;
 
   const formik = useFormik({
     initialValues: {
@@ -43,9 +42,6 @@ const Login = (props) => {
       setShowAlert(true);
     },
   });
-
-  if (login) {
-  }
 
   return (
     <div className="container-fluid">

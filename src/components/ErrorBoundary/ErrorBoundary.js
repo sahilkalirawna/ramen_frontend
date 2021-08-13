@@ -29,17 +29,17 @@ class ErrorBoundary extends Component {
       };
       return (
         <React.Fragment>
-          <section className='d-flex flex-column justify-content-center align-items-center'>
+          <section className="d-flex flex-column justify-content-center align-items-center">
             <img
               src={ErrorFallbackImage}
-              className='error_boundary_img '
-              alt='Error'
-              loading='lazy'
-              style={{ maxWidth: "98vw" }}
+              className="error_boundary_img "
+              alt="Error"
+              loading="lazy"
+              style={{ maxWidth: "98vw", maxHeight: "90vh" }}
             />
             <button
               onClick={handleTryAgain}
-              className='btn btn-danger'
+              className="btn btn-danger"
               style={{ width: 200, color: "#ffffff" }}
             >
               Try Again

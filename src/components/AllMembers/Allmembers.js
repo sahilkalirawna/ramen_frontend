@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,18 +15,12 @@ import "./Allmember.css";
 import AllMembersSkeleton from "./AllMembersSkeleton";
 import NoData from "../../assets/NoRecordFound.png";
 import Fade from "react-reveal";
-import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
+// import ReactPaginate from "react-paginate";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > * + *": {},
-  },
-}));
-
 const AllMembers = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const [theme, settheme] = useState([]);
   const [skill, setskill] = useState([]);
@@ -198,9 +193,9 @@ const AllMembers = () => {
                 <div
                   className="card filterBy"
                   style={{
-                    overflow: "auto",
+                    // overflow: "auto",
                     overflowY: "auto",
-                    height: "40rem",
+                    maxHeight: "46rem",
                   }}
                 >
                   <div className="card filterBy border-0 p-3 pb-0">
@@ -215,8 +210,8 @@ const AllMembers = () => {
                             id="lookingcofounder"
                           />
                           <label
-                            class="form-check-label"
-                            htmlfor="lookingcofounder"
+                            className="form-check-label"
+                            htmlFor="lookingcofounder"
                           >
                             {lookingForFounder.name}
                           </label>
@@ -496,13 +491,13 @@ const AllMembers = () => {
                               <div className="col-3">
                                 <h6 className="qualitiesHd">Themes</h6>
                               </div>
-                              <div className="col-9">
+                              <div className="col-9 mb-3">
                                 <div className="card-body p-0">
-                                  <p className="card-title">
+                                  <p className="card-title  d-flex flex-wrap m-0">
                                     {data.Themes &&
                                       data.Themes.map((data) => (
                                         <span
-                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-nowrap text-capitalize"
                                           key={data.name}
                                         >
                                           {data.name}
@@ -520,13 +515,13 @@ const AllMembers = () => {
                               <div className="col-3">
                                 <h6 className="qualitiesHd">Skills</h6>
                               </div>
-                              <div className="col-9">
+                              <div className="col-9 mb-3">
                                 <div className="card-body p-0">
-                                  <p className="card-title">
+                                  <p className="card-title align-content-between d-flex flex-wrap m-0">
                                     {data.Skills &&
                                       data.Skills.map((data) => (
                                         <span
-                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          className="rounded btn-secondary me-3 px-3 py-1 text-nowrap text-capitalize"
                                           key={data.name}
                                         >
                                           {data.name}
@@ -544,13 +539,13 @@ const AllMembers = () => {
                               <div className="col-3">
                                 <h6 className="qualitiesHd">Expertise</h6>
                               </div>
-                              <div className="col-9">
+                              <div className="col-9 mb-3">
                                 <div className="card-body p-0">
-                                  <p className="card-title">
+                                  <p className="card-title  d-flex flex-wrap m-0">
                                     {data.Expertise &&
                                       data.Expertise.map((data) => (
                                         <span
-                                          className="rounded btn-secondary me-3 px-3 py-1 text-capitalize"
+                                          className="rounded btn-secondary me-3 px-3 py-1  text-nowrap text-capitalize"
                                           key={data.name}
                                         >
                                           {data.name}
